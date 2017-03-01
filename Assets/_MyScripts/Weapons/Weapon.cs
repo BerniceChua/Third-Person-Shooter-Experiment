@@ -39,6 +39,7 @@ public class Weapon : MonoBehaviour {
         public GameObject clip;
 
         [Header("-Other-")]
+        public GameObject crosshairPrefab;
         public float reloadDuration = 2.0f;
         public Transform shellEjectSpot;
         public float shellEjectSpeed = 7.5f;
@@ -67,6 +68,9 @@ public class Weapon : MonoBehaviour {
     [SerializeField] public Ammunition m_ammo;
 
     public Ray m_shootRay { protected get; set; }
+    
+    // allows us to disable or enable the crosshairs
+    public bool m_isOwnerAiming { get; set; } // for the crosshair, might change the location of this code in the future
 
     WeaponHandler m_owner;
     bool m_isEquipped;
@@ -78,6 +82,14 @@ public class Weapon : MonoBehaviour {
         m_collider = GetComponent<Collider>();
         m_rigidbody = GetComponent<Rigidbody>();
         m_animator = GetComponent<Animator>();
+
+        if (m_weaponSettings.crosshairPrefab != null) {
+            // this will drop the crosshair UI prefab first into the world space so we'll always have this reference and don't need to re-Instantiate each time it's needed.
+            m_weaponSettings.crosshairPrefab = Instantiate(m_weaponSettings.crosshairPrefab);
+            
+            // we don't want this active right away, so it's false at first
+            ToggleCrosshairs(false);
+        }
 	}
 	
 	// Update is called once per frame
@@ -92,6 +104,12 @@ public class Weapon : MonoBehaviour {
                     if (m_pullingTrigger) {
                         FireWeapon(m_shootRay);
                     }
+
+                    if (m_isOwnerAiming) {
+                        PositionCrosshairs(m_shootRay);
+                    } else {
+                        ToggleCrosshairs(false);
+                    }
                 }
             } else {
                 Unequip(m_weaponType);
@@ -100,6 +118,8 @@ public class Weapon : MonoBehaviour {
             DisableOrEnableComponents(true);
 
             transform.SetParent(null);
+
+            m_isOwnerAiming = false;
         }
 	}
 
@@ -181,6 +201,35 @@ public class Weapon : MonoBehaviour {
             }
         }
         #endregion
+    }
+
+    // positions crosshairs to the point that we are aiming
+    void PositionCrosshairs(Ray ray) {
+        RaycastHit hit;
+        Transform bulletSpawn = m_weaponSettings.bulletSpawn;
+        Vector3 bSpawnPoint = bulletSpawn.position;
+        //Vector3 dir = bulletSpawn.forward;
+        Vector3 dir = ray.GetPoint(m_weaponSettings.range) - bSpawnPoint;
+
+        if (Physics.Raycast(bSpawnPoint, dir, out hit, m_weaponSettings.range, m_weaponSettings.bulletLayers)) {
+
+            // prevents us from getting errors
+            if (m_weaponSettings.crosshairPrefab != null) {
+                ToggleCrosshairs(true);
+
+                m_weaponSettings.crosshairPrefab.transform.position = hit.point;
+                m_weaponSettings.crosshairPrefab.transform.LookAt(Camera.main.transform);
+            } 
+        } else {
+            ToggleCrosshairs(false);
+        }
+    }
+
+    // toggle on and off the crosshairs prefab
+    void ToggleCrosshairs(bool enabled) {
+        if (m_weaponSettings.crosshairPrefab != null) {
+            m_weaponSettings.crosshairPrefab.SetActive(enabled);
+        }
     }
 
     // disable or enable collider and rigidbody

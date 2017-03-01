@@ -42,6 +42,8 @@ public class WeaponHandler : MonoBehaviour {
             m_currentWeapon.SetOwner(this);
             AddWeaponToList(m_currentWeapon);
 
+            m_currentWeapon.m_isOwnerAiming = m_aim;
+
             if (m_currentWeapon.m_ammo.clipAmmo <= 0)
                 Reload();
 
