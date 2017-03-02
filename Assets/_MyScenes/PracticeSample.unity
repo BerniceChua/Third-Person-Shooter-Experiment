@@ -1519,7 +1519,7 @@ Prefab:
     - target: {fileID: 224235849864697086, guid: 1b955809772762c49ab56ccc77cd6d99,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -22
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224179987912673138, guid: 1b955809772762c49ab56ccc77cd6d99,
         type: 2}
@@ -1539,7 +1539,7 @@ Prefab:
     - target: {fileID: 224179987912673138, guid: 1b955809772762c49ab56ccc77cd6d99,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -4.157442
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224980127786632844, guid: 1b955809772762c49ab56ccc77cd6d99,
         type: 2}
@@ -1692,6 +1692,16 @@ Prefab:
       propertyPath: m_textureTypes.Array.data[1].textures.Array.data[3]
       value: 
       objectReference: {fileID: 2800000, guid: bfd675cc0db1d4656b75dc6d6ba91142, type: 3}
+    - target: {fileID: 114204127241517892, guid: cf3a621f4944705449de0ae8ca51ed2b,
+        type: 2}
+      propertyPath: m_physics.groundLayers.m_Bits
+      value: 257
+      objectReference: {fileID: 0}
+    - target: {fileID: 114204127241517892, guid: cf3a621f4944705449de0ae8ca51ed2b,
+        type: 2}
+      propertyPath: m_physics.airSpeed
+      value: 2.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: cf3a621f4944705449de0ae8ca51ed2b, type: 2}
   m_IsPrefabParent: 0
