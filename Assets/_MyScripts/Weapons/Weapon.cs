@@ -9,6 +9,8 @@ public class Weapon : MonoBehaviour {
     Rigidbody m_rigidbody;
     Animator m_animator;
 
+    SoundController m_soundControl;
+
     public enum WeaponType {
         Pistol,
         Rifle
@@ -77,8 +79,29 @@ public class Weapon : MonoBehaviour {
     bool m_pullingTrigger;
     bool m_resettingCartridge;
 
+    [System.Serializable]
+    public class SoundSettings {
+        public AudioClip[] gunshotSounds;
+        public AudioClip reloadSound;
+
+        // the sounds will be different each time we fire
+        [Range(0, 3)] public float pitchMin = 1.0f;
+        [Range(0, 3)] public float pitchMax = 1.2f;
+
+        // for defining in inspector
+        public AudioSource audSource;
+    }
+    [SerializeField] public SoundSettings m_soundSettings;
+
 	// Use this for initialization
 	void Start () {
+        GameObject check = GameObject.FindGameObjectWithTag("SoundController");
+
+        if (check != null) {
+            m_soundControl = check.GetComponent<SoundController>();
+        }
+        m_soundControl = GameObject.FindGameObjectWithTag("SoundController").GetComponent<SoundController>();
+
         m_collider = GetComponent<Collider>();
         m_rigidbody = GetComponent<Rigidbody>();
         m_animator = GetComponent<Animator>();
@@ -201,6 +224,22 @@ public class Weapon : MonoBehaviour {
             }
         }
         #endregion
+
+        if (m_soundControl == null)
+            return;
+
+        if (m_soundSettings.audSource != null) {
+            if (m_soundSettings.gunshotSounds.Length > 0) {
+                m_soundControl.InstantiateClip(
+                    m_weaponSettings.bulletSpawn.position,   //where sound plays from in worldspace
+                    m_soundSettings.gunshotSounds[Random.Range(0, m_soundSettings.gunshotSounds.Length)],  // what audioclip is used
+                    2, // how long before the audioclip is Destroy()-ed
+                    true, //randomize the sound?
+                    m_soundSettings.pitchMin, 
+                    m_soundSettings.pitchMax
+               );
+            }
+        }
     }
 
     // positions crosshairs to the point that we are aiming

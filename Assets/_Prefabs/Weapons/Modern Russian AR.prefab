@@ -160,6 +160,7 @@ GameObject:
   - component: {fileID: 54529200310797236}
   - component: {fileID: 65204059296631982}
   - component: {fileID: 114998294860033334}
+  - component: {fileID: 82500593987737308}
   m_Layer: 0
   m_Name: Modern Russian AR
   m_TagString: Untagged
@@ -517,6 +518,86 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 9.413555, y: 2.85, z: 0.9999997}
   m_Center: {x: -0.10202776, y: -0.54, z: -0.23000397}
+--- !u!82 &82500593987737308
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1503042587349638}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!95 &95949137554563102
 Animator:
   serializedVersion: 3
@@ -581,6 +662,16 @@ MonoBehaviour:
     carryingAmmo: 120
     clipAmmo: 30
     maxClipAmmo: 30
+  m_soundSettings:
+    gunshotSounds:
+    - {fileID: 8300000, guid: bbbad7ab8e572094383f2b44bfafe171, type: 3}
+    - {fileID: 8300000, guid: bbf9ecc1037f1114f8983a624a41c2f6, type: 3}
+    - {fileID: 8300000, guid: 7ca9b1bc8beeac7408c43a50b28c17ee, type: 3}
+    - {fileID: 8300000, guid: 9946dc5036a6b3347a2403bbe53b2467, type: 3}
+    reloadSound: {fileID: 8300000, guid: 034cbc2877dc7b542b878be0cbd74ecf, type: 3}
+    pitchMin: 1
+    pitchMax: 1.2
+    audSource: {fileID: 82500593987737308}
 --- !u!137 &137093261834457356
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
