@@ -1053,6 +1053,8 @@ GameObject:
   - component: {fileID: 114204127241517892}
   - component: {fileID: 114466108280873676}
   - component: {fileID: 114028512071653208}
+  - component: {fileID: 82502797435850936}
+  - component: {fileID: 114978647310791808}
   m_Layer: 12
   m_Name: Player
   m_TagString: Player
@@ -2288,6 +2290,86 @@ Transform:
   m_Father: {fileID: 4964380726882696}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &82502797435850936
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1903881754419698}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!95 &95343028729937706
 Animator:
   serializedVersion: 3
@@ -2404,6 +2486,44 @@ MonoBehaviour:
   m_debugAim: 0
   m_spine: {fileID: 4207112894723560}
   m_thirdPersonCam: {fileID: 0}
+--- !u!114 &114978647310791808
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1903881754419698}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 024bdf04aaa8f44458c138dc16419400, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_textureTypes:
+  - name: Rock
+    textures:
+    - {fileID: 2800000, guid: 18214e9d6af6248559d501391856f1c7, type: 3}
+    - {fileID: 2800000, guid: ef5c51cfa2ce46043a41a376b560c525, type: 3}
+    footstepSounds:
+    - {fileID: 8300000, guid: 00d1b3fd1743b2748b58a74141d24ad6, type: 3}
+    - {fileID: 8300000, guid: e47c509b2fc30244fa3109cabc8cb28d, type: 3}
+    - {fileID: 8300000, guid: a4302465116af3442b6924f3db31fb46, type: 3}
+    - {fileID: 8300000, guid: 31f6135dabf66604bb2f5abfc83e611b, type: 3}
+    - {fileID: 8300000, guid: e003f198aa360cc43a1079345b0acce4, type: 3}
+    - {fileID: 8300000, guid: 49c13b7570b7197419d0fa8822a2d6a5, type: 3}
+    - {fileID: 8300000, guid: 8cfaf7b8bc2481245b63d9a173092cdd, type: 3}
+  - name: Grass
+    textures:
+    - {fileID: 2800000, guid: 2c528fec5d95e4ac28cf46399b887662, type: 3}
+    - {fileID: 2800000, guid: c6e0767b1f8c34890ac245217f4b9731, type: 3}
+    - {fileID: 2800000, guid: 440eb36db91ca410f800ff3cfe43572f, type: 3}
+    footstepSounds:
+    - {fileID: 8300000, guid: 7d6222f93da27ca41832f4df5e003f9f, type: 3}
+    - {fileID: 8300000, guid: 248c2e98236a5da4daf9c1142ae497f1, type: 3}
+    - {fileID: 8300000, guid: f0e9a656c3c200e47babb2ebf40b3ec5, type: 3}
+    - {fileID: 8300000, guid: 3bce585a87a407049ace62129270e2c2, type: 3}
+    - {fileID: 8300000, guid: 2a6f27c912e60104fbb9685850f49e05, type: 3}
+    - {fileID: 8300000, guid: 751e70531d0c7b94fb5246df4b7bf6fd, type: 3}
+    - {fileID: 8300000, guid: cc780c4a03f640c4fa8b5f54c9796ef6, type: 3}
+  m_audSource: {fileID: 82502797435850936}
 --- !u!137 &137018505717065670
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
