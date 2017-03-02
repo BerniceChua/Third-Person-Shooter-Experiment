@@ -38,7 +38,19 @@ public class CharacterMovement : MonoBehaviour {
     bool m_isJumping;
     bool m_resetGravity;
     float m_gravity;
-    bool m_isGrounded = true;
+    //bool m_isGrounded = true;
+    bool IsGrounded() {
+        RaycastHit hit;
+        Vector3 start = transform.position + transform.up;
+        Vector3 dir = Vector3.down;
+        float radius = m_characterController.radius;
+
+        if (Physics.SphereCast(start, radius, dir, out hit, m_characterController.height/2, m_physics.groundLayers)) {
+            return true;
+        }
+
+        return false;
+    }
 
     float m_speed = 1.0f;
 
@@ -56,7 +68,7 @@ public class CharacterMovement : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         ApplyGravity();
-        m_isGrounded = m_characterController.isGrounded;
+        //m_isGrounded = m_characterController.isGrounded;
     }
 
     /// <summary>

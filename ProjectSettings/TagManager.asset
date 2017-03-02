@@ -3,7 +3,13 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Enemy
+  - AlarmLight
+  - Fader
+  - MainLight
+  - Alarm
+  - SoundController
   layers:
   - Default
   - TransparentFX

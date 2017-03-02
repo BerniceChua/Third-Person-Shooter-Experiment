@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class WeaponHandler : MonoBehaviour {
     Animator m_animator;
+    SoundController m_soundControl;
 
     [System.Serializable]
     public class UserSettings {
@@ -32,6 +33,13 @@ public class WeaponHandler : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        GameObject check = GameObject.FindGameObjectWithTag("SoundController");
+
+        if (check != null) {
+            m_soundControl = check.GetComponent<SoundController>();
+        }
+        m_soundControl = GameObject.FindGameObjectWithTag("SoundController").GetComponent<SoundController>();
+
         m_animator = GetComponent<Animator>();
 	}
 	
@@ -112,6 +120,20 @@ public class WeaponHandler : MonoBehaviour {
 
         if (m_currentWeapon.m_ammo.carryingAmmo <= 0 || m_currentWeapon.m_ammo.clipAmmo == m_currentWeapon.m_ammo.maxClipAmmo)
             return;
+
+        if (m_soundControl != null) {
+            if (m_currentWeapon.m_soundSettings.reloadSound != null) {
+                if (m_currentWeapon.m_soundSettings.audSource != null) {
+                    m_soundControl.PlaySound(
+                        m_currentWeapon.m_soundSettings.audSource,
+                        m_currentWeapon.m_soundSettings.reloadSound,
+                        true,
+                        m_currentWeapon.m_soundSettings.pitchMin,
+                        m_currentWeapon.m_soundSettings.pitchMax
+                    );
+                }
+            }
+        }
 
         m_reload = true;
         StartCoroutine(StopReload());
