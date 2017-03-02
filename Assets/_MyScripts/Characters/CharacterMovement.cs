@@ -24,7 +24,7 @@ public class CharacterMovement : MonoBehaviour {
         public float resetGravityValue = 1.2f;  // value to use when resetting gravity when jumping off the ground, force of gravity will start by 5 units.
 
         public LayerMask groundLayers;
-        public float airSpeed;
+        public float airSpeed = 2.5f;
     }
     [SerializeField] public PhysicsSettings m_physics;
 
@@ -35,9 +35,16 @@ public class CharacterMovement : MonoBehaviour {
     }
     [SerializeField] public MovementSettings m_movement;
 
+    Vector3 m_airControl;
+    float m_forward;
+    float m_strafe;
+
     bool m_isJumping;
     bool m_resetGravity;
     float m_gravity;
+
+    float m_speed = 1.0f;
+
     //bool m_isGrounded = true;
     bool IsGrounded() {
         RaycastHit hit;
@@ -52,8 +59,6 @@ public class CharacterMovement : MonoBehaviour {
         return false;
     }
 
-    float m_speed = 1.0f;
-
     private void Awake() {
         m_animator = GetComponent<Animator>();
 
@@ -67,6 +72,8 @@ public class CharacterMovement : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        AirControl(m_forward, m_strafe);
+
         ApplyGravity();
         //m_isGrounded = m_characterController.isGrounded;
     }
@@ -109,15 +116,32 @@ public class CharacterMovement : MonoBehaviour {
 
     // animates the character and root motion handles the movement
     public void AnimateChar(float forward, float strafe) {
+        this.m_forward = forward;
+        this.m_strafe = strafe;
+
         m_animator.SetFloat(m_animations.verticalVelocityFloat, forward);
         m_animator.SetFloat(m_animations.horizontalVelocityFloat, strafe);
 
-        m_animator.SetBool(m_animations.groundedBool, m_isGrounded);
+        m_animator.SetBool(m_animations.groundedBool, IsGrounded());
         m_animator.SetBool(m_animations.jumpBool, m_isJumping);
     }
 
+    void AirControl(float forward, float strafe) {
+        if (IsGrounded() == false) {
+            m_airControl.x = strafe;
+            m_airControl.z = forward;
+
+            // converts air control vector from world space to local space so we'll move depending where we're facing.
+            m_airControl = transform.TransformDirection(m_airControl);
+
+            m_airControl *= m_physics.airSpeed;
+
+            m_characterController.Move(m_airControl * Time.deltaTime);
+        }
+    }
+
     void ApplyGravity() {
-        if (!m_characterController.isGrounded) {
+        if (!IsGrounded()) {
             if (!m_resetGravity) {
                 m_gravity = m_physics.resetGravityValue;
                 m_resetGravity = true;
@@ -144,7 +168,7 @@ public class CharacterMovement : MonoBehaviour {
         if (m_isJumping)
             return;
 
-        if (m_isGrounded) {
+        if (IsGrounded()) {
             m_isJumping = true;
             StartCoroutine(StopJump());
         }
