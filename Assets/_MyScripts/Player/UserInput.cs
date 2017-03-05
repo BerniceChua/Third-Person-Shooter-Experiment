@@ -33,6 +33,7 @@ public class UserInput : MonoBehaviour {
     public bool m_debugAim; // helps us to position spine correctly
     public Transform m_spine;
     bool m_aiming;
+    Weapon m_weapon;
 
     //Camera m_mainCam;
     public Camera m_thirdPersonCam;
@@ -42,6 +43,7 @@ public class UserInput : MonoBehaviour {
         m_charMove = GetComponent<CharacterMovement>();
         //m_thirdPersonCam = Camera.main;
         m_weaponhandler = GetComponent<WeaponHandler>();
+        m_weapon = GetComponent<Weapon>();
 	}
 	
 	// Update is called once per frame
@@ -81,6 +83,8 @@ public class UserInput : MonoBehaviour {
             return;
         }
 
+        m_other.requireInputForTurn = !m_aiming;
+
         if (m_other.requireInputForTurn) {
             if (Input.GetAxis(m_input.horizontalAxis) != 0 || Input.GetAxis(m_input.verticalAxis) != 0)
                 CharacterLook();
@@ -116,31 +120,66 @@ public class UserInput : MonoBehaviour {
             return;
         }
 
+        //m_aiming = Input.GetButton(m_input.aimButton) || m_debugAim;
+
+        ////if (m_weaponhandler.m_currentWeapon) {
+        //    m_weaponhandler.Aim(m_aiming);
+
+        //    m_other.requireInputForTurn = !m_aiming;
+
+        //    m_weaponhandler.FingerOnTrigger(Input.GetButton(m_input.fireButton));
+
+        //    if (Input.GetButtonDown(m_input.reloadButton))
+        //        m_weaponhandler.Reload();
+
+        //    if (Input.GetButtonDown(m_input.dropWeapon))
+        //        m_weaponhandler.DropCurrentWeapon();
+
+        //    if (Input.GetButtonDown(m_input.switchWeaponButton))
+        //        m_weaponhandler.SwitchWeapons();
+        ////}
+
+        //if (!m_weaponhandler.m_currentWeapon)
+        //    return;
+
+        //m_weaponhandler.m_currentWeapon.m_shootRay = new Ray(m_thirdPersonCam.transform.position, m_thirdPersonCam.transform.forward);
+
         m_aiming = Input.GetButton(m_input.aimButton) || m_debugAim;
+        m_weaponhandler.Aim(m_aiming);
 
-        //if (m_weaponhandler.m_currentWeapon) {
-            m_weaponhandler.Aim(m_aiming);
+        if (Input.GetButtonDown(m_input.switchWeaponButton)) {
+            m_weaponhandler.SwitchWeapons();
+            UpdateCrosshairs();
+        }
 
-            m_other.requireInputForTurn = !m_aiming;
+        if (m_weaponhandler.m_currentWeapon) {
+            Ray aimRay = new Ray(m_thirdPersonCam.transform.position, m_thirdPersonCam.transform.forward);
 
-            m_weaponhandler.FingerOnTrigger(Input.GetButton(m_input.fireButton));
+            //m_weaponhandler.m_currentWeapon.m_shootRay = aimRay;
+            m_weaponhandler.m_currentWeapon.m_shootRay = aimRay;
+
+            if (Input.GetButton(m_input.fireButton) && m_aiming)
+                m_weaponhandler.FireCurrentWeapon(aimRay);
 
             if (Input.GetButtonDown(m_input.reloadButton))
                 m_weaponhandler.Reload();
 
             if (Input.GetButtonDown(m_input.dropWeapon))
                 m_weaponhandler.DropCurrentWeapon();
-
-            if (Input.GetButtonDown(m_input.switchWeaponButton))
-                m_weaponhandler.SwitchWeapons();
-        //}
-
-        if (!m_weaponhandler.m_currentWeapon)
-            return;
-
-        m_weaponhandler.m_currentWeapon.m_shootRay = new Ray(m_thirdPersonCam.transform.position, m_thirdPersonCam.transform.forward);
+        }
     }
 
+
+    void UpdateCrosshairs() {
+        if (m_weaponhandler.m_weaponsList.Count == 0)
+            return;
+
+        foreach (Weapon weapon in m_weaponhandler.m_weaponsList) {
+            if (weapon != m_weaponhandler.m_currentWeapon) {
+                weapon.ToggleCrosshairs(false);
+            }
+        }
+    }
 
     // positions spine when aiming
     void PositionSpine() {

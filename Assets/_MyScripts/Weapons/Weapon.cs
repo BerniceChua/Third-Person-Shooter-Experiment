@@ -138,17 +138,16 @@ public class Weapon : MonoBehaviour {
                 Unequip(m_weaponType);
                 ToggleCrosshairs(false);
             }
-        } else {
+        } else { // if owner is null, just disable the crosshairs, set parent to null, and disable components.
+            ToggleCrosshairs(false);
             DisableOrEnableComponents(true);
-
             transform.SetParent(null);
-
             m_isOwnerAiming = false;
         }
 	}
 
     // fires the weapon
-    void FireWeapon(Ray ray) {
+    public void FireWeapon(Ray ray) {
         if (m_ammo.clipAmmo <= 0 || m_resettingCartridge || !m_weaponSettings.bulletSpawn || !m_isEquipped)
             return;
 
@@ -270,7 +269,7 @@ public class Weapon : MonoBehaviour {
     }
 
     // toggle on and off the crosshairs prefab
-    void ToggleCrosshairs(bool enabled) {
+    public void ToggleCrosshairs(bool enabled) {
         if (m_weaponSettings.crosshairPrefab != null) {
             m_weaponSettings.crosshairPrefab.SetActive(enabled);
         }
