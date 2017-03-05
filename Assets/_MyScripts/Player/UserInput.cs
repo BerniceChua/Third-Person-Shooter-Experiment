@@ -83,6 +83,8 @@ public class UserInput : MonoBehaviour {
             return;
         }
 
+        m_other.requireInputForTurn = !m_aiming;
+
         if (m_other.requireInputForTurn) {
             if (Input.GetAxis(m_input.horizontalAxis) != 0 || Input.GetAxis(m_input.verticalAxis) != 0)
                 CharacterLook();

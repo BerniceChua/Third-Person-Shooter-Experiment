@@ -106,6 +106,15 @@ public class WeaponHandler : MonoBehaviour {
         m_weaponsList.Add(weapon);
     }
 
+    public void FireCurrentWeapon(Ray aimRay) {
+        if (m_currentWeapon.m_ammo.clipAmmo == 0) {
+            Reload();
+            return;
+        }
+
+        m_currentWeapon.FireWeapon(aimRay);
+    }
+
     // puts finger on the trigger and asks if we pull
     public void FingerOnTrigger(bool pulling) {
         if (!m_currentWeapon)
