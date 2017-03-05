@@ -136,6 +136,7 @@ public class Weapon : MonoBehaviour {
                 }
             } else {
                 Unequip(m_weaponType);
+                ToggleCrosshairs(false);
             }
         } else {
             DisableOrEnableComponents(true);
@@ -204,7 +205,7 @@ public class Weapon : MonoBehaviour {
             GameObject muzzleFlash = Instantiate(m_weaponSettings.muzzleFlash, bulletSpawnPos, Quaternion.identity) as GameObject;
             Transform muzzleT = muzzleFlash.transform;
             muzzleT.SetParent(m_weaponSettings.bulletSpawn);
-            Destroy(muzzleFlash, 1.0f);
+            Destroy(muzzleFlash, m_isEquipped ? 1.0f : 0.0f);
         }
         #endregion
 
@@ -225,6 +226,10 @@ public class Weapon : MonoBehaviour {
         }
         #endregion
 
+        PlayGunshotSound();
+    }
+
+    void PlayGunshotSound() {
         if (m_soundControl == null)
             return;
 
@@ -235,7 +240,7 @@ public class Weapon : MonoBehaviour {
                     m_soundSettings.gunshotSounds[Random.Range(0, m_soundSettings.gunshotSounds.Length)],  // what audioclip is used
                     2, // how long before the audioclip is Destroy()-ed
                     true, //randomize the sound?
-                    m_soundSettings.pitchMin, 
+                    m_soundSettings.pitchMin,
                     m_soundSettings.pitchMax
                );
             }
