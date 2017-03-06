@@ -30,6 +30,8 @@ public class FootstepSounds : MonoBehaviour {
         if (Physics.Raycast(start, dir, out hit, 1.3f)) {
             if (hit.collider.GetComponent<MeshRenderer>()) {
                 PlayMeshSound(hit.collider.GetComponent<MeshRenderer>());
+            } else if (hit.collider.GetComponent<Terrain>()) {
+                PlayTerrainSound(hit.collider.GetComponent<Terrain>(), hit.point);
             }
         }
     }
@@ -53,6 +55,34 @@ public class FootstepSounds : MonoBehaviour {
 
                 foreach (Texture tex in type.textures) {
                     if (meshRender.material.mainTexture == tex) {
+                        m_soundControl.PlaySound(m_audSource, type.footstepSounds[Random.Range(0, type.footstepSounds.Length)], true, 1.0f, 1.2f);
+                    }
+                }
+            }
+        }
+    }
+
+    void PlayTerrainSound(Terrain terr, Vector3 hitSurface) {
+        if (m_audSource == null) {
+            Debug.LogError("PlayTerrainSound -- We have no audio source to play the sound from.");
+            return;
+        }
+
+        if (m_soundControl == null) {
+            Debug.LogError("PlayTerrainSound -- No sound manager.");
+            return;
+        }
+
+        if (m_textureTypes.Length > 0) {
+            int textureIndex = TerrainSurface.GetMainTexture(hitSurface);
+
+            foreach (TextureType type in m_textureTypes) {
+                if (type.footstepSounds.Length == 0) {
+                    return;
+                }
+
+                foreach (Texture tex in type.textures) {
+                    if (terr.terrainData.splatPrototypes[textureIndex].texture == tex) {
                         m_soundControl.PlaySound(m_audSource, type.footstepSounds[Random.Range(0, type.footstepSounds.Length)], true, 1.0f, 1.2f);
                     }
                 }
