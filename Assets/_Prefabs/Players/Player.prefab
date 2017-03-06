@@ -2451,8 +2451,8 @@ MonoBehaviour:
     resetGravityValue: 0
     groundLayers:
       serializedVersion: 2
-      m_Bits: 0
-    airSpeed: 0
+      m_Bits: 257
+    airSpeed: 2.5
   m_movement:
     jumpSpeed: 6
     jumpTime: 0.25
@@ -2515,6 +2515,7 @@ MonoBehaviour:
     - {fileID: 2800000, guid: 2c528fec5d95e4ac28cf46399b887662, type: 3}
     - {fileID: 2800000, guid: c6e0767b1f8c34890ac245217f4b9731, type: 3}
     - {fileID: 2800000, guid: 440eb36db91ca410f800ff3cfe43572f, type: 3}
+    - {fileID: 2800000, guid: bfd675cc0db1d4656b75dc6d6ba91142, type: 3}
     footstepSounds:
     - {fileID: 8300000, guid: 7d6222f93da27ca41832f4df5e003f9f, type: 3}
     - {fileID: 8300000, guid: 248c2e98236a5da4daf9c1142ae497f1, type: 3}
