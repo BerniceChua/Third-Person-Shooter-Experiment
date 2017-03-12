@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class UserInput : MonoBehaviour {
     public CharacterMovement m_charMove { get; protected set; }
-    public WeaponHandler m_weaponhandler { get; protected set; }
+    public WeaponHandler m_weaponHandler { get; protected set; }
 
     [System.Serializable]
     public class InputSettings {
@@ -42,10 +42,28 @@ public class UserInput : MonoBehaviour {
     void Start () {
         m_charMove = GetComponent<CharacterMovement>();
         //m_thirdPersonCam = Camera.main;
-        m_weaponhandler = GetComponent<WeaponHandler>();
+        m_weaponHandler = GetComponent<WeaponHandler>();
         m_weapon = GetComponent<Weapon>();
+
+        SetupCrosshairs();
 	}
 	
+    void SetupCrosshairs() {
+        if (m_weaponHandler.m_weaponsList.Count > 0) {
+            foreach (Weapon weapon in m_weaponHandler.m_weaponsList) {
+                GameObject crosshairPrefab = weapon.m_weaponSettings.crosshairPrefab;
+
+                if (crosshairPrefab != null) {
+                    // this will drop the crosshair UI prefab first into the world space so we'll always have this reference and don't need to re-Instantiate each time it's needed.
+                    crosshairPrefab = Instantiate(crosshairPrefab);
+
+                    // we don't want this active right away, so it's false at first
+                    ToggleCrosshairs(false);
+                }
+            }
+        }
+    }
+
 	// Update is called once per frame
 	void Update () {
         CharacterLogic();
@@ -54,8 +72,8 @@ public class UserInput : MonoBehaviour {
     }
 
     private void LateUpdate() {
-        if (m_weaponhandler) {
-            if (m_weaponhandler.m_currentWeapon) {
+        if (m_weaponHandler) {
+            if (m_weaponHandler.m_currentWeapon) {
                 if (m_aiming)
                     PositionSpine();
             }
@@ -115,7 +133,7 @@ public class UserInput : MonoBehaviour {
     }
 
     void WeaponLogic() {
-        if (!m_weaponhandler) {
+        if (!m_weaponHandler) {
             Debug.Log("Warning: no m_weaponHandler.");
             return;
         }
@@ -145,37 +163,71 @@ public class UserInput : MonoBehaviour {
         //m_weaponhandler.m_currentWeapon.m_shootRay = new Ray(m_thirdPersonCam.transform.position, m_thirdPersonCam.transform.forward);
 
         m_aiming = Input.GetButton(m_input.aimButton) || m_debugAim;
-        m_weaponhandler.Aim(m_aiming);
+        m_weaponHandler.Aim(m_aiming);
 
         if (Input.GetButtonDown(m_input.switchWeaponButton)) {
-            m_weaponhandler.SwitchWeapons();
+            m_weaponHandler.SwitchWeapons();
             UpdateCrosshairs();
         }
 
-        if (m_weaponhandler.m_currentWeapon) {
+        if (m_weaponHandler.m_currentWeapon) {
             Ray aimRay = new Ray(m_thirdPersonCam.transform.position, m_thirdPersonCam.transform.forward);
 
             //m_weaponhandler.m_currentWeapon.m_shootRay = aimRay;
-            m_weaponhandler.m_currentWeapon.m_shootRay = aimRay;
+            m_weaponHandler.m_currentWeapon.m_shootRay = aimRay;
 
             if (Input.GetButton(m_input.fireButton) && m_aiming)
-                m_weaponhandler.FireCurrentWeapon(aimRay);
+                m_weaponHandler.FireCurrentWeapon(aimRay);
 
             if (Input.GetButtonDown(m_input.reloadButton))
-                m_weaponhandler.Reload();
+                m_weaponHandler.Reload();
 
             if (Input.GetButtonDown(m_input.dropWeapon))
-                m_weaponhandler.DropCurrentWeapon();
+                m_weaponHandler.DropCurrentWeapon();
         }
     }
 
+    // positions crosshairs to the point that we are aiming
+    void PositionCrosshairs(Ray ray) {
+        Weapon currentWeapon = m_weaponHandler.m_currentWeapon;
 
-    void UpdateCrosshairs() {
-        if (m_weaponhandler.m_weaponsList.Count == 0)
+        if (currentWeapon == null)
             return;
 
-        foreach (Weapon weapon in m_weaponhandler.m_weaponsList) {
-            if (weapon != m_weaponhandler.m_currentWeapon) {
+        RaycastHit hit;
+        Transform bulletSpawn = currentWeapon.m_weaponSettings.bulletSpawn;
+        Vector3 bSpawnPoint = bulletSpawn.position;
+        //Vector3 dir = bulletSpawn.forward;
+        Vector3 dir = ray.GetPoint(m_weaponSettings.range) - bSpawnPoint;
+
+        if (Physics.Raycast(bSpawnPoint, dir, out hit, m_weaponSettings.range, m_weaponSettings.bulletLayers)) {
+
+            // prevents us from getting errors
+            if (m_weaponSettings.crosshairPrefab != null) {
+                ToggleCrosshairs(true);
+
+                m_weaponSettings.crosshairPrefab.transform.position = hit.point;
+                m_weaponSettings.crosshairPrefab.transform.LookAt(Camera.main.transform);
+            }
+        }
+        else {
+            ToggleCrosshairs(false);
+        }
+    }
+
+    // toggle on and off the crosshairs prefab
+    public void ToggleCrosshairs(bool enabled) {
+        if (m_weaponSettings.crosshairPrefab != null) {
+            m_weaponSettings.crosshairPrefab.SetActive(enabled);
+        }
+    }
+
+    void UpdateCrosshairs() {
+        if (m_weaponHandler.m_weaponsList.Count == 0)
+            return;
+
+        foreach (Weapon weapon in m_weaponHandler.m_weaponsList) {
+            if (weapon != m_weaponHandler.m_currentWeapon) {
                 weapon.ToggleCrosshairs(false);
             }
         }
@@ -183,7 +235,7 @@ public class UserInput : MonoBehaviour {
 
     // positions spine when aiming
     void PositionSpine() {
-        if (!m_spine || !m_weaponhandler.m_currentWeapon || !m_thirdPersonCam)
+        if (!m_spine || !m_weaponHandler.m_currentWeapon || !m_thirdPersonCam)
             return;
 
         //RaycastHit hit;
@@ -201,7 +253,7 @@ public class UserInput : MonoBehaviour {
         //    m_spine.LookAt(ray.GetPoint(50));
         //}
 
-        Vector3 eulerAngleOffset = m_weaponhandler.m_currentWeapon.m_userSettings.spineRotation;
+        Vector3 eulerAngleOffset = m_weaponHandler.m_currentWeapon.m_userSettings.spineRotation;
         m_spine.Rotate(eulerAngleOffset);
     }
 

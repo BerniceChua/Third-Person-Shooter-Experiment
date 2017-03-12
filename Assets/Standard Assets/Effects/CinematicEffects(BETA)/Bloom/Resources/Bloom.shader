@@ -14,7 +14,7 @@ Shader "Hidden/Image Effects/Cinematic/Bloom"
             CGPROGRAM
             #pragma multi_compile _ UNITY_COLORSPACE_GAMMA
             #include "Bloom.cginc"
-            #pragma vertex vert_img
+            #pragma vertex vert
             #pragma fragment frag_prefilter
             #pragma target 3.0
             ENDCG
@@ -27,7 +27,7 @@ Shader "Hidden/Image Effects/Cinematic/Bloom"
             #define ANTI_FLICKER 1
             #pragma multi_compile _ UNITY_COLORSPACE_GAMMA
             #include "Bloom.cginc"
-            #pragma vertex vert_img
+            #pragma vertex vert
             #pragma fragment frag_prefilter
             #pragma target 3.0
             ENDCG
@@ -38,7 +38,7 @@ Shader "Hidden/Image Effects/Cinematic/Bloom"
             ZTest Always Cull Off ZWrite Off
             CGPROGRAM
             #include "Bloom.cginc"
-            #pragma vertex vert_img
+            #pragma vertex vert
             #pragma fragment frag_downsample1
             #pragma target 3.0
             ENDCG
@@ -50,7 +50,7 @@ Shader "Hidden/Image Effects/Cinematic/Bloom"
             CGPROGRAM
             #define ANTI_FLICKER 1
             #include "Bloom.cginc"
-            #pragma vertex vert_img
+            #pragma vertex vert
             #pragma fragment frag_downsample1
             #pragma target 3.0
             ENDCG
@@ -61,7 +61,7 @@ Shader "Hidden/Image Effects/Cinematic/Bloom"
             ZTest Always Cull Off ZWrite Off
             CGPROGRAM
             #include "Bloom.cginc"
-            #pragma vertex vert_img
+            #pragma vertex vert
             #pragma fragment frag_downsample2
             #pragma target 3.0
             ENDCG
