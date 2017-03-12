@@ -38,6 +38,8 @@ public class UserInput : MonoBehaviour {
     //Camera m_mainCam;
     public Camera m_thirdPersonCam;
 
+    Dictionary<Weapon, GameObject> m_crosshairPrefabMap = new Dictionary<Weapon, GameObject>();
+
     // Use this for initialization
     void Start () {
         m_charMove = GetComponent<CharacterMovement>();
@@ -55,10 +57,14 @@ public class UserInput : MonoBehaviour {
 
                 if (crosshairPrefab != null) {
                     // this will drop the crosshair UI prefab first into the world space so we'll always have this reference and don't need to re-Instantiate each time it's needed.
-                    crosshairPrefab = Instantiate(crosshairPrefab);
+                    //crosshairPrefab = Instantiate(crosshairPrefab);
+                    GameObject clone = Instantiate(crosshairPrefab) as GameObject;
 
+                    //m_crosshairPrefabMap.Add(weapon, crosshairPrefab);
+                    m_crosshairPrefabMap.Add(weapon, clone);
+                    
                     // we don't want this active right away, so it's false at first
-                    ToggleCrosshairs(false);
+                    ToggleCrosshairs(false, weapon);
                 }
             }
         }
@@ -108,6 +114,7 @@ public class UserInput : MonoBehaviour {
                 CharacterLook();
         } else {
             CharacterLook();
+            Debug.Log("Weirdness...");
         }
     }
 
@@ -172,9 +179,8 @@ public class UserInput : MonoBehaviour {
 
         if (m_weaponHandler.m_currentWeapon) {
             Ray aimRay = new Ray(m_thirdPersonCam.transform.position, m_thirdPersonCam.transform.forward);
-
+            //Debug.DrawRay(aimRay.origin, aimRay.direction);
             //m_weaponhandler.m_currentWeapon.m_shootRay = aimRay;
-            m_weaponHandler.m_currentWeapon.m_shootRay = aimRay;
 
             if (Input.GetButton(m_input.fireButton) && m_aiming)
                 m_weaponHandler.FireCurrentWeapon(aimRay);
@@ -182,44 +188,92 @@ public class UserInput : MonoBehaviour {
             if (Input.GetButtonDown(m_input.reloadButton))
                 m_weaponHandler.Reload();
 
-            if (Input.GetButtonDown(m_input.dropWeapon))
+            if (Input.GetButtonDown(m_input.dropWeapon)) {
+                DeleteCrosshair(m_weaponHandler.m_currentWeapon);
                 m_weaponHandler.DropCurrentWeapon();
+            }
+
+            if (m_aiming) {
+                ToggleCrosshairs(true, m_weaponHandler.m_currentWeapon);
+                PositionCrosshairs(aimRay, m_weaponHandler.m_currentWeapon);
+            } else
+                ToggleCrosshairs(false, m_weaponHandler.m_currentWeapon);
+        } else {
+            TurnOffAllCrosshairs();
         }
     }
 
+    /// turns off all crosshairs when we don't have a current weapon.
+    void TurnOffAllCrosshairs() {
+        foreach (Weapon wep in m_crosshairPrefabMap.Keys) {
+            ToggleCrosshairs(false, wep);
+        }
+    }
+
+    void CreateCrosshair(Weapon wep) {
+        GameObject crosshairPrefab = wep.m_weaponSettings.crosshairPrefab;
+
+        if (crosshairPrefab != null) {
+            // this will drop the crosshair UI prefab first into the world space so we'll always have this reference and don't need to re-Instantiate each time it's needed.
+            crosshairPrefab = Instantiate(crosshairPrefab);
+
+            // we don't want this active right away, so it's false at first
+            ToggleCrosshairs(false, wep);
+        }
+    }
+
+    void DeleteCrosshair (Weapon wep) {
+        if (!m_crosshairPrefabMap.ContainsKey(wep))
+            return;
+
+        Destroy(m_crosshairPrefabMap[wep]);
+        m_crosshairPrefabMap.Remove(wep);
+    }
+
     // positions crosshairs to the point that we are aiming
-    void PositionCrosshairs(Ray ray) {
+    void PositionCrosshairs(Ray ray, Weapon weapon) {
         Weapon currentWeapon = m_weaponHandler.m_currentWeapon;
 
         if (currentWeapon == null)
             return;
 
+        if (!m_crosshairPrefabMap.ContainsKey(weapon))
+            return;
+
+        //GameObject crosshairPrefab = currentWeapon.m_weaponSettings.crosshairPrefab;
+        GameObject crosshairPrefab = m_crosshairPrefabMap[weapon];
+
         RaycastHit hit;
         Transform bulletSpawn = currentWeapon.m_weaponSettings.bulletSpawn;
         Vector3 bSpawnPoint = bulletSpawn.position;
         //Vector3 dir = bulletSpawn.forward;
-        Vector3 dir = ray.GetPoint(m_weaponSettings.range) - bSpawnPoint;
+        Vector3 dir = ray.GetPoint(currentWeapon.m_weaponSettings.range) - bSpawnPoint;
 
-        if (Physics.Raycast(bSpawnPoint, dir, out hit, m_weaponSettings.range, m_weaponSettings.bulletLayers)) {
+        if (Physics.Raycast(bSpawnPoint, dir, out hit, currentWeapon.m_weaponSettings.range, currentWeapon.m_weaponSettings.bulletLayers)) {
 
             // prevents us from getting errors
-            if (m_weaponSettings.crosshairPrefab != null) {
-                ToggleCrosshairs(true);
+            if (crosshairPrefab != null) {
+                ToggleCrosshairs(true, currentWeapon);
 
-                m_weaponSettings.crosshairPrefab.transform.position = hit.point;
-                m_weaponSettings.crosshairPrefab.transform.LookAt(Camera.main.transform);
+                crosshairPrefab.transform.position = hit.point;
+                crosshairPrefab.transform.LookAt(Camera.main.transform);
             }
         }
         else {
-            ToggleCrosshairs(false);
+            ToggleCrosshairs(false, currentWeapon);
         }
     }
 
     // toggle on and off the crosshairs prefab
-    public void ToggleCrosshairs(bool enabled) {
-        if (m_weaponSettings.crosshairPrefab != null) {
-            m_weaponSettings.crosshairPrefab.SetActive(enabled);
-        }
+    public void ToggleCrosshairs(bool enabled, Weapon wep) {
+        //if (wep.m_weaponSettings.crosshairPrefab != null) {
+        //    wep.m_weaponSettings.crosshairPrefab.SetActive(enabled);
+        //}
+
+        if (!m_crosshairPrefabMap.ContainsKey(wep))
+            return;
+
+        m_crosshairPrefabMap[wep].SetActive(enabled);
     }
 
     void UpdateCrosshairs() {
@@ -228,7 +282,7 @@ public class UserInput : MonoBehaviour {
 
         foreach (Weapon weapon in m_weaponHandler.m_weaponsList) {
             if (weapon != m_weaponHandler.m_currentWeapon) {
-                weapon.ToggleCrosshairs(false);
+                ToggleCrosshairs(false, weapon);
             }
         }
     }

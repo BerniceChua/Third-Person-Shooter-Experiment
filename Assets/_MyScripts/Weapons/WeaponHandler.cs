@@ -32,7 +32,7 @@ public class WeaponHandler : MonoBehaviour {
     bool m_settingWeapon;
 
 	// Use this for initialization
-	void Start () {
+	void OnEnable () {
         GameObject check = GameObject.FindGameObjectWithTag("SoundController");
 
         if (check != null) {
@@ -41,16 +41,17 @@ public class WeaponHandler : MonoBehaviour {
         m_soundControl = GameObject.FindGameObjectWithTag("SoundController").GetComponent<SoundController>();
 
         m_animator = GetComponent<Animator>();
+
+        SetupWeapons();
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		if (m_currentWeapon) {
+
+    void SetupWeapons() {
+        if (m_currentWeapon) {
             m_currentWeapon.SetEquipped(true);
             m_currentWeapon.SetOwner(this);
             AddWeaponToList(m_currentWeapon);
 
-            m_currentWeapon.m_isOwnerAiming = m_aim;
+            //m_currentWeapon.m_isOwnerAiming = m_aim;
 
             if (m_currentWeapon.m_ammo.clipAmmo <= 0)
                 Reload();
@@ -71,6 +72,10 @@ public class WeaponHandler : MonoBehaviour {
             }
         }
 
+    }
+
+    // Update is called once per frame
+    void Update () {
         AnimateWeaponHandling();
 	}
 
@@ -188,6 +193,9 @@ public class WeaponHandler : MonoBehaviour {
         // these 2 stops animations from constantly changing weapon & glitching out the IK & helps disable the IK when switching weapons so hand doesn't go through body.
         m_settingWeapon = true;
         StartCoroutine(StopSettingWeapon());
+
+        // refreshes whenever player switch weapons.
+        SetupWeapons();
     }
 
     IEnumerator StopSettingWeapon() {

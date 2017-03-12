@@ -71,8 +71,9 @@ public class Weapon : MonoBehaviour {
 
     public Ray m_shootRay { protected get; set; }
     
-    // allows us to disable or enable the crosshairs
-    public bool m_isOwnerAiming { get; set; } // for the crosshair, might change the location of this code in the future
+    // in the refactor, we didn't need this anymore
+    //// allows us to disable or enable the crosshairs
+    //public bool m_isOwnerAiming { get; set; } // for the crosshair, might change the location of this code in the future
 
     WeaponHandler m_owner;
     bool m_isEquipped;
@@ -152,7 +153,7 @@ public class Weapon : MonoBehaviour {
             //ToggleCrosshairs(false);
             DisableOrEnableComponents(true);
             transform.SetParent(null);
-            m_isOwnerAiming = false;
+            //m_isOwnerAiming = false;
         }
 	}
 
