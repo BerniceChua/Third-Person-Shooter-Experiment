@@ -106,17 +106,18 @@ public class Weapon : MonoBehaviour {
         m_rigidbody = GetComponent<Rigidbody>();
         m_animator = GetComponent<Animator>();
 
-        if (m_weaponSettings.crosshairPrefab != null) {
-            // this will drop the crosshair UI prefab first into the world space so we'll always have this reference and don't need to re-Instantiate each time it's needed.
-            m_weaponSettings.crosshairPrefab = Instantiate(m_weaponSettings.crosshairPrefab);
-            
-            // we don't want this active right away, so it's false at first
-            ToggleCrosshairs(false);
-        }
-	}
-	
-	// Update is called once per frame
-	void Update () {
+        // this was moved to UserInput.cs
+        //if (m_weaponSettings.crosshairPrefab != null) {
+        //    // this will drop the crosshair UI prefab first into the world space so we'll always have this reference and don't need to re-Instantiate each time it's needed.
+        //    m_weaponSettings.crosshairPrefab = Instantiate(m_weaponSettings.crosshairPrefab);
+
+        //    // we don't want this active right away, so it's false at first
+        //    ToggleCrosshairs(false);
+        //}
+    }
+
+    // Update is called once per frame
+    void Update () {
 		if (m_owner) {
             DisableOrEnableComponents(false);
 
@@ -128,18 +129,27 @@ public class Weapon : MonoBehaviour {
                         FireWeapon(m_shootRay);
                     }
 
-                    if (m_isOwnerAiming) {
-                        PositionCrosshairs(m_shootRay);
-                    } else {
-                        ToggleCrosshairs(false);
-                    }
+                    // moved to UserInput.cs
+                    //if (m_isOwnerAiming) {
+                    //    PositionCrosshairs(m_shootRay);
+                    //} else {
+                    //    ToggleCrosshairs(false);
+                    //}
                 }
             } else {
+                if (m_weaponSettings.bulletSpawn.childCount > 0) {
+                    foreach (Transform transf in m_weaponSettings.bulletSpawn.GetComponentsInChildren<Transform>()) {
+                        if (transf != m_weaponSettings.bulletSpawn) {
+                            Destroy(transf.gameObject);
+                        }
+                    }
+                }
+
                 Unequip(m_weaponType);
-                ToggleCrosshairs(false);
+                //ToggleCrosshairs(false);
             }
         } else { // if owner is null, just disable the crosshairs, set parent to null, and disable components.
-            ToggleCrosshairs(false);
+            //ToggleCrosshairs(false);
             DisableOrEnableComponents(true);
             transform.SetParent(null);
             m_isOwnerAiming = false;
@@ -246,34 +256,36 @@ public class Weapon : MonoBehaviour {
         }
     }
 
-    // positions crosshairs to the point that we are aiming
-    void PositionCrosshairs(Ray ray) {
-        RaycastHit hit;
-        Transform bulletSpawn = m_weaponSettings.bulletSpawn;
-        Vector3 bSpawnPoint = bulletSpawn.position;
-        //Vector3 dir = bulletSpawn.forward;
-        Vector3 dir = ray.GetPoint(m_weaponSettings.range) - bSpawnPoint;
+    // this was moved to UserInput.cs
+    //// positions crosshairs to the point that we are aiming
+    //void PositionCrosshairs(Ray ray) {
+    //    RaycastHit hit;
+    //    Transform bulletSpawn = m_weaponSettings.bulletSpawn;
+    //    Vector3 bSpawnPoint = bulletSpawn.position;
+    //    //Vector3 dir = bulletSpawn.forward;
+    //    Vector3 dir = ray.GetPoint(m_weaponSettings.range) - bSpawnPoint;
 
-        if (Physics.Raycast(bSpawnPoint, dir, out hit, m_weaponSettings.range, m_weaponSettings.bulletLayers)) {
+    //    if (Physics.Raycast(bSpawnPoint, dir, out hit, m_weaponSettings.range, m_weaponSettings.bulletLayers)) {
 
-            // prevents us from getting errors
-            if (m_weaponSettings.crosshairPrefab != null) {
-                ToggleCrosshairs(true);
+    //        // prevents us from getting errors
+    //        if (m_weaponSettings.crosshairPrefab != null) {
+    //            ToggleCrosshairs(true);
 
-                m_weaponSettings.crosshairPrefab.transform.position = hit.point;
-                m_weaponSettings.crosshairPrefab.transform.LookAt(Camera.main.transform);
-            } 
-        } else {
-            ToggleCrosshairs(false);
-        }
-    }
+    //            m_weaponSettings.crosshairPrefab.transform.position = hit.point;
+    //            m_weaponSettings.crosshairPrefab.transform.LookAt(Camera.main.transform);
+    //        } 
+    //    } else {
+    //        ToggleCrosshairs(false);
+    //    }
+    //}
 
-    // toggle on and off the crosshairs prefab
-    public void ToggleCrosshairs(bool enabled) {
-        if (m_weaponSettings.crosshairPrefab != null) {
-            m_weaponSettings.crosshairPrefab.SetActive(enabled);
-        }
-    }
+    // this was moved to UserInput.cs
+    //// toggle on and off the crosshairs prefab
+    //public void ToggleCrosshairs(bool enabled) {
+    //    if (m_weaponSettings.crosshairPrefab != null) {
+    //        m_weaponSettings.crosshairPrefab.SetActive(enabled);
+    //    }
+    //}
 
     // disable or enable collider and rigidbody
     void DisableOrEnableComponents(bool enabled) {
