@@ -14,9 +14,12 @@ public class EnemyNPCAI : MonoBehaviour {
 
     private CharacterStats m_characterStats { get { return GetComponent<CharacterStats>(); } set { m_characterStats = value; } }
 
+    private WeaponHandler m_weaponHandler { get { return GetComponent<WeaponHandler>(); } set { m_weaponHandler = value; } }
+
     public enum AIState {
         Patrol,
         Attack,
+        FindEnemy,
         FindCover
     }
     [SerializeField] AIState m_AIState;
@@ -31,21 +34,32 @@ public class EnemyNPCAI : MonoBehaviour {
     public class EnemySightSettings {
         public float sightRange = 30.0f;
         public LayerMask sightLayers; // allows us to only raycast to a certain layer
-        public float fieldOfView = 120f;
+        public float fieldOfView = 120.0f;
         public float eyeHeight;
     }
     [SerializeField] EnemySightSettings m_enemySights;
+
+    [System.Serializable]
+    public class EnemyAttackSettings {
+        public float fireChance = 0.1f;
+    }
+    public EnemyAttackSettings m_enemyAttack;
 
     private float m_currentWaitTime;
     private int m_waypointIndex;
     private Transform m_currentLookTransform;
     private bool m_isWalkingToDestination;
 
+    private bool m_setDestination; // so we're not constantly calling the destination
+    private bool m_reachedDestination;
+
     private float m_forward;
 
     private Transform m_target;
     private Vector3 m_targetLastKnownPosition;
     private CharacterStats[] m_allCharacters;
+
+    private bool m_aiming;
 
     // Use this for initialization
     void Start () {
@@ -86,11 +100,16 @@ public class EnemyNPCAI : MonoBehaviour {
 
         m_navMesh.transform.position = transform.position;
 
+        m_weaponHandler.Aim(m_aiming);
+
         LookForTarget();
 
 		switch(m_AIState) {
             case AIState.Patrol:
                 Patrol();
+                break;
+            case AIState.Attack:
+                FireAtEnemy();
                 break;
         }
 	}
@@ -108,7 +127,7 @@ public class EnemyNPCAI : MonoBehaviour {
 
                     float distToCharacter = Vector3.Distance(transform.position, c.transform.position);
                     float sightAngle = Vector3.Angle(dir, transform.forward);
-                    Debug.Log(sightAngle);
+                    //          Debug.Log(sightAngle);
 
                     if (Physics.Raycast(start, dir, out hit, m_enemySights.sightRange, m_enemySights.sightLayers)
                         && sightAngle < (m_enemySights.fieldOfView * 2)
@@ -149,35 +168,82 @@ public class EnemyNPCAI : MonoBehaviour {
     }
 
     void Patrol() {
-        if (!m_navMesh.isOnNavMesh) {
-            Debug.Log("Cannod do 'void Patrol()' because !m_navMesh.isOnNavMesh");
-            return;
-        }
+        Debug.Log("m_patrolSettings.waypoints.Length = " + m_patrolSettings.waypoints.Length);
+        Debug.Log("m_waypointIndex = " + m_waypointIndex);
+        Debug.Log("m_patrolSettings.waypoints[m_waypointIndex] = " + m_patrolSettings.waypoints[m_waypointIndex]);
 
-        if (m_patrolSettings.waypoints.Length == 0) {
-            return;
-        }
+        if (m_target == null) {
+            PatrolBehavior();
 
-        m_navMesh.SetDestination(m_patrolSettings.waypoints[m_waypointIndex].destination.position);
-        LookAtPosition(m_navMesh.steeringTarget);
-
-        if (m_navMesh.remainingDistance <= m_navMesh.stoppingDistance) {
-            m_isWalkingToDestination = false;
-            m_forward = LerpSpeed(m_forward, 0.0f, 15.0f);
-            m_currentWaitTime -= Time.deltaTime;
-
-            if (m_patrolSettings.waypoints[m_waypointIndex].lookAtTarget != null)
-                m_currentLookTransform = m_patrolSettings.waypoints[m_waypointIndex].lookAtTarget;
-
-            if (m_currentWaitTime <= 0) {
-                m_waypointIndex = (m_waypointIndex + 1) % m_patrolSettings.waypoints.Length;
+            if (!m_navMesh.isOnNavMesh) {
+                Debug.Log("Cannot do 'void Patrol()' because !m_navMesh.isOnNavMesh");
+                return;
             }
+
+            if (m_patrolSettings.waypoints.Length == 0) {
+                return;
+            }
+
+            if (!m_setDestination) {
+                m_navMesh.SetDestination(m_patrolSettings.waypoints[m_waypointIndex].destination.position);
+                LookAtPosition(m_navMesh.steeringTarget);
+                m_setDestination = true;
+            }
+
+            if ( (m_navMesh.remainingDistance <= m_navMesh.stoppingDistance) || m_reachedDestination && !m_navMesh.pathPending) {
+
+                m_setDestination = false;
+
+                m_isWalkingToDestination = false;
+                m_forward = LerpSpeed(m_forward, 0.0f, 15.0f);
+                m_currentWaitTime -= Time.deltaTime;
+
+                if (m_patrolSettings.waypoints[m_waypointIndex].lookAtTarget != null)
+                    m_currentLookTransform = m_patrolSettings.waypoints[m_waypointIndex].lookAtTarget;
+
+                if (m_currentWaitTime <= 0) {
+                    Debug.Log("Inside if (m_currentWaitTime <= 0)");
+                    Debug.Log("m_waypointIndex = " + m_waypointIndex);
+                    Debug.Log("m_patrolSettings.waypoints[m_waypointIndex] = " + m_patrolSettings.waypoints[m_waypointIndex]);
+                    Debug.Log("m_patrolSettings.waypoints[m_waypointIndex].destination = " + m_patrolSettings.waypoints[m_waypointIndex].destination);
+                    m_waypointIndex = (m_waypointIndex + 1) % m_patrolSettings.waypoints.Length;
+                    m_reachedDestination = false;
+                    Debug.Log("m_waypointIndex after modulus calculation = " + m_waypointIndex);
+                    Debug.Log("m_patrolSettings.waypoints[m_waypointIndex] after modulus calculation = " + m_patrolSettings.waypoints[m_waypointIndex]);
+                    Debug.Log("m_patrolSettings.waypoints[m_waypointIndex].destination after modulus calculation = " + m_patrolSettings.waypoints[m_waypointIndex].destination);
+                    Debug.Log("m_reachedDestination = " + m_reachedDestination);
+                } else {
+                    Debug.Log("Inside the else of 'if (m_currentWaitTime <= 0)' ");
+                    m_reachedDestination = true;
+                    Debug.Log("m_reachedDestination = " + m_reachedDestination);
+                }
+            }
+            else {
+                LookAtPosition(m_navMesh.steeringTarget);
+
+                m_isWalkingToDestination = true;
+                m_forward = LerpSpeed(m_forward, 0.5f, 15.0f);
+                m_currentWaitTime = m_patrolSettings.waypoints[m_waypointIndex].waitTime;
+                m_currentLookTransform = null;
+            }
+        } else {
+            // FIXME: Get in cover if we need to.
+            m_AIState = AIState.Attack;
         }
-        else {
-            m_isWalkingToDestination = true;
-            m_forward = LerpSpeed(m_forward, 0.5f, 15.0f);
-            m_currentWaitTime = m_patrolSettings.waypoints[m_waypointIndex].waitTime;
-            m_currentLookTransform = null;
+    }
+
+    void FireAtEnemy() {
+        if (m_target != null) {
+            AttackBehavior();
+            LookAtPosition(m_target.position);
+
+            Vector3 start = transform.position + transform.up;
+            Vector3 dir = m_target.position - transform.position;
+            Ray ray = new Ray(start, dir);
+
+            if (Random.value <= m_enemyAttack.fireChance) {
+                m_weaponHandler.FireCurrentWeapon(ray);
+            }
         }
     }
 
@@ -199,9 +265,34 @@ public class EnemyNPCAI : MonoBehaviour {
         if (m_currentLookTransform != null && !m_isWalkingToDestination) {
             m_animator.SetLookAtPosition(m_currentLookTransform.position);
             m_animator.SetLookAtWeight(1.0f, 0.0f, 0.5f, 0.7f);
-        } else {
-            m_animator.SetLookAtWeight(0);
         }
+        //else {
+        //    m_animator.SetLookAtWeight(0);
+        //}
+        else if (m_target != null) {
+            float dist = Vector3.Distance(m_target.position, transform.position);
+            if (dist > 3) {
+                m_animator.SetLookAtPosition(m_target.position + (transform.right * 0.3f) );
+                m_animator.SetLookAtWeight(1.0f, 1.0f, 0.3f, 0.2f);
+            } else {
+                // FIXME: make a smooth transition to new LookAtPosition.
+                m_animator.SetLookAtPosition(m_target.position + m_target.up + (transform.right * 0.3f));
+                m_animator.SetLookAtWeight(1.0f, 1.0f, 0.3f, 0.2f);
+            }
+        }
+    }
+
+    void PatrolBehavior() {
+        m_aiming = false;
+    }
+
+    void AttackBehavior() {
+        m_aiming = true;
+        m_isWalkingToDestination = false;
+        m_setDestination = false;
+        m_reachedDestination = false;
+        m_currentLookTransform = null;
+        m_forward = LerpSpeed(m_forward, 0.0f, 15.0f);
     }
 
 }

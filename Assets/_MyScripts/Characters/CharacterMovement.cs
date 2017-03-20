@@ -5,8 +5,8 @@ using UnityEngine;
 [RequireComponent (typeof(Animator))]
 [RequireComponent (typeof(CharacterController))]
 public class CharacterMovement : MonoBehaviour {
-    private Animator m_animator;
-    private CharacterController m_characterController;
+    private Animator m_animator { get { return GetComponent<Animator>(); } set { m_animator = value; } }
+    private CharacterController m_characterController { get { return GetComponent<CharacterController>(); } set { m_characterController = value; } }
 
     [System.Serializable]
     public class AnimationSettings {
@@ -60,18 +60,20 @@ public class CharacterMovement : MonoBehaviour {
     }
 
     private void Awake() {
-        m_animator = GetComponent<Animator>();
+        // replaced by { get { return GetComponent<>(); } set { m_variableName = value; } } design pattern
+        //m_animator = GetComponent<Animator>();
 
         SetupAnimator();
     }
 
     // Use this for initialization
     void Start () {
-        m_characterController = GetComponent<CharacterController>();
-	}
-	
-	// Update is called once per frame
-	void Update () {
+        // replaced by { get { return GetComponent<>(); } set { m_variableName = value; } } design pattern
+        //m_characterController = GetComponent<CharacterController>();
+    }
+
+    // Update is called once per frame
+    void Update () {
         AirControl(m_forward, m_strafe);
 
         ApplyGravity();

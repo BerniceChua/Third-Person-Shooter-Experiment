@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class WeaponHandler : MonoBehaviour {
-    Animator m_animator;
-    SoundController m_soundControl;
+    private Animator m_animator { get { return GetComponent<Animator>(); } set { m_animator = value; } }
+    private SoundController m_soundControl;
+
+    public bool m_isAI;
 
     [System.Serializable]
     public class UserSettings {
@@ -27,12 +29,13 @@ public class WeaponHandler : MonoBehaviour {
     public int m_maxWeapons = 2;
 
     public bool m_aim; /*{ get; protected set; }*/
-    bool m_reload;
-    int m_weaponType;
-    bool m_settingWeapon;
+    public bool m_reload;
+
+    private int m_weaponType;
+    private bool m_settingWeapon;
 
 	// Use this for initialization
-	void Start () {
+	void OnEnable () {
         GameObject check = GameObject.FindGameObjectWithTag("SoundController");
 
         if (check != null) {
@@ -40,17 +43,20 @@ public class WeaponHandler : MonoBehaviour {
         }
         m_soundControl = GameObject.FindGameObjectWithTag("SoundController").GetComponent<SoundController>();
 
-        m_animator = GetComponent<Animator>();
+        /// instead of this in the Start() or Awake() or OnEnable(), you can just use the
+        /// "get"+"set" design pattern to initialize.
+        //m_animator = GetComponent<Animator>();
+
+        SetupWeapons();
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		if (m_currentWeapon) {
+
+    void SetupWeapons() {
+        if (m_currentWeapon) {
             m_currentWeapon.SetEquipped(true);
             m_currentWeapon.SetOwner(this);
             AddWeaponToList(m_currentWeapon);
 
-            m_currentWeapon.m_isOwnerAiming = m_aim;
+            //m_currentWeapon.m_isOwnerAiming = m_aim;
 
             if (m_currentWeapon.m_ammo.clipAmmo <= 0)
                 Reload();
@@ -71,6 +77,10 @@ public class WeaponHandler : MonoBehaviour {
             }
         }
 
+    }
+
+    // Update is called once per frame
+    void Update () {
         AnimateWeaponHandling();
 	}
 
@@ -188,6 +198,9 @@ public class WeaponHandler : MonoBehaviour {
         // these 2 stops animations from constantly changing weapon & glitching out the IK & helps disable the IK when switching weapons so hand doesn't go through body.
         m_settingWeapon = true;
         StartCoroutine(StopSettingWeapon());
+
+        // refreshes whenever player switch weapons.
+        SetupWeapons();
     }
 
     IEnumerator StopSettingWeapon() {
@@ -200,8 +213,10 @@ public class WeaponHandler : MonoBehaviour {
             Debug.Log("No animator for weapon handler");
             return;
         }
-        
-        if (m_currentWeapon && m_currentWeapon.m_userSettings.leftHandIKTarget && m_weaponType == 2 && !m_reload && !m_settingWeapon) {
+
+        // alternate version:
+        if (m_currentWeapon && m_currentWeapon.m_userSettings.leftHandIKTarget && m_weaponType == 2 && !m_reload && !m_settingWeapon && !m_isAI) {
+        //if (m_currentWeapon && m_currentWeapon.m_userSettings.leftHandIKTarget && m_weaponType == 2 && !m_reload && !m_settingWeapon) {
             m_animator.SetIKPositionWeight(AvatarIKGoal.LeftHand, 1);
             m_animator.SetIKRotationWeight(AvatarIKGoal.LeftHand, 1);
 

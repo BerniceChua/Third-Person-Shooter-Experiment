@@ -264,13 +264,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1462519727546322}
-  m_LocalRotation: {x: 0.9007318, y: 0.17839299, z: 0.21138476, w: 0.3349249}
-  m_LocalPosition: {x: -0.43, y: 0.008, z: 0.434}
+  m_LocalRotation: {x: 0.94285953, y: -0.1133331, z: 0.3104988, w: 0.04197642}
+  m_LocalPosition: {x: -0.43, y: -0.05, z: 0.73}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4721098777291658}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 31.866001, y: 143.908, z: 146.96701}
+  m_LocalEulerAnglesHint: {x: 8.6, y: 144.37, z: 190.94}
 --- !u!4 &4243325813266604
 Transform:
   m_ObjectHideFlags: 1
@@ -374,8 +374,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1503042587349638}
-  m_LocalRotation: {x: 0.039430175, y: -0.012946616, z: 0.5059701, w: 0.86155206}
-  m_LocalPosition: {x: 0.08549053, y: 1.4402993, z: -0.14256836}
+  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: -0.099, y: 0.412, z: 0.028}
   m_LocalScale: {x: 0.15000013, y: 0.15000021, z: 0.15000023}
   m_Children:
   - {fileID: 4306192641531110}
@@ -637,7 +637,7 @@ MonoBehaviour:
     fireRate: 0.2
     bulletLayers:
       serializedVersion: 2
-      m_Bits: 8977
+      m_Bits: 13073
     range: 700
     muzzleFlash: {fileID: 1292596104732164, guid: 508a8b975687ddc42bbd16902f6738a9,
       type: 2}

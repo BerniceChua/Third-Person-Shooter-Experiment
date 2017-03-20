@@ -64,8 +64,8 @@ public class CameraRig : MonoBehaviour {
     Camera m_mainCamera;
 
     // values that will be passed when we move the mouse
-    float m_newX = 0.0f;
-    float m_newY = 0.0f;
+    private float m_newX = 0.0f;
+    private float m_newY = 0.0f;
 
     // Use this for initialization
     void Start () {
