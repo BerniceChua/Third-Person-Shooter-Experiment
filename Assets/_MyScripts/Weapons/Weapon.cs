@@ -5,11 +5,11 @@ using UnityEngine;
 [RequireComponent (typeof(Collider))]
 [RequireComponent (typeof(Rigidbody))]
 public class Weapon : MonoBehaviour {
-    Collider m_collider;
-    Rigidbody m_rigidbody;
-    Animator m_animator;
+    private Collider m_collider { get { return GetComponent<Collider>(); }  set { m_collider = value; } }
+    private Rigidbody m_rigidbody { get { return GetComponent<Rigidbody>(); } set { m_rigidbody = value; } }
+    private Animator m_animator { get { return GetComponent<Animator>(); } set { m_animator = value; } }
 
-    SoundController m_soundControl;
+    private SoundController m_soundControl;
 
     public enum WeaponType {
         Pistol,
@@ -101,11 +101,12 @@ public class Weapon : MonoBehaviour {
         if (check != null) {
             m_soundControl = check.GetComponent<SoundController>();
         }
-        m_soundControl = GameObject.FindGameObjectWithTag("SoundController").GetComponent<SoundController>();
+        //m_soundControl = GameObject.FindGameObjectWithTag("SoundController").GetComponent<SoundController>();
 
-        m_collider = GetComponent<Collider>();
-        m_rigidbody = GetComponent<Rigidbody>();
-        m_animator = GetComponent<Animator>();
+        // replaced with the { get { return GetComponent<>(); } set { m_nameOfMemberVariable = value; } } design pattern
+        //m_collider = GetComponent<Collider>();
+        //m_rigidbody = GetComponent<Rigidbody>();
+        //m_animator = GetComponent<Animator>();
 
         // this was moved to UserInput.cs
         //if (m_weaponSettings.crosshairPrefab != null) {
@@ -169,9 +170,16 @@ public class Weapon : MonoBehaviour {
         Vector3 dir = ray.GetPoint(m_weaponSettings.range) - bSpawnPoint;
 
         dir += (Vector3)Random.insideUnitCircle * m_weaponSettings.bulletSpread;
+        Debug.DrawRay(bSpawnPoint, dir, Color.green);
 
         if (Physics.Raycast(bSpawnPoint, dir, out hit, m_weaponSettings.range, m_weaponSettings.bulletLayers)) {
             HitEffects(hit);
+
+            // we're dealing with bodyparts, so it's hit.transform.root (the root obj of the transform that we hit) and not hit.collider
+            if (hit.transform.root.GetComponent<CharacterStats>()) {
+                hit.transform.root.SendMessage("Damage", m_weaponSettings.damage);
+            }
+
         }
 
         GunEffects();

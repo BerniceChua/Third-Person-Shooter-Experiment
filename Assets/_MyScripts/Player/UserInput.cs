@@ -32,8 +32,8 @@ public class UserInput : MonoBehaviour {
 
     public bool m_debugAim; // helps us to position spine correctly
     public Transform m_spine;
-    bool m_aiming;
-    Weapon m_weapon;
+    private bool m_aiming;
+    private Weapon m_weapon;
 
     //Camera m_mainCam;
     public Camera m_thirdPersonCam;
@@ -182,7 +182,7 @@ public class UserInput : MonoBehaviour {
             //Debug.DrawRay(aimRay.origin, aimRay.direction);
             //m_weaponhandler.m_currentWeapon.m_shootRay = aimRay;
 
-            if (Input.GetButton(m_input.fireButton) && m_aiming)
+            if (Input.GetButton(m_input.fireButton) && m_aiming && !m_weaponHandler.m_reload)
                 m_weaponHandler.FireCurrentWeapon(aimRay);
 
             if (Input.GetButtonDown(m_input.reloadButton))
@@ -249,7 +249,10 @@ public class UserInput : MonoBehaviour {
         //Vector3 dir = bulletSpawn.forward;
         Vector3 dir = ray.GetPoint(currentWeapon.m_weaponSettings.range) - bSpawnPoint;
 
-        if (Physics.Raycast(bSpawnPoint, dir, out hit, currentWeapon.m_weaponSettings.range, currentWeapon.m_weaponSettings.bulletLayers)) {
+        //Debug.DrawRay(bSpawnPoint, dir, Color.red);
+        //if (Physics.Raycast(bSpawnPoint, dir, out hit, currentWeapon.m_weaponSettings.range, currentWeapon.m_weaponSettings.bulletLayers)) {
+        if (Physics.Raycast(bSpawnPoint, dir, out hit, currentWeapon.m_weaponSettings.range, m_other.aimDetectionLayers)) {
+            Debug.Log(hit.collider.name + " at " + Time.deltaTime);
 
             // prevents us from getting errors
             if (crosshairPrefab != null) {
