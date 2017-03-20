@@ -56,6 +56,7 @@ GameObject:
   - component: {fileID: 65653925007698088}
   - component: {fileID: 114695433389931058}
   - component: {fileID: 82103072317110448}
+  - component: {fileID: 114347199188418038}
   m_Layer: 0
   m_Name: "\u041C\u0430\u043A\u0430\u0440\u043E\u0432 (Prefab)"
   m_TagString: Untagged
@@ -153,7 +154,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1273685263252460}
   m_LocalRotation: {x: -0.018178426, y: 0.72050595, z: 0.6929528, w: -0.01889865}
-  m_LocalPosition: {x: 0.23154074, y: 0.89368147, z: 0.0058475602}
+  m_LocalPosition: {x: 0.23154074, y: 3.9096816, z: 0.0058475602}
   m_LocalScale: {x: 0.029999997, y: 0.030000024, z: 0.03000002}
   m_Children:
   - {fileID: 4193109765037622}
@@ -251,7 +252,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1135532737374506}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0.02, y: 2.01, z: -3.93}
+  m_LocalPosition: {x: 0.02, y: 2.182, z: -3.93}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4113212790997042}
@@ -571,6 +572,18 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114347199188418038
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1273685263252460}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abf29123d571e5342a8b1da9c510d98d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletSpawn: {fileID: 4964543154462294}
 --- !u!114 &114695433389931058
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -593,7 +606,7 @@ MonoBehaviour:
     fireRate: 0.2
     bulletLayers:
       serializedVersion: 2
-      m_Bits: 8209
+      m_Bits: 13073
     range: 400
     muzzleFlash: {fileID: 1292596104732164, guid: 508a8b975687ddc42bbd16902f6738a9,
       type: 2}
