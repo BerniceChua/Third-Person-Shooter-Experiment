@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class AssaultRifle : Shooter {
 
-    public override void Fire() {
-        base.Fire();
+    public override void FireWeapon() {
+        base.FireWeapon();
 
         if (m_canFire) {
             // We can fire the gun.

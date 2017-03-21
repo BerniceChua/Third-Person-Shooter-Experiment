@@ -14,7 +14,8 @@ public class PlayerShoot : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (GameManager.GameManagerInstance.InputController.m_fire1) {
-            m_assaultRifle.Fire();
+            //Debug.Log("m_fire1 = " + GameManager.GameManagerInstance.InputController.m_fire1 + " at " + Time.time);
+            m_assaultRifle.FireWeapon();
         }
 	}
 }
