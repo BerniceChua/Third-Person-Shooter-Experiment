@@ -21,6 +21,14 @@ public class Projectile : MonoBehaviour {
     private void OnTriggerEnter(Collider other) {
         //print("Projectile collided at time " + Time.time);
         //print("Projectile has hit " + other.name);
+
+        var destructable = other.transform.GetComponent<Destructable>();
+
+        if (destructable == null)
+            //if (!destructable) // this one won't work, it really needs to be "destructible == null" in order for TakeDamage(float damageAmount) to trigger OnDeath() event.
+            return;
+
+        destructable.TakeDamage(m_damage);
     }
 
 }

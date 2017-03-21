@@ -7,6 +7,7 @@ public class Shooter : MonoBehaviour {
     [SerializeField] float m_rateOfFire;
     [SerializeField] Projectile m_projectile;
 
+    /// NOTE: this "Muzzle" game object MUST be on the same hierarchy level as the game object that has this script.  If it's a child in the hierarchy, it won't work even with transform.FindChild();
     [HideInInspector] public Transform m_muzzle { get { return transform.Find("Muzzle"); } set { m_muzzle = value; } }
     //[HideInInspector] public Transform m_muzzle;
     [HideInInspector] public bool m_canFire;
@@ -15,11 +16,12 @@ public class Shooter : MonoBehaviour {
 
 	// Use this for initialization
 	void Awake () {
+        /// NOTE: this "Muzzle" game object MUST be on the same hierarchy level as the game object that has this script.  If it's a child in the hierarchy, it won't work even with transform.FindChild();
         //m_muzzle = transform.Find("Muzzle");
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update () {
 		
 	}
 
