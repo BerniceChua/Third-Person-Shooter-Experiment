@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class GameManager {
 
+    public event System.Action<Player> OnLocalPlayerJoined;
+
     private GameObject gameObject;
 
     private static GameManager m_gameManagerInstance;
@@ -30,4 +32,21 @@ public class GameManager {
             return m_InputController;
         }
     }
+
+    /// If the player is ready, it will notify the Game Manager.
+    /// The Game Manager will have an event.
+    /// Any other classes that uses this event will get a notification from the player.
+    private Player m_localPlayer;
+    public Player LocalPlayer {
+        get {
+            return m_localPlayer;
+        }
+        set {
+            m_localPlayer = value;
+            if (OnLocalPlayerJoined != null) {
+                OnLocalPlayerJoined(m_localPlayer);
+            }
+        }
+    }
+
 }
