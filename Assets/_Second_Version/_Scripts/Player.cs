@@ -56,7 +56,7 @@ public class Player : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-        Vector2 direction = new Vector2(m_playerInput.m_horizontal * m_speed, m_playerInput.m_vertical * m_speed);
+        Vector2 direction = new Vector2(m_playerInput.m_vertical * m_speed, m_playerInput.m_horizontal * m_speed);
         MoveController.Move(direction);
 
         m_mouseInput.x = Mathf.Lerp(m_mouseInput.x, m_playerInput.m_mouseInput.x, 1.0f/m_mouseControl.Damping.x);
