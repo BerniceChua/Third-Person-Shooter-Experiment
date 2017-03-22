@@ -13,7 +13,10 @@ public class InputController : MonoBehaviour {
     //public float m_vertical;
     //public float m_horizontal;
     public Vector2 m_mouseInput;
-    public bool m_fire1;
+    //public bool m_fire1;
+    public bool m_fire1 { get { return Input.GetButton("Fire1"); } }
+    //public bool m_reload;
+    public bool m_reload { get { return Input.GetButtonDown("Reload"); } set { m_reload = value; } }
 
     // Use this for initialization
     void Start () {
@@ -25,7 +28,8 @@ public class InputController : MonoBehaviour {
         //m_vertical = Input.GetAxis("Vertical");
         //m_horizontal = Input.GetAxis("Horizontal");
         m_mouseInput = new Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y"));
-        m_fire1 = Input.GetButton("Fire1");
+        //m_fire1 = Input.GetButton("Fire1");
+        //m_reload = Input.GetButtonDown("Reload");
     }
 
 }

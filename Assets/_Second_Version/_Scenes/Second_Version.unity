@@ -808,6 +808,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1895292475}
   - component: {fileID: 1895292476}
+  - component: {fileID: 1895292477}
   m_Layer: 0
   m_Name: AssaultRifleGameObject
   m_TagString: Untagged
@@ -841,10 +842,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2dbdf290050a4141a410364e2c01dc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_rateOfFire: 0.3
+  m_rateOfFire: 0.2
   m_projectile: {fileID: 114496019124258846, guid: f014e07265d681f438900d14bd2a50b1,
     type: 2}
   m_canFire: 0
+--- !u!114 &1895292477
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1895292474}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 937743b1caec5744d996ef2a9cb65cfc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_MaxAmmo: 120
+  m_ReloadTime: 2
+  m_ClipSize: 12
+  m_shotsFiredInClip: 0
 --- !u!1 &2003167705
 GameObject:
   m_ObjectHideFlags: 0
@@ -939,6 +955,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_hitPoints: 5
+  inSeconds: 5
 --- !u!1 &2012238278
 GameObject:
   m_ObjectHideFlags: 0
