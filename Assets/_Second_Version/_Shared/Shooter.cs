@@ -6,11 +6,15 @@ public class Shooter : MonoBehaviour {
 
     [SerializeField] float m_rateOfFire;
     [SerializeField] Projectile m_projectile;
+    [SerializeField] Transform m_hand;
+
+    [HideInInspector] public bool m_canFire;
 
     /// NOTE: this "Muzzle" game object MUST be on the same hierarchy level as the game object that has this script.  If it's a child in the hierarchy, it won't work even with transform.FindChild();
     //[HideInInspector] public Transform m_muzzle;
-    [HideInInspector] public Transform m_muzzle { get { return transform.Find("Muzzle"); } set { m_muzzle = value; } }
-    [HideInInspector] public bool m_canFire;
+    //[HideInInspector] public Transform m_muzzle { get { return transform.Find("Muzzle"); } set { m_muzzle = value; } }
+    /// In the refactor, we changed m_muzzle to private.
+    Transform m_muzzle { get { return transform.Find("Muzzle"); } set { m_muzzle = value; } }
 
     //WeaponReloader m_reloader;
     WeaponReloader m_reloader { get { return GetComponent<WeaponReloader>(); } set { m_reloader = value; } }
@@ -23,6 +27,8 @@ public class Shooter : MonoBehaviour {
         //m_muzzle = transform.Find("Muzzle");
 
         //m_reloader = GetComponent<WeaponReloader>();
+
+        transform.SetParent(m_hand);
     }
 
     // Update is called once per frame
