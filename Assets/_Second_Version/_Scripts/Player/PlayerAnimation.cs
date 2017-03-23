@@ -17,7 +17,11 @@ public class PlayerAnimation : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        m_animator.SetFloat("Vertical", GameManager.GameManagerInstance.InputController.m_vertical);
-        m_animator.SetFloat("Horizontal", GameManager.GameManagerInstance.InputController.m_horizontal);
+        m_animator.SetFloat("Vertical", GameManager.GameManagerInstance.InputController.m_Vertical);
+        m_animator.SetFloat("Horizontal", GameManager.GameManagerInstance.InputController.m_Horizontal);
+
+        m_animator.SetBool("IsWalking", GameManager.GameManagerInstance.InputController.m_IsWalking);
+        m_animator.SetBool("IsSprinting", GameManager.GameManagerInstance.InputController.m_IsSprinting);
+        m_animator.SetBool("IsCrouched", GameManager.GameManagerInstance.InputController.m_IsCrouched);
     }
 }

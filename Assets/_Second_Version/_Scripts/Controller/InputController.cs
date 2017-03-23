@@ -4,19 +4,34 @@ using UnityEngine;
 
 public class InputController : MonoBehaviour {
 
-    public float m_vertical { get { return Input.GetAxis("Vertical"); } /*set { m_vertical = value; }*/ }
-    public float m_horizontal { get { return Input.GetAxis("Horizontal"); } /*set { m_horizontal = value; }*/ }
-
-    // this does not work, gives " error CS0119: Expression denotes a `type', where a `variable', `value' or `method group' was expected"
-    //public Vector2 m_mouseInput { get { return Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y")); } set { m_mouseInput = value; } }
-
     //public float m_vertical;
+    public float m_Vertical { get { return Input.GetAxis("Vertical"); } /*set { m_Vertical = value; }*/ }
+    
     //public float m_horizontal;
-    public Vector2 m_mouseInput;
+    public float m_Horizontal { get { return Input.GetAxis("Horizontal"); } /*set { m_Horizontal = value; }*/ }
+
+    //public Vector2 m_mouseInput;
+    // this does not work without "new" in front of "Vector2", gives " error CS0119: Expression denotes a `type', where a `variable', `value' or `method group' was expected"
+    public Vector2 m_MouseInput { get { return new Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y")); } set { m_MouseInput = value; } }
+
     //public bool m_fire1;
-    public bool m_fire1 { get { return Input.GetButton("Fire1"); } }
+    public bool m_Fire1 { get { return Input.GetButton("Fire1"); } }
+    
     //public bool m_reload;
-    public bool m_reload { get { return Input.GetButtonDown("Reload"); } set { m_reload = value; } }
+    //public bool m_Reload { get { return Input.GetButtonDown("Reload"); } set { m_Reload = value; } }
+    public bool m_Reload { get { return Input.GetButton("Reload"); } set { m_Reload = value; } }
+
+    //public bool m_IsWalking;
+    public bool m_IsWalking { get { return Input.GetButton("Walk"); } set { m_IsWalking = value; } }
+
+    //public bool m_IsRunning;
+    public bool m_IsRunning { get { return Input.GetButton("Run"); } set { m_IsRunning = value; } }
+
+    //public bool m_IsSprinting;
+    public bool m_IsSprinting { get { return Input.GetButton("Sprint"); } set { m_IsSprinting = value; } }
+
+    //public bool m_IsCrouched;
+    public bool m_IsCrouched { get { return Input.GetButton("Crouch"); } set { m_IsCrouched = value; } }
 
     // Use this for initialization
     void Start () {
@@ -25,11 +40,15 @@ public class InputController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        //m_vertical = Input.GetAxis("Vertical");
-        //m_horizontal = Input.GetAxis("Horizontal");
-        m_mouseInput = new Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y"));
-        //m_fire1 = Input.GetButton("Fire1");
-        //m_reload = Input.GetButtonDown("Reload");
+        //m_Vertical = Input.GetAxis("Vertical");
+        //m_Horizontal = Input.GetAxis("Horizontal");
+        //m_MouseInput = new Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y"));
+        //m_Fire1 = Input.GetButton("Fire1");
+        //m_Reload = Input.GetButtonDown("Reload");
+        //m_IsWalking = Input.GetButton("Walk");
+        //m_IsRunning = Input.GetButton("Run");
+        //m_IsSprinting = Input.GetButton("Sprint");
+        //m_IsCrouched = Input.GetButton("Crouch");
     }
 
 }

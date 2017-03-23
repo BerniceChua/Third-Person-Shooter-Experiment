@@ -1266,7 +1266,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_cameraOffset: {x: 1, y: 1, z: -6}
-  m_damping: 10
+  m_damping: 20
 --- !u!1 &488382178
 GameObject:
   m_ObjectHideFlags: 0
@@ -1552,10 +1552,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8a3fea9ba908324cb757c998beb5243, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_speed: 5
+  m_runSpeed: 5
+  m_walkSpeed: 2
+  m_crouchSpeed: 1
+  m_sprintSpeed: 10
   m_mouseControl:
     Damping: {x: 5, y: 2}
     Sensitivity: {x: 2, y: 6}
+    LockMouse: 0
 --- !u!114 &552827959
 MonoBehaviour:
   m_ObjectHideFlags: 0
