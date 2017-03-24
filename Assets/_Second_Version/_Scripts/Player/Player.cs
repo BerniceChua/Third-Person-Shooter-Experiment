@@ -26,9 +26,13 @@ public class Player : MonoBehaviour {
     public class MouseInput {
         public Vector2 Damping;
         public Vector2 Sensitivity;
+        public bool LockMouse;
     }
 
-    [SerializeField] float m_speed;
+    [SerializeField] float m_runSpeed;
+    [SerializeField] float m_walkSpeed;
+    [SerializeField] float m_crouchSpeed;
+    [SerializeField] float m_sprintSpeed;
     [SerializeField] MouseInput m_mouseControl;
 
     private MoveController m_moveController;
@@ -62,18 +66,45 @@ public class Player : MonoBehaviour {
         /// When player joins the game, GameManager will set local player as this player.
         /// Then it will raise the OnLocalPlayerJoined(m_localPlayer) event.
         GameManager.GameManagerInstance.LocalPlayer = this;
+
+        if (m_mouseControl.LockMouse) {
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
+        }
+
     }
 
     // Update is called once per frame
     void Update() {
-        Vector2 direction = new Vector2(m_playerInput.m_vertical * m_speed, m_playerInput.m_horizontal * m_speed);
-        MoveController.Move(direction);
+        Move();
 
-        m_mouseInput.x = Mathf.Lerp(m_mouseInput.x, m_playerInput.m_mouseInput.x, 1.0f/m_mouseControl.Damping.x);
-        m_mouseInput.y = Mathf.Lerp(m_mouseInput.y, m_playerInput.m_mouseInput.y, 1.0f/m_mouseControl.Damping.y);
+        MouseLookAroundControl();
+    }
+
+    void Move() {
+        float moveSpeed = m_runSpeed;
+
+        if (m_playerInput.m_IsWalking)
+            moveSpeed = m_walkSpeed;
+
+        if (m_playerInput.m_IsSprinting)
+            moveSpeed = m_sprintSpeed;
+
+        if (m_playerInput.m_IsCrouched)
+            moveSpeed = m_crouchSpeed;
+
+        Vector2 direction = new Vector2(m_playerInput.m_Vertical * moveSpeed, m_playerInput.m_Horizontal * moveSpeed);
+        MoveController.Move(direction);
+    }
+
+    private void MouseLookAroundControl() {
+        m_mouseInput.x = Mathf.Lerp(m_mouseInput.x, m_playerInput.m_MouseInput.x, 1.0f / m_mouseControl.Damping.x);
+        m_mouseInput.y = Mathf.Lerp(m_mouseInput.y, m_playerInput.m_MouseInput.y, 1.0f / m_mouseControl.Damping.y);
 
         transform.Rotate(Vector3.up * m_mouseInput.x * m_mouseControl.Sensitivity.x);
 
         Crosshair.LookHeight(m_mouseInput.y * m_mouseControl.Sensitivity.y);
     }
+
+
 }
