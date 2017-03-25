@@ -3,17 +3,27 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class WeaponReloader : MonoBehaviour {
-    [SerializeField] int m_MaxAmmo;
-    [SerializeField] float m_ReloadTime;
-    [SerializeField] int m_ClipSize;
+    [SerializeField] int m_maxAmmo;
+    [SerializeField] float m_reloadTime;
+    [SerializeField] int m_clipSize;
 
-    int m_ammoCount;
-    [HideInInspector] public int m_shotsFiredInClip;
-    bool m_isReloading;
+    [SerializeField] Container m_inventory;
 
-	// Use this for initialization
-	void Start () {
-		
+    // removed in refactor because m_ammoCount was replaced by putting a parameter in ExecuteReload();
+    //int m_ammoCount;
+
+    /*[HideInInspector]*/ public int m_shotsFiredInClip;
+    [SerializeField] bool m_isReloading;
+
+    System.Guid m_containerItemId;
+    /// Cannot use the "get-set" design pattern on this, because
+    ///    #1) the m_containerItemId will not appear in the inspector right away as soon as the game starts.  It only puts this in the inspector when you reload.
+    ///    #2) after you first reload, each time you reload, it adds a new "m_containerItemId = m_inventory.Add(this.name, m_maxAmmo);" instead of reusing the current one.
+    //System.Guid m_containerItemId { get { return m_inventory.Add(this.name, m_maxAmmo); } set { m_containerItemId = value; } }
+
+    // Use this for initialization
+    void Awake () {
+        m_containerItemId = m_inventory.Add(this.name, m_maxAmmo);
 	}
 	
 	// Update is called once per frame
@@ -22,7 +32,7 @@ public class WeaponReloader : MonoBehaviour {
 	}
 
     public int RoundsRemainingInClip {
-        get { return m_ClipSize - m_shotsFiredInClip; }
+        get { return m_clipSize - m_shotsFiredInClip; }
     }
 
     public bool IsReloading {
@@ -34,22 +44,38 @@ public class WeaponReloader : MonoBehaviour {
             return;
 
         m_isReloading = true;
-        Debug.Log("Reload started at time " + Time.time);
-        GameManager.GameManagerInstance.Timer.Add(ExecuteReload, m_ReloadTime);
+        //Debug.Log("Reload started at time " + Time.time);
+
+        int amountFromInventory = m_inventory.TakeFromContainer(m_containerItemId, m_clipSize - RoundsRemainingInClip);
+
+        GameManager.GameManagerInstance.Timer.Add(() => { ExecuteReload(amountFromInventory); }, m_reloadTime);
     }
 
-    void ExecuteReload() {
+    //void ExecuteReload() {
+    //    Debug.Log("Reload executed at time " + Time.time);
+
+    //    m_isReloading = false;
+
+    //    m_ammoCount -= m_shotsFiredInClip;
+    //    m_shotsFiredInClip = 0;
+
+    //    if (m_ammoCount < 0) {
+    //        m_ammoCount = 0;
+    //        m_shotsFiredInClip += -m_ammoCount;
+    //    }
+    //}
+
+    void ExecuteReload(int amountToReload) {
         Debug.Log("Reload executed at time " + Time.time);
 
         m_isReloading = false;
 
-        m_ammoCount -= m_shotsFiredInClip;
-        m_shotsFiredInClip = 0;
+        m_shotsFiredInClip -= amountToReload;
 
-        if (m_ammoCount < 0) {
-            m_ammoCount = 0;
-            m_shotsFiredInClip += -m_ammoCount;
-        }
+        /// The if-statement was removed because the logic was already handled by 
+        /// () => { ExecuteReload(amountFromInventory); } in 
+        /// GameManager.GameManagerInstance.Timer.Add(() => { ExecuteReload(amountFromInventory); }, m_reloadTime);
+        
     }
 
     public void TakeFromClip(int ammoAmount) {

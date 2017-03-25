@@ -8,7 +8,7 @@ public class Shooter : MonoBehaviour {
     [SerializeField] Projectile m_projectile;
     [SerializeField] Transform m_hand;
 
-    [HideInInspector] public bool m_canFire;
+    /*[HideInInspector]*/ public bool m_canFire = true;
 
     /// NOTE: this "Muzzle" game object MUST be on the same hierarchy level as the game object that has this script.  If it's a child in the hierarchy, it won't work even with transform.FindChild();
     //[HideInInspector] public Transform m_muzzle;
@@ -48,6 +48,7 @@ public class Shooter : MonoBehaviour {
     /// </summary>
     public virtual void FireWeapon() {
         m_canFire = false;
+        //m_canFire = true;
 
         if (Time.time < m_timeBeforeNextFireAllowed)
             return;

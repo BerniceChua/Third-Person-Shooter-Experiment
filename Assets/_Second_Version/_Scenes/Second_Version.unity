@@ -1538,6 +1538,7 @@ Transform:
   - {fileID: 447867597}
   - {fileID: 1436552483}
   - {fileID: 200484045}
+  - {fileID: 1159835499}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2858,6 +2859,47 @@ Transform:
   m_Father: {fileID: 1028753036}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1159835498
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1159835499}
+  - component: {fileID: 1159835500}
+  m_Layer: 0
+  m_Name: InventoryGameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1159835499
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1159835498}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 552827957}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1159835500
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1159835498}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 847a710b863649f41acb04ccd3fe8159, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_items: []
 --- !u!1 &1165935514
 GameObject:
   m_ObjectHideFlags: 0
@@ -3754,7 +3796,7 @@ Prefab:
     - target: {fileID: 54529200310797236, guid: 76558e83255221c4fb0f48934a6fb134,
         type: 2}
       propertyPath: m_UseGravity
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114998294860033334, guid: 76558e83255221c4fb0f48934a6fb134,
         type: 2}
@@ -4202,9 +4244,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 937743b1caec5744d996ef2a9cb65cfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_MaxAmmo: 120
-  m_ReloadTime: 2
-  m_ClipSize: 12
+  m_maxAmmo: 10
+  m_reloadTime: 0.3
+  m_clipSize: 10
+  m_inventory: {fileID: 1159835500}
   m_shotsFiredInClip: 0
 --- !u!1 &1931319605
 GameObject:
