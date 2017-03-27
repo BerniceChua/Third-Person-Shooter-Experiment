@@ -27,12 +27,20 @@ public class PlayerShoot : MonoBehaviour {
         m_weaponHolster = transform.FindChild("WeaponsGameObject");
         m_weaponsArray = m_weaponHolster.GetComponentsInChildren<Shooter>();
         
+        Debug.Log("m_currentWeaponIndex = " + m_currentWeaponIndex);
+        Debug.Log("m_weaponsArray[" + m_currentWeaponIndex + "]" + m_weaponsArray[m_currentWeaponIndex]);
+
         Debug.Log(m_weaponsArray.Length);
+
+        /// Refactored into the line below
+        //if (m_weaponsArray.Length > 0)
+        //    m_activeWeapon = m_weaponsArray[0];
+
+        //EquipWeapon(m_currentWeaponIndex);
+
         if (m_weaponsArray.Length > 0)
-            m_activeWeapon = m_weaponsArray[0];
-
-
-	}
+            EquipWeapon(0);
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -50,6 +58,18 @@ public class PlayerShoot : MonoBehaviour {
             m_activeWeapon.FireWeapon();
         }
 	}
+
+    void EquipWeapon(int index) {
+        /// Each time a weapon is equipped, we deactivate all the weapons, and only activate the selected weapon.
+        DeactivateWeapon();
+
+        m_canFire = true;
+        m_activeWeapon = m_weaponsArray[index];
+
+        m_activeWeapon.Equip();
+
+        m_weaponsArray[index].gameObject.SetActive(true);
+    }
 
     void DeactivateWeapon() {
         for (int i = 0; i < m_weaponsArray.Length; i++) {
@@ -73,15 +93,4 @@ public class PlayerShoot : MonoBehaviour {
         GameManager.GameManagerInstance.Timer.Add(() => { EquipWeapon(m_currentWeaponIndex); }, m_weaponSwitchTime);
     }
 
-    void EquipWeapon(int index) {
-        /// Each time a weapon is equipped, we deactivate all the weapons, and only activate the selected weapon.
-        DeactivateWeapon();
-
-        m_canFire = true;
-        m_activeWeapon = m_weaponsArray[index];
-
-        m_activeWeapon.Equip();
-
-        m_weaponsArray[index].gameObject.SetActive(true);
-    }
 }

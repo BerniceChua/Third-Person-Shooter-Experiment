@@ -83,6 +83,7 @@ public class Shooter : MonoBehaviour {
         m_timeBeforeNextFireAllowed = Time.time + m_rateOfFire;
 
         print("Firing weapon at " + Time.time);
+        Debug.Log("m_muzzle = " + m_muzzle );
         // Instantiate the projectile
         Instantiate(m_projectile, m_muzzle.position, m_muzzle.rotation);
 
