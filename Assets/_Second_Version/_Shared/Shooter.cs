@@ -14,21 +14,38 @@ public class Shooter : MonoBehaviour {
     //[HideInInspector] public Transform m_muzzle;
     //[HideInInspector] public Transform m_muzzle { get { return transform.Find("Muzzle"); } set { m_muzzle = value; } }
     /// In the refactor, we changed m_muzzle to private.
-    Transform m_muzzle { get { return transform.Find("Muzzle"); } set { m_muzzle = value; } }
+    Transform m_muzzle { get { return transform.Find("ModelPositionGameObject/Muzzle"); } set { m_muzzle = value; } }
 
     //WeaponReloader m_reloader;
     WeaponReloader m_reloader { get { return GetComponent<WeaponReloader>(); } set { m_reloader = value; } }
 
     float m_timeBeforeNextFireAllowed;
 
-	// Use this for initialization
-	void Awake () {
+    /// <summary>
+    /// When we have all the weapons, we make them all inactive.  Pls. see DeactivateWeapons() in PlayerShoot.cs.
+    /// </summary>
+    public void Equip() {
+        transform.SetParent(m_hand);
+        transform.localPosition = Vector3.zero;
+        transform.localRotation = Quaternion.identity;
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    private void OnDisable() {
+
+    }
+
+    // Use this for initialization
+    void Awake () {
         /// NOTE: this "Muzzle" game object MUST be on the same hierarchy level as the game object that has this script.  If it's a child in the hierarchy, it won't work even with transform.FindChild();
         //m_muzzle = transform.Find("Muzzle");
 
         //m_reloader = GetComponent<WeaponReloader>();
 
-        transform.SetParent(m_hand);
+        // Moved this to OnEnable()
+        //transform.SetParent(m_hand);
     }
 
     // Update is called once per frame

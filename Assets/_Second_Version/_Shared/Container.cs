@@ -19,7 +19,7 @@ public class Container : MonoBehaviour {
         }
 
         // Tells how much items are left in the container.
-        public int Remaining { get { return Maximum - amountTaken; } /*set { Remaining = value; }*/ }
+        public int Remaining { get { return Maximum - amountTaken; } set { Remaining = value; } }
 
         public int Get(int value) {
             if ( (amountTaken + value) > Maximum) {
@@ -43,9 +43,16 @@ public class Container : MonoBehaviour {
     public List<ContainerItem> m_items;
     //public List<ContainerItem> m_items { get { return new List<ContainerItem>(); } set { m_items = value; } }
 
+    public event System.Action OnContainerReady;
+
     // Use this for initialization
     void Awake () {
         m_items = new List<ContainerItem>();
+
+        if (OnContainerReady != null) {
+            Debug.Log("Initializing OnContainerReady();");
+            OnContainerReady();
+        }
     }
 	
 	// Update is called once per frame

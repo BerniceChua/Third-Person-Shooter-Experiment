@@ -23,8 +23,10 @@ public class WeaponReloader : MonoBehaviour {
 
     // Use this for initialization
     void Awake () {
-        m_containerItemId = m_inventory.Add(this.name, m_maxAmmo);
-	}
+        m_inventory.OnContainerReady += () => {
+            m_containerItemId = m_inventory.Add(this.name, m_maxAmmo);
+        };
+    }
 	
 	// Update is called once per frame
 	void Update () {
