@@ -5,7 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(AudioSource))]
 public class AudioController : MonoBehaviour {
 
-    [SerializeField] AudioClip[] m_audClips;
+    [SerializeField] AudioClip[] m_audioClips;
     [SerializeField] float m_timeDelayBetweenSounds;
 
     bool m_canPlay;
@@ -34,7 +34,8 @@ public class AudioController : MonoBehaviour {
 
         m_canPlay = false;
 
-        AudioClip selectedClip = Random.Range(0, m_audClips.Length);
+        int clipIndex = Random.Range(0, m_audioClips.Length);
+        AudioClip selectedClip = m_audioClips[clipIndex];
 
         // Plays the selected clip
         m_audSource.PlayOneShot(selectedClip);
