@@ -34,6 +34,10 @@ public class Player : MonoBehaviour {
     [SerializeField] float m_crouchSpeed;
     [SerializeField] float m_sprintSpeed;
     [SerializeField] MouseInput m_mouseControl;
+    [SerializeField] AudioController m_footsteps;
+    [SerializeField] float m_minimumMoveThreshold;
+
+    Vector3 m_previousPosition;
 
     private MoveController m_moveController;
     public MoveController MoveController {
@@ -95,6 +99,13 @@ public class Player : MonoBehaviour {
 
         Vector2 direction = new Vector2(m_playerInput.m_Vertical * moveSpeed, m_playerInput.m_Horizontal * moveSpeed);
         MoveController.Move(direction);
+
+        if (Vector3.Distance(transform.position, m_previousPosition) > m_minimumMoveThreshold /*direction != Vector2.zero*/) {
+            m_footsteps.Play();
+        }
+
+        m_previousPosition = transform.position;
+
     }
 
     private void MouseLookAroundControl() {

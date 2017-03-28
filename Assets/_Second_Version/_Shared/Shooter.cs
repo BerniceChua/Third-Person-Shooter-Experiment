@@ -8,6 +8,9 @@ public class Shooter : MonoBehaviour {
     [SerializeField] Projectile m_projectile;
     [SerializeField] Transform m_hand;
 
+    [SerializeField] AudioController m_audioReload;
+    [SerializeField] AudioController m_audioFireWeapon;
+
     /*[HideInInspector]*/ public bool m_canFire = true;
 
     /// NOTE: this "Muzzle" game object MUST be on the same hierarchy level as the game object that has this script.  If it's a child in the hierarchy, it won't work even with transform.FindChild();
@@ -58,6 +61,7 @@ public class Shooter : MonoBehaviour {
             return;
 
         m_reloader.Reload();
+        m_audioReload.Play();
     }
 
     /// <summary>
@@ -86,7 +90,7 @@ public class Shooter : MonoBehaviour {
         Debug.Log("m_muzzle = " + m_muzzle );
         // Instantiate the projectile
         Instantiate(m_projectile, m_muzzle.position, m_muzzle.rotation);
-
+        m_audioFireWeapon.Play();
         m_canFire = true;
 
     }
