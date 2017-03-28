@@ -8,7 +8,7 @@ public class AudioController : MonoBehaviour {
     [SerializeField] AudioClip[] m_audioClips;
     [SerializeField] float m_timeDelayBetweenSounds;
 
-    bool m_canPlay;
+    bool m_canPlay = true;
 
     //AudioSource m_audSource;
     AudioSource m_audSource { get { return GetComponent<AudioSource>(); } set { m_audSource = value; } }

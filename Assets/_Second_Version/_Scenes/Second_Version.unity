@@ -1562,6 +1562,8 @@ MonoBehaviour:
     Damping: {x: 5, y: 2}
     Sensitivity: {x: 2, y: 6}
     LockMouse: 0
+  m_footsteps: {fileID: 1730191860}
+  m_minimumMoveThreshold: 0.035
 --- !u!114 &552827959
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4321,7 +4323,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 8bc94ec6ed537e743b481638bdcd503d, type: 3}
   - {fileID: 8300000, guid: 5a9383dda6cabc047b7a297602e93eb4, type: 3}
   - {fileID: 8300000, guid: e9714160ce34f2b4ab63ff8c27bd68e1, type: 3}
-  m_timeDelayBetweenSounds: 0.3
+  m_timeDelayBetweenSounds: 0.25
 --- !u!82 &1730191861
 AudioSource:
   m_ObjectHideFlags: 0
