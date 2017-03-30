@@ -2062,32 +2062,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 54664166453695594, guid: 6c1fb3b38b32a7a4a89b0d4ec335f877,
-        type: 2}
-      propertyPath: m_UseGravity
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4113212790997042, guid: 6c1fb3b38b32a7a4a89b0d4ec335f877, type: 2}
-      propertyPath: m_LocalScale.x
-      value: 0.03
-      objectReference: {fileID: 0}
-    - target: {fileID: 4113212790997042, guid: 6c1fb3b38b32a7a4a89b0d4ec335f877, type: 2}
-      propertyPath: m_LocalScale.y
-      value: 0.030000027
-      objectReference: {fileID: 0}
-    - target: {fileID: 4113212790997042, guid: 6c1fb3b38b32a7a4a89b0d4ec335f877, type: 2}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4113212790997042, guid: 6c1fb3b38b32a7a4a89b0d4ec335f877, type: 2}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 65653925007698088, guid: 6c1fb3b38b32a7a4a89b0d4ec335f877,
-        type: 2}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6c1fb3b38b32a7a4a89b0d4ec335f877, type: 2}
   m_IsPrefabParent: 0
@@ -2525,10 +2499,6 @@ MonoBehaviour:
   - {fileID: 8300000, guid: f7c6e664b8dc8aa45bdaf8f98c4bbb92, type: 3}
   - {fileID: 8300000, guid: bb2853c6d9a16a8478a347ba926fcaeb, type: 3}
   - {fileID: 8300000, guid: 62ec22b6cda22004b9314f5a707e2777, type: 3}
-  - {fileID: 8300000, guid: c145aaa83d91d3c41ae1f6e4bd1a3299, type: 3}
-  - {fileID: 8300000, guid: 035c3f8fff030fb4a80c5cd26b0c72a6, type: 3}
-  - {fileID: 8300000, guid: 0fef29cb26ddfec4ca8dbdd1a6a239ba, type: 3}
-  - {fileID: 8300000, guid: 92de5bc53d847594091728154c327c9d, type: 3}
   m_timeDelayBetweenSounds: 0
 --- !u!82 &809612267
 AudioSource:
@@ -4593,6 +4563,7 @@ GameObject:
   - component: {fileID: 1524910431}
   - component: {fileID: 1524910430}
   - component: {fileID: 1524910429}
+  - component: {fileID: 1524910433}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -4685,6 +4656,18 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1524910427}
+--- !u!114 &1524910433
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1524910427}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de68cd7933c30b942a24b6cb791e5311, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_text: {fileID: 1524910431}
 --- !u!1 &1569647929
 GameObject:
   m_ObjectHideFlags: 0
@@ -4898,7 +4881,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2dbdf290050a4141a410364e2c01dc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_rateOfFire: 0.2
+  m_rateOfFire: 0.3
   m_projectile: {fileID: 114496019124258846, guid: f014e07265d681f438900d14bd2a50b1,
     type: 2}
   m_hand: {fileID: 1669461280}
@@ -5073,6 +5056,7 @@ GameObject:
   - component: {fileID: 1689206407}
   - component: {fileID: 1689206409}
   - component: {fileID: 1689206408}
+  - component: {fileID: 1689206410}
   m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
@@ -5132,6 +5116,18 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1689206406}
+--- !u!114 &1689206410
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1689206406}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de68cd7933c30b942a24b6cb791e5311, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_text: {fileID: 1524910431}
 --- !u!1 &1716776237
 GameObject:
   m_ObjectHideFlags: 0
@@ -5563,7 +5559,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2dbdf290050a4141a410364e2c01dc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_rateOfFire: 0.2
+  m_rateOfFire: 0.1
   m_projectile: {fileID: 114496019124258846, guid: f014e07265d681f438900d14bd2a50b1,
     type: 2}
   m_hand: {fileID: 1669461280}

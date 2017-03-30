@@ -21,6 +21,20 @@ public class WeaponReloader : MonoBehaviour {
     ///    #2) after you first reload, each time you reload, it adds a new "m_containerItemId = m_inventory.Add(this.name, m_maxAmmo);" instead of reusing the current one.
     //System.Guid m_containerItemId { get { return m_inventory.Add(this.name, m_maxAmmo); } set { m_containerItemId = value; } }
 
+    public event System.Action OnAmmoChanged;
+
+    public int RoundsRemainingInClip {
+        get { return m_clipSize - m_shotsFiredInClip; }
+    }
+
+    public int RoundsRemainingInInventory {
+        get { return m_inventory.GetAmountRemaining(m_containerItemId); }
+    }
+
+    public bool IsReloading {
+        get { return m_isReloading; }
+    }
+
     // Use this for initialization
     void Awake () {
         m_inventory.OnContainerReady += () => {
@@ -33,14 +47,6 @@ public class WeaponReloader : MonoBehaviour {
 		
 	}
 
-    public int RoundsRemainingInClip {
-        get { return m_clipSize - m_shotsFiredInClip; }
-    }
-
-    public bool IsReloading {
-        get { return m_isReloading; }
-    }
-
     public void Reload() {
         if (m_isReloading)
             return;
@@ -51,6 +57,7 @@ public class WeaponReloader : MonoBehaviour {
         int amountFromInventory = m_inventory.TakeFromContainer(m_containerItemId, m_clipSize - RoundsRemainingInClip);
 
         GameManager.GameManagerInstance.Timer.Add(() => { ExecuteReload(amountFromInventory); }, m_reloadTime);
+
     }
 
     //void ExecuteReload() {
@@ -69,6 +76,7 @@ public class WeaponReloader : MonoBehaviour {
 
     void ExecuteReload(int amountToReload) {
         Debug.Log("Reload executed at time " + Time.time);
+        Debug.Log("amountToReload = " + amountToReload);
 
         m_isReloading = false;
 
@@ -78,10 +86,15 @@ public class WeaponReloader : MonoBehaviour {
         /// () => { ExecuteReload(amountFromInventory); } in 
         /// GameManager.GameManagerInstance.Timer.Add(() => { ExecuteReload(amountFromInventory); }, m_reloadTime);
         
+        if (OnAmmoChanged != null)
+            OnAmmoChanged();
     }
 
     public void TakeFromClip(int ammoAmount) {
         m_shotsFiredInClip += ammoAmount;
+
+        if (OnAmmoChanged != null)
+            OnAmmoChanged();
     }
 
 }

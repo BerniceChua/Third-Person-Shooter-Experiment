@@ -50,6 +50,15 @@ public class Player : MonoBehaviour {
         }
     }
 
+    private PlayerShoot m_playerShoot;
+    public PlayerShoot PlayerShoot {
+        get {
+            if (m_playerShoot == null)
+                m_playerShoot = GetComponent<PlayerShoot>();
+            return m_playerShoot;
+        }
+    }
+
     private Crosshairs m_crosshair;
     private Crosshairs Crosshair {
         get {

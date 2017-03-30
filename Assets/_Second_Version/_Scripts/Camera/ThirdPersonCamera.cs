@@ -29,6 +29,9 @@ public class ThirdPersonCamera : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
+        if (!m_localPlayer)
+            return;
+
         // sets target of camera to be forward of local player and adds the camera offset.  (If z is negative, it will go behind the player.)
         Vector3 targetPosition = (m_cameraLookTarget.position + m_localPlayer.transform.forward * m_cameraOffset.z) + (m_localPlayer.transform.up * m_cameraOffset.y) + (m_localPlayer.transform.right * m_cameraOffset.x);
 

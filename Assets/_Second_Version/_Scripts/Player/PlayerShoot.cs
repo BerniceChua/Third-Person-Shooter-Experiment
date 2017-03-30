@@ -19,6 +19,8 @@ public class PlayerShoot : MonoBehaviour {
     Transform m_weaponHolster;
     //Transform m_weaponHolster { get { return transform.FindChild("WeaponsGameObject"); } set { m_weaponHolster = value; } }
 
+    public event System.Action<Shooter> OnWeaponSwitch;
+
     public Shooter ActiveWeapon { get { return m_activeWeapon; } }
 
 	// Use this for initialization
@@ -69,6 +71,9 @@ public class PlayerShoot : MonoBehaviour {
         m_activeWeapon.Equip();
 
         m_weaponsArray[index].gameObject.SetActive(true);
+        print("executing EquipWeapon()...");
+        if (OnWeaponSwitch != null)
+            OnWeaponSwitch(m_activeWeapon);
     }
 
     void DeactivateWeapon() {

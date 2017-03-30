@@ -20,7 +20,7 @@ public class Shooter : MonoBehaviour {
     Transform m_muzzle { get { return transform.Find("ModelPositionGameObject/Muzzle"); } set { m_muzzle = value; } }
 
     //WeaponReloader m_reloader;
-    WeaponReloader m_reloader { get { return GetComponent<WeaponReloader>(); } set { m_reloader = value; } }
+    [HideInInspector] public WeaponReloader m_reloader { get { return GetComponent<WeaponReloader>(); } set { m_reloader = value; } }
 
     float m_timeBeforeNextFireAllowed;
 
