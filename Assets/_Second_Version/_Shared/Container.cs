@@ -72,14 +72,41 @@ public class Container : MonoBehaviour {
         return m_items.Last().ID;
     }
 
+    /// <summary>
+    /// We're doing these next 3 functions/methods because we 
+    /// don't want to directly expose our container items as 
+    /// public variables.
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+
     public int TakeFromContainer(Guid id, int amount) {
         //ContainerItem containerItem = m_items.Where(x => x.ID == id).FirstOrDefault();
-        var containerItem = m_items.Where(x => x.ID == id).FirstOrDefault();
+        //var containerItem = m_items.Where(x => x.ID == id).FirstOrDefault();
+        // The above was changed when linking the UI to the containerItem.
+        var containerItem = GetContainerItem(id);
 
         if (containerItem == null)
             return -1;  // if less than one, that means the container item isn't in the list.
 
         return containerItem.Get(amount);
+    }
+
+    public int GetAmountRemaining(Guid id) {
+        var containerItem = GetContainerItem(id);
+
+        if (containerItem == null)
+            return -1;
+
+        return containerItem.Remaining;
+    }
+    private ContainerItem GetContainerItem(Guid id) {
+        var containerItem = m_items.Where(x => x.ID == id).FirstOrDefault();
+
+        if (containerItem == null)
+            return null;
+
+        return containerItem;
     }
 
 }
