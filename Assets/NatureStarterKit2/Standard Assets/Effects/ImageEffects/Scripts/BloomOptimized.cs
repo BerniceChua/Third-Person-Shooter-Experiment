@@ -6,21 +6,23 @@ namespace UnityStandardAssets.ImageEffects
     [ExecuteInEditMode]
     [RequireComponent (typeof(Camera))]
     [AddComponentMenu ("Image Effects/Bloom and Glow/Bloom (Optimized)")]
-    class BloomOptimized : UnityStandardAssets.ImageEffects.PostEffectsBase
+    public class BloomOptimized : PostEffectsBase
     {
 
-        public enum Resolution {
+        public enum Resolution
+		{
             Low = 0,
             High = 1,
         }
 
-        public enum BlurType {
+        public enum BlurType
+		{
             Standard = 0,
             Sgx = 1,
         }
 
         [Range(0.0f, 1.5f)]
-        public float threshhold = 0.25f;
+        public float threshold = 0.25f;
         [Range(0.0f, 2.5f)]
         public float intensity = 0.75f;
 
@@ -37,7 +39,8 @@ namespace UnityStandardAssets.ImageEffects
         private Material fastBloomMaterial = null;
 
 
-        public override bool CheckResources () {
+        public override bool CheckResources ()
+		{
             CheckSupport (false);
 
             fastBloomMaterial = CheckShaderAndCreateMaterial (fastBloomShader, fastBloomMaterial);
@@ -47,13 +50,16 @@ namespace UnityStandardAssets.ImageEffects
             return isSupported;
         }
 
-        void OnDisable () {
+        void OnDisable ()
+		{
             if (fastBloomMaterial)
                 DestroyImmediate (fastBloomMaterial);
         }
 
-        void OnRenderImage (RenderTexture source, RenderTexture destination) {
-            if (CheckResources() == false) {
+        void OnRenderImage (RenderTexture source, RenderTexture destination)
+		{
+            if (CheckResources() == false)
+			{
                 Graphics.Blit (source, destination);
                 return;
             }
@@ -61,7 +67,7 @@ namespace UnityStandardAssets.ImageEffects
             int divider = resolution == Resolution.Low ? 4 : 2;
             float widthMod = resolution == Resolution.Low ? 0.5f : 1.0f;
 
-            fastBloomMaterial.SetVector ("_Parameter", new Vector4 (blurSize * widthMod, 0.0f, threshhold, intensity));
+            fastBloomMaterial.SetVector ("_Parameter", new Vector4 (blurSize * widthMod, 0.0f, threshold, intensity));
             source.filterMode = FilterMode.Bilinear;
 
             var rtW= source.width/divider;
@@ -74,8 +80,9 @@ namespace UnityStandardAssets.ImageEffects
 
             var passOffs= blurType == BlurType.Standard ? 0 : 2;
 
-            for(int i = 0; i < blurIterations; i++) {
-                fastBloomMaterial.SetVector ("_Parameter", new Vector4 (blurSize * widthMod + (i*1.0f), 0.0f, threshhold, intensity));
+            for(int i = 0; i < blurIterations; i++)
+			{
+                fastBloomMaterial.SetVector ("_Parameter", new Vector4 (blurSize * widthMod + (i*1.0f), 0.0f, threshold, intensity));
 
                 // vertical blur
                 RenderTexture rt2 = RenderTexture.GetTemporary (rtW, rtH, 0, source.format);

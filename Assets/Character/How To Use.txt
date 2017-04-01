@@ -1,0 +1,90 @@
+Terrain Interaction and Water Based on Triggers for First Person Perspective Player
+by Richard William - richard.wmbv@gmail.com
+
+This asset is made in order to give developers a simple and useful tool for interaction
+of a Rigidbody Controller in First Person Perspective and an active terrain in the scene, based on the textures below the Main Character.
+Also, there is Water Interaction activated by a trigger in the scene, with (Tag) marked as "Water".
+All of this gives the game developer the opportunity to customize the players interactions in an easy way, with customized footsteps sounds,
+movement speed, jumping and landing sounds, as well as the possibility of reducing the player's speed
+based on an external event by setting the property useReducedSpeed to true, 
+such as the default "Leg Breaking" event, that can be removed from the script mentioned above in lines 373 and 379 and removing the method "breakLeg()" on line 382.
+The methods for falling damage are not implemented, except for the leg breaking effect. These methods can be totally removed or customized, from the script "FP Controller Terrains".
+The verification is located on lines 346 to 362, and the methods can be removed and customized on lines 366 to 375.
+In this same script there's the "void Death(string sourceOfDeath)" method, with a "breakLeg()" effect. It can also be removed or customized on line 379.
+Using the "breakLeg()" method makes the caracter move the normal speed divided by the ReduceSpeedFactor (float)
+e.g.:
+{
+	ForwardSpeed = 6;
+	ReduceSpeedFactor = 2;
+	speed = Forward / ReduceSpeedFactor;
+	Debug.Log("speed = " + speed);
+}
+output -> (speed = 3)
+
+How to use this package:
+
+*****************IMPORTANT*****************
+*****************IMPORTANT*****************
+Import the "UnityStandardAssets.CrossPlatformInput" package from the standard assets.
+Go to Assets>Import Package>CrossPlatformInput.
+
+1. Import the package for Terrain and Water Advanced Asset.
+2. Open your scene with an active terrain or create your own scene and a add a Terrain GameObject to it. 
+   This package has an example prefab that can be used for testing the package.
+   (I recommend that you open the "ExampleScene" prefab at least once, so you can see how the package and its attributes and methods work)
+
+3. After you created or opened your scene in Unity, Paint the textures as desired on your terrain,
+   (in case you created your own), using the "Paint Texture" tool.
+4. Drag and drop the "Player" prefab from the Assets>Character>TerrainAsset>Prefab folder into the scene in case you don't have one.
+   If you want, you can Add the Scripts Components in your own Player that has not a movement or water interaction script yet.
+   Just Add the "FP Controller Terrains" and the "ConfigsOfPlayer" Scripts to your First Person Player GameObject.
+   "ConfigsOfPlayer" is inside Assets>Character>TerrainAsset>Scripts>TerrainAsset.dll -> ConfigsOfPlayer.
+5. After you've imported the Player to your scene, or added the scripts yourself, extend the Terrain Configurations Array inside "ConfigsOfPlayer" script.
+   You can set it to the number of Terrain Textures you want to configure. If you've added a texture but don't want any special interaction while above it,
+   your character will use the Default Stats of movement from the "ConfigsOfPlayer" script.
+   There you can define the properties for your interaction with any texture on your terrain, 
+   set the character's speed, footsteps sounds or any other aspect present in the script. (attributes specified below)
+6. To add Water Interaction to your scene, you can create any area and make it look like water, or import it from the Enviroment Standar Package. 
+   (I've already added this package to my Asset in case you want to use it)
+7. After you've done this, just Drag and drop the "WaterTrigger" prefab from Assets>Character>TerrainAsset>Water.
+   If you want so, you can create any object on your scene and set it as a Trigger on its Collider Component and deactivate its Mesh Renderer.
+   *IMPORTANT*
+   To use the Water interaction, set your trigger's Tag as "Water", otherwise it will NOT work.
+   
+   When the Character's Collider Component (in this script's case a Capsule Collider) enters the trigger with Tag "Water", 
+   the attributes set on lines 180 - 186 from the method "void triggerWater(bool entered)" in "FP Controller Terrains" script will be activated.
+   All of this attributes can be changed for a customized "Under Water" effect.
+
+Below there is the specification for the variables and their purpose on ConfigsOfPlayer script, 
+located at Assets>Character>TerrainAsset>Scripts>TerrainAsset.dll -> ConfigsOfPlayer.
+
+"ConfigsOfPlayer" class from "TerrainAsset.dll" file:
+(Internal Class "Stats") //The class Stats for the player's movement,
+which you can "set" and "get" from the following functions:
+"getDefaultStats()"
+"getPlayerStats()"
+"changeTerrain()"
+
+and "setStats(Stats stats)"
+"setDefaultStats()"
+
+The class "Stats" has the attributes:
+(Name) //a string for the developer's own customization, if there is any
+
+(Forward Speed)
+(Bacward Speed)
+(Strafe Speed) //Unity's Rigidbody default Controller properties for movement (force applied to rigidbody for movement)
+
+(Run Multiplier) // float property for multiplication on general speed
+(Footseps) // array to hold the footsteps sounds
+(Jump and Landing Sound) //one sound for jumping and one for landing
+//END OF DEFAULT STATS OBJECT
+
+Use Reduced Speed //boolean that defines if the player will move in a reduced speed
+Reduce Speed Factor //float value that will divide the normal speed of the player if Use Reduced Speed is set to "true"
+
+Terrain Configurations // an array for each Texture of the terrain that the game developer wants to set a different configuration to the player's movement
+the class for each Terrain Configuration has the following properties:
+Activation Texture // a Texture2D that will activate the configurations for that specific texture on the terrain below the player
+Configuration //configurations to set the players Stats of type "Stats", the same one used to set the default Status of the player
+Surface Index //for debugging purposes only, used to have an output of the index from the texture below the player's position
