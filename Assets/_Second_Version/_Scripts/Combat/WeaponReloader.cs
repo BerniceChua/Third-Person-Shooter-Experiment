@@ -9,6 +9,8 @@ public class WeaponReloader : MonoBehaviour {
 
     [SerializeField] Container m_inventory;
 
+    [SerializeField] EWeaponType m_weaponType;
+
     // removed in refactor because m_ammoCount was replaced by putting a parameter in ExecuteReload();
     //int m_ammoCount;
 
@@ -38,7 +40,8 @@ public class WeaponReloader : MonoBehaviour {
     // Use this for initialization
     void Awake () {
         m_inventory.OnContainerReady += () => {
-            m_containerItemId = m_inventory.Add(this.name, m_maxAmmo);
+            //m_containerItemId = m_inventory.Add(this.name, m_maxAmmo);
+            m_containerItemId = m_inventory.Add(m_weaponType.ToString(), m_maxAmmo);
         };
     }
 	
@@ -93,6 +96,14 @@ public class WeaponReloader : MonoBehaviour {
     public void TakeFromClip(int ammoAmount) {
         m_shotsFiredInClip += ammoAmount;
 
+        // moved to HandleOnAmmoChanged()
+        //if (OnAmmoChanged != null)
+        //    OnAmmoChanged();
+
+        HandleOnAmmoChanged();
+    }
+
+    public void HandleOnAmmoChanged() {
         if (OnAmmoChanged != null)
             OnAmmoChanged();
     }

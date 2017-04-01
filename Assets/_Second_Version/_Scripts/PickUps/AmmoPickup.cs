@@ -4,7 +4,11 @@ using UnityEngine;
 
 public class AmmoPickup : PickUpItem {
 
-	// Use this for initialization
+	[SerializeField] EWeaponType m_weaponType;
+    [SerializeField] float m_respawnTime;
+    [SerializeField] int m_amount;
+    
+    // Use this for initialization
 	void Start () {
 		
 	}
@@ -17,6 +21,12 @@ public class AmmoPickup : PickUpItem {
     public override void OnPickUp(Transform item) {
         //base.OnPickUp(item);
         Debug.Log("Inside the public override void OnPickUp(Transform item)....");
+
+        var playerInventory = item.GetComponentInChildren<Container>();
+        GameManager.GameManagerInstance.Respawner.Despawn(gameObject, m_respawnTime);
+        playerInventory.Put(m_weaponType.ToString(), m_amount);
+
+        item.GetComponent<Player>().PlayerShoot.ActiveWeapon.m_reloader.HandleOnAmmoChanged();
     }
 
 }
