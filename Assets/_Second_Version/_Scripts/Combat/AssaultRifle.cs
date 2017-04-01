@@ -14,6 +14,9 @@ public class AssaultRifle : Shooter {
     }
 
     public void Update() {
+        Debug.Log("this item is " + transform.name + "("+ Time.time + ")");
+        Debug.Log("parent object = " + transform.parent.name + "(" + Time.time + ")");
+
         if (GameManager.GameManagerInstance.InputController.m_Reload) {
             Reload();
         }

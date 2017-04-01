@@ -33,8 +33,11 @@ public class Container : MonoBehaviour {
             return value;
         }
 
-        public void Put(int value) {
-            //amountTaken 
+        public void Set(int amount) {
+            amountTaken -= amount;
+
+            if (amountTaken < 0)
+                amountTaken = 0;
         }
     }
 
@@ -70,6 +73,19 @@ public class Container : MonoBehaviour {
         });
 
         return m_items.Last().ID;
+    }
+
+    public void Put(String name, int amount) {
+        var containerItem = m_items.Where(x => x.Name == name).FirstOrDefault();
+        
+        // if inventory is full, don't execute logic for picking up items
+        //if (containerItem.Remaining == containerItem.Maximum)
+        //    return;
+
+        if (containerItem == null)
+            return;
+
+        containerItem.Set(amount);
     }
 
     /// <summary>
