@@ -44,8 +44,8 @@ public class Player : MonoBehaviour {
     private MoveController m_moveController;
     public MoveController MoveController {
         get {
-            //if (m_moveController == null)
-            if (!m_moveController)
+            //if (!m_moveController)
+            if (m_moveController == null)
                 m_moveController = GetComponent<MoveController>();
 
             return m_moveController;
@@ -70,35 +70,42 @@ public class Player : MonoBehaviour {
             return m_crosshair;
         }
     }
-
-    InputController m_playerInput { get { return GameManager.GameManagerInstance.InputController; } set { m_playerInput = value; } }
+    InputController m_playerInput;
+    //InputController m_playerInput { get { return GameManager.GameManagerInstance.InputController; } set { m_playerInput = value; } }
     Vector2 m_mouseInput;
 
     // Use this for initialization
-    void Awake() {
-        //m_inputController = GameManager.GameManagerInstance.InputController;
+    void Start() {
+        //print("Hello!  I'm inside the Awake() of Player.cs.");
+        m_playerInput = GameManager.GameManagerInstance.InputController;
+        print("Hello");
+        print("What is this? " + this);
 
         /// When player joins the game, GameManager will set local player as this player.
         /// Then it will raise the OnLocalPlayerJoined(m_localPlayer) event.
         GameManager.GameManagerInstance.LocalPlayer = this;
-
-        if (m_mouseControl.LockMouse) {
-            Cursor.visible = false;
-            Cursor.lockState = CursorLockMode.Locked;
-        }
-
+        print("Hello, after 'GameManager.GameManagerInstance.LocalPlayer = this;' ");
+        print("What is this? " + this);
+        //if (m_mouseControl.LockMouse) {
+        //    print("Hello!  I'm inside the Awake() of Player.cs.");
+        //    Cursor.visible = false;
+        //    Cursor.lockState = CursorLockMode.Locked;
+        //}
+        print(GameManager.GameManagerInstance.LocalPlayer);
     }
 
     // Update is called once per frame
     void Update() {
+        print("Inside Update() of Player.cs.");
         Move();
 
         MouseLookAroundControl();
     }
 
     void Move() {
+        print("Inside Move() of Player.cs.");
         float moveSpeed = m_runSpeed;
-
+        print("moveSpeed = " + moveSpeed);
         if (m_playerInput.m_IsWalking)
             moveSpeed = m_walkSpeed;
 
@@ -120,12 +127,15 @@ public class Player : MonoBehaviour {
     }
 
     private void MouseLookAroundControl() {
+        Debug.Log("Inside MouseLookAroundControl() at time " + Time.time + "; m_mouseInput.y = " + m_mouseInput.y + ", m_mouseInput.x = " + m_mouseInput.y);
         m_mouseInput.x = Mathf.Lerp(m_mouseInput.x, m_playerInput.m_MouseInput.x, 1.0f / m_mouseControl.Damping.x);
         m_mouseInput.y = Mathf.Lerp(m_mouseInput.y, m_playerInput.m_MouseInput.y, 1.0f / m_mouseControl.Damping.y);
 
         transform.Rotate(Vector3.up * m_mouseInput.x * m_mouseControl.Sensitivity.x);
 
         Crosshair.LookHeight(m_mouseInput.y * m_mouseControl.Sensitivity.y);
+
+        m_PlayerAim.m_SetRotation(m_mouseInput.y * m_mouseControl.Sensitivity.y);
     }
 
 
