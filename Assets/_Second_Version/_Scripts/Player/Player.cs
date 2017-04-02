@@ -74,8 +74,21 @@ public class Player : MonoBehaviour {
     //InputController m_playerInput { get { return GameManager.GameManagerInstance.InputController; } set { m_playerInput = value; } }
     Vector2 m_mouseInput;
 
-    // Use this for initialization
-    void Start() {
+    /// <summary>
+    /// Changed "Awake()" back to "Start()" because the 
+    /// order of execution has AmmoCountDisplay.cs first than 
+    /// Player.cs, so Awake() affects the order of execution by 
+    /// setting this up first, and because of 
+    /// that, "GameManager.GameManagerInstance.LocalPlayer = this;"
+    /// cannot find the Player Game Object before the rest of the game loads,
+    /// which causes Player.cs to not to execute which causes Update() to not 
+    /// execute either.  That's why the player character couldn't 
+    /// change direction with the MouseLookAroundControl().  
+    /// (Found this out because the print()s didn't work when
+    /// this was Awake() instead of Start().)
+    /// </summary>
+    //void Awake() {
+    void Start() {  // Use this for initialization
         //print("Hello!  I'm inside the Awake() of Player.cs.");
         m_playerInput = GameManager.GameManagerInstance.InputController;
         print("Hello");
