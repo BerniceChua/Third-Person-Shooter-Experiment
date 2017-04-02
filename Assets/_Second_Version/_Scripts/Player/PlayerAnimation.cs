@@ -6,6 +6,16 @@ public class PlayerAnimation : MonoBehaviour {
     //Animator m_animator;
     Animator m_animator { get { return GetComponentInChildren<Animator>(); } set { m_animator = value; } }
 
+    private PlayerAim m_playerAim;
+    private PlayerAim PlayerAim {
+        get {
+            if (m_playerAim == null)
+                m_playerAim = GameManager.GameManagerInstance.LocalPlayer.m_PlayerAim;
+
+            return m_playerAim;
+        }
+    }
+
     private void Awake() {
         //m_animator = GetComponentInChildren<Animator>();
     }
@@ -23,5 +33,8 @@ public class PlayerAnimation : MonoBehaviour {
         m_animator.SetBool("IsWalking", GameManager.GameManagerInstance.InputController.m_IsWalking);
         m_animator.SetBool("IsSprinting", GameManager.GameManagerInstance.InputController.m_IsSprinting);
         m_animator.SetBool("IsCrouched", GameManager.GameManagerInstance.InputController.m_IsCrouched);
+
+        //Debug.Log("PlayerAim.GetAngle() = " + PlayerAim.GetAngle() + " at " + Time.time);
+        m_animator.SetFloat("AimAngle", PlayerAim.GetAngle());
     }
 }

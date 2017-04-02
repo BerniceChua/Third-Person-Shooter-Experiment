@@ -21,10 +21,10 @@ public class Crosshairs : MonoBehaviour {
 	}
 
     public void LookHeight(float heightValue) {
-        m_lookHeight += heightValue;
+        //m_lookHeight += heightValue;
 
-        if (m_lookHeight > m_maxAngle || m_lookHeight < m_minAngle)
-            m_lookHeight -= heightValue;
+        //if (m_lookHeight > m_maxAngle || m_lookHeight < m_minAngle)
+        //    m_lookHeight -= heightValue;
     }
 
     private void OnGUI() {

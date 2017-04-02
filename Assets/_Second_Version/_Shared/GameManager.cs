@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class GameManager {
 
+    /// <summary>
+    ///  Invoked when LocalPlayer is set.
+    /// </summary>
     public event System.Action<Player> OnLocalPlayerJoined;
 
     private GameObject gameObject;
 
     private static GameManager m_gameManagerInstance;
-
     public static GameManager GameManagerInstance {
         get {
             if (m_gameManagerInstance == null) {
