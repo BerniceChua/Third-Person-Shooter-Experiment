@@ -37,6 +37,8 @@ public class Player : MonoBehaviour {
     [SerializeField] AudioController m_footsteps;
     [SerializeField] float m_minimumMoveThreshold;
 
+    public PlayerAim m_PlayerAim;
+
     Vector3 m_previousPosition;
 
     private MoveController m_moveController;
