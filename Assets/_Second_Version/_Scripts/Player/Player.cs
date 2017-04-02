@@ -75,9 +75,9 @@ public class Player : MonoBehaviour {
     Vector2 m_mouseInput;
 
     /// <summary>
-    /// Changed "Awake()" back to "Start()" because the 
+    /// Changed "Awake()" to "OnEnable()" because the 
     /// order of execution has AmmoCountDisplay.cs first than 
-    /// Player.cs, so Awake() affects the order of execution by 
+    /// Player.cs, so OnEnable() affects the order of execution by 
     /// setting this up first, and because of 
     /// that, "GameManager.GameManagerInstance.LocalPlayer = this;"
     /// cannot find the Player Game Object before the rest of the game loads,
@@ -85,40 +85,42 @@ public class Player : MonoBehaviour {
     /// execute either.  That's why the player character couldn't 
     /// change direction with the MouseLookAroundControl().  
     /// (Found this out because the print()s didn't work when
-    /// this was Awake() instead of Start().)
+    /// this was Awake() instead of OnEnable().)
     /// </summary>
     //void Awake() {
-    void Start() {  // Use this for initialization
+    void OnEnable() {  // Use this for initialization
         //print("Hello!  I'm inside the Awake() of Player.cs.");
         m_playerInput = GameManager.GameManagerInstance.InputController;
         print("Hello");
         print("What is this? " + this);
+        print(m_mouseControl.LockMouse);
 
-        /// When player joins the game, GameManager will set local player as this player.
-        /// Then it will raise the OnLocalPlayerJoined(m_localPlayer) event.
-        GameManager.GameManagerInstance.LocalPlayer = this;
-        print("Hello, after 'GameManager.GameManagerInstance.LocalPlayer = this;' ");
-        print("What is this? " + this);
-        //if (m_mouseControl.LockMouse) {
+        //if (m_mouseControl.LockMouse == false) {
         //    print("Hello!  I'm inside the Awake() of Player.cs.");
         //    Cursor.visible = false;
         //    Cursor.lockState = CursorLockMode.Locked;
         //}
+
+        /// When player joins the game, GameManager will set local player as this player.
+        /// Then it will raise the OnLocalPlayerJoined(m_localPlayer) event.
+        GameManager.GameManagerInstance.LocalPlayer = this;
         print(GameManager.GameManagerInstance.LocalPlayer);
+        print("Hello, after 'GameManager.GameManagerInstance.LocalPlayer = this;' ");
+        print("What is this? " + this);
     }
 
     // Update is called once per frame
     void Update() {
-        print("Inside Update() of Player.cs.");
+        //print("Inside Update() of Player.cs.");
         Move();
 
         MouseLookAroundControl();
     }
 
     void Move() {
-        print("Inside Move() of Player.cs.");
+        //print("Inside Move() of Player.cs.");
         float moveSpeed = m_runSpeed;
-        print("moveSpeed = " + moveSpeed);
+        //print("moveSpeed = " + moveSpeed);
         if (m_playerInput.m_IsWalking)
             moveSpeed = m_walkSpeed;
 
@@ -140,7 +142,7 @@ public class Player : MonoBehaviour {
     }
 
     private void MouseLookAroundControl() {
-        Debug.Log("Inside MouseLookAroundControl() at time " + Time.time + "; m_mouseInput.y = " + m_mouseInput.y + ", m_mouseInput.x = " + m_mouseInput.y);
+        //Debug.Log("Inside MouseLookAroundControl() at time " + Time.time + "; m_mouseInput.y = " + m_mouseInput.y + ", m_mouseInput.x = " + m_mouseInput.y);
         m_mouseInput.x = Mathf.Lerp(m_mouseInput.x, m_playerInput.m_MouseInput.x, 1.0f / m_mouseControl.Damping.x);
         m_mouseInput.y = Mathf.Lerp(m_mouseInput.y, m_playerInput.m_MouseInput.y, 1.0f / m_mouseControl.Damping.y);
 
