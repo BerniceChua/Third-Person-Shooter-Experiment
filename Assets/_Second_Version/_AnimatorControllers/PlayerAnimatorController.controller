@@ -76,24 +76,24 @@ AnimatorController:
     m_SyncedLayerAffectsTiming: 0
     m_Controller: {fileID: 9100000}
   - serializedVersion: 5
-    m_Name: AimAngle
-    m_StateMachine: {fileID: 1107616734338844336}
-    m_Mask: {fileID: 101100000, guid: 9e3e81a42df0fa44794e1fdbbd6f5d81, type: 2}
-    m_Motions: []
-    m_Behaviours: []
-    m_BlendingMode: 1
-    m_SyncedLayerIndex: -1
-    m_DefaultWeight: 1
-    m_IKPass: 0
-    m_SyncedLayerAffectsTiming: 0
-    m_Controller: {fileID: 9100000}
-  - serializedVersion: 5
     m_Name: Aiming
     m_StateMachine: {fileID: 1107277901107637240}
     m_Mask: {fileID: 101100000, guid: fa73d635d52208a43a2e87a0e376039a, type: 2}
     m_Motions: []
     m_Behaviours: []
     m_BlendingMode: 0
+    m_SyncedLayerIndex: -1
+    m_DefaultWeight: 1
+    m_IKPass: 0
+    m_SyncedLayerAffectsTiming: 0
+    m_Controller: {fileID: 9100000}
+  - serializedVersion: 5
+    m_Name: AimAngle
+    m_StateMachine: {fileID: 1107616734338844336}
+    m_Mask: {fileID: 101100000, guid: 9e3e81a42df0fa44794e1fdbbd6f5d81, type: 2}
+    m_Motions: []
+    m_Behaviours: []
+    m_BlendingMode: 1
     m_SyncedLayerIndex: -1
     m_DefaultWeight: 1
     m_IKPass: 0
