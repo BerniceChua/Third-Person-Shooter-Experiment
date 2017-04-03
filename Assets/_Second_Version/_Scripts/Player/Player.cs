@@ -62,15 +62,16 @@ public class Player : MonoBehaviour {
         }
     }
 
-    private Crosshairs m_crosshair;
-    private Crosshairs Crosshair {
-        get {
-            if (!m_crosshair)
-                m_crosshair = GetComponentInChildren<Crosshairs>();
+    /// Removed because of refactor from PlayerStateMachine.
+    //private Crosshairs m_crosshair;
+    //private Crosshairs Crosshair {
+    //    get {
+    //        if (!m_crosshair)
+    //            m_crosshair = GetComponentInChildren<Crosshairs>();
 
-            return m_crosshair;
-        }
-    }
+    //        return m_crosshair;
+    //    }
+    //}
 
     private PlayerStateMachine m_playerState;
     public PlayerStateMachine PlayerState {
@@ -160,7 +161,8 @@ public class Player : MonoBehaviour {
 
         transform.Rotate(Vector3.up * m_mouseInput.x * m_mouseControl.Sensitivity.x);
 
-        Crosshair.LookHeight(m_mouseInput.y * m_mouseControl.Sensitivity.y);
+        /// Removed because of refactor from PlayerStateMachine.
+        //Crosshair.LookHeight(m_mouseInput.y * m_mouseControl.Sensitivity.y);
 
         m_PlayerAim.m_SetRotation(m_mouseInput.y * m_mouseControl.Sensitivity.y);
     }
