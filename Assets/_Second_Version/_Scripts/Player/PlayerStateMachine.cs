@@ -14,8 +14,8 @@ public class PlayerStateMachine : MonoBehaviour {
     public enum EWeaponState {
         IDLE,
         FIRING,
-        Aiming,
-        AimFiring
+        AIMING,
+        AIMFIRING
     }
 
     public EMoveState m_MoveState;
@@ -39,7 +39,7 @@ public class PlayerStateMachine : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         SetMoveState();
-
+        SetWeaponState();
     }
 
     void SetWeaponState() {
@@ -47,6 +47,12 @@ public class PlayerStateMachine : MonoBehaviour {
 
         if (InputController.m_Fire1)
             m_WeaponState = EWeaponState.FIRING;
+
+        if (InputController.m_Fire2)
+            m_WeaponState = EWeaponState.AIMING;
+
+        if (InputController.m_Fire1 && InputController.m_Fire2)
+            m_WeaponState = EWeaponState.AIMFIRING;
     }
 
     void SetMoveState() {
