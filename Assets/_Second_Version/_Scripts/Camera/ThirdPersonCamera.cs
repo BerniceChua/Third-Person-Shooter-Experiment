@@ -7,6 +7,7 @@ public class ThirdPersonCamera : MonoBehaviour {
     [System.Serializable]
     public class CameraRig {
         public Vector3 CameraOffset;
+        public float CrouchHeight;
         public float Damping;
     }
     /// <summary>
@@ -21,7 +22,7 @@ public class ThirdPersonCamera : MonoBehaviour {
 
     [SerializeField] CameraRig m_defaultCamera;
     [SerializeField] CameraRig m_aimCamera;
-
+    
     Transform m_cameraLookTarget;
     Player m_localPlayer;
 
@@ -57,7 +58,10 @@ public class ThirdPersonCamera : MonoBehaviour {
         // sets target of camera to be forward of local player and adds the camera offset.  (If z is negative, it will go behind the player.)
         //Vector3 targetPosition = (m_cameraLookTarget.position + m_localPlayer.transform.forward * m_cameraOffset.z) + (m_localPlayer.transform.up * m_cameraOffset.y) + (m_localPlayer.transform.right * m_cameraOffset.x);
         // refactored after started to use the PlayerStateMachine.
-        Vector3 targetPosition = (m_cameraLookTarget.position + m_localPlayer.transform.forward * camRig.CameraOffset.z) + (m_localPlayer.transform.up * camRig.CameraOffset.y) + (m_localPlayer.transform.right * camRig.CameraOffset.x);
+        float targetHeight = m_localPlayer.PlayerState.m_MoveState == PlayerStateMachine.EMoveState.CROUCHING ? camRig.CrouchHeight : 0;
+        Vector3 targetPosition = (m_cameraLookTarget.position + m_localPlayer.transform.forward * camRig.CameraOffset.z) + 
+            (m_localPlayer.transform.up * (camRig.CameraOffset.y + targetHeight) ) + 
+            (m_localPlayer.transform.right * camRig.CameraOffset.x);
 
         Quaternion targetRotation = Quaternion.LookRotation(m_cameraLookTarget.position - targetPosition, Vector3.up);
 
