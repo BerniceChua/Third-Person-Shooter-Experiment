@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent (typeof(MoveController))]
+[RequireComponent(typeof(MoveController))]
+[RequireComponent(typeof(PlayerStateMachine))]
 public class Player : MonoBehaviour {
     /// These were for troubleshooting:
     #region Troubleshooting
@@ -70,6 +71,17 @@ public class Player : MonoBehaviour {
             return m_crosshair;
         }
     }
+
+    private PlayerStateMachine m_playerState;
+    public PlayerStateMachine PlayerState {
+        get {
+            if (!m_playerState)
+                m_playerState = GetComponent<PlayerStateMachine>();
+
+            return m_playerState;
+        }
+    }
+
     InputController m_playerInput;
     //InputController m_playerInput { get { return GameManager.GameManagerInstance.InputController; } set { m_playerInput = value; } }
     Vector2 m_mouseInput;

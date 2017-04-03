@@ -15,7 +15,7 @@ public class PlayerStateMachine : MonoBehaviour {
         IDLE,
         FIRING,
         AIMING,
-        AIMFIRING
+        AIMEDFIRING
     }
 
     public EMoveState m_MoveState;
@@ -52,7 +52,7 @@ public class PlayerStateMachine : MonoBehaviour {
             m_WeaponState = EWeaponState.AIMING;
 
         if (InputController.m_Fire1 && InputController.m_Fire2)
-            m_WeaponState = EWeaponState.AIMFIRING;
+            m_WeaponState = EWeaponState.AIMEDFIRING;
     }
 
     void SetMoveState() {
