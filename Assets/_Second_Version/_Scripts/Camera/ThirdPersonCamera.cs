@@ -4,9 +4,25 @@ using UnityEngine;
 
 public class ThirdPersonCamera : MonoBehaviour {
 
-    [SerializeField] Vector3 m_cameraOffset;
-    [SerializeField] float m_damping;
+    [System.Serializable]
+    public class CameraRig {
+        public Vector3 CameraOffset;
+        public float CrouchHeight;
+        public float Damping;
+    }
+    /// <summary>
+    /// Default values of Third Person Camera script:
+    ///     Camera Offset = 1, 1, -6;
+    ///     Damping = 20;
+    /// </summary>
 
+    /// m_cameraOffset & m_damping replaced by 'public class CameraRig'
+    //[SerializeField] Vector3 m_cameraOffset;
+    //[SerializeField] float m_damping;
+
+    [SerializeField] CameraRig m_defaultCamera;
+    [SerializeField] CameraRig m_aimCamera;
+    
     Transform m_cameraLookTarget;
     Player m_localPlayer;
 
@@ -34,12 +50,24 @@ public class ThirdPersonCamera : MonoBehaviour {
         if (!m_localPlayer)
             return;
 
+        CameraRig camRig = m_defaultCamera;
+
+        if (m_localPlayer.PlayerState.m_WeaponState == PlayerStateMachine.EWeaponState.AIMING || m_localPlayer.PlayerState.m_WeaponState == PlayerStateMachine.EWeaponState.AIMEDFIRING)
+            camRig = m_aimCamera;
+
         // sets target of camera to be forward of local player and adds the camera offset.  (If z is negative, it will go behind the player.)
-        Vector3 targetPosition = (m_cameraLookTarget.position + m_localPlayer.transform.forward * m_cameraOffset.z) + (m_localPlayer.transform.up * m_cameraOffset.y) + (m_localPlayer.transform.right * m_cameraOffset.x);
+        //Vector3 targetPosition = (m_cameraLookTarget.position + m_localPlayer.transform.forward * m_cameraOffset.z) + (m_localPlayer.transform.up * m_cameraOffset.y) + (m_localPlayer.transform.right * m_cameraOffset.x);
+        // refactored after started to use the PlayerStateMachine.
+        float targetHeight = m_localPlayer.PlayerState.m_MoveState == PlayerStateMachine.EMoveState.CROUCHING ? camRig.CrouchHeight : 0;
+        Vector3 targetPosition = (m_cameraLookTarget.position + m_localPlayer.transform.forward * camRig.CameraOffset.z) + 
+            (m_localPlayer.transform.up * (camRig.CameraOffset.y + targetHeight) ) + 
+            (m_localPlayer.transform.right * camRig.CameraOffset.x);
 
         Quaternion targetRotation = Quaternion.LookRotation(m_cameraLookTarget.position - targetPosition, Vector3.up);
 
-        transform.position = Vector3.Lerp(transform.position, targetPosition, m_damping * Time.deltaTime);
-        transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, m_damping * Time.deltaTime);
+        //transform.position = Vector3.Lerp(transform.position, targetPosition, m_damping * Time.deltaTime);
+        //transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, m_damping * Time.deltaTime);
+        transform.position = Vector3.Lerp(transform.position, targetPosition, camRig.Damping * Time.deltaTime);
+        transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, camRig.Damping * Time.deltaTime);
 	}
 }

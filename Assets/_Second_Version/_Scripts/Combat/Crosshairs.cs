@@ -5,10 +5,13 @@ using UnityEngine;
 public class Crosshairs : MonoBehaviour {
     [SerializeField] Texture2D m_image;
     [SerializeField] int m_size;
-    [SerializeField] float m_maxAngle;
-    [SerializeField] float m_minAngle;
+    
+    /// Removed because of refactor from PlayerStateMachine.
+    //[SerializeField] float m_maxAngle;
+    //[SerializeField] float m_minAngle;
 
-    float m_lookHeight;
+    /// Removed because of refactor from PlayerStateMachine.
+    //float m_lookHeight;
     
 	// Use this for initialization
 	void Start () {
@@ -20,16 +23,25 @@ public class Crosshairs : MonoBehaviour {
 		
 	}
 
-    public void LookHeight(float heightValue) {
-        //m_lookHeight += heightValue;
+    /// Removed because of refactor from PlayerStateMachine.
+    //public void LookHeight(float heightValue) {
+    //    //m_lookHeight += heightValue;
 
-        //if (m_lookHeight > m_maxAngle || m_lookHeight < m_minAngle)
-        //    m_lookHeight -= heightValue;
-    }
+    //    //if (m_lookHeight > m_maxAngle || m_lookHeight < m_minAngle)
+    //    //    m_lookHeight -= heightValue;
+    //}
 
     private void OnGUI() {
-        Vector3 screenPosition = Camera.main.WorldToScreenPoint(transform.position);
-        screenPosition.y = Screen.height - screenPosition.y;
-        GUI.DrawTexture(new Rect(screenPosition.x, screenPosition.y - m_lookHeight, m_size, m_size), m_image);
+        /// Because of refactor from PlayerStateMachine, we will draw the crosshair if aiming.
+        if (GameManager.GameManagerInstance.LocalPlayer.PlayerState.m_WeaponState == PlayerStateMachine.EWeaponState.AIMING || GameManager.GameManagerInstance.LocalPlayer.PlayerState.m_WeaponState == PlayerStateMachine.EWeaponState.AIMEDFIRING) {
+
+            Vector3 screenPosition = Camera.main.WorldToScreenPoint(transform.position);
+            screenPosition.y = Screen.height - screenPosition.y;
+
+            /// Removed m_lookHeight because of refactor from PlayerStateMachine.
+            //GUI.DrawTexture(new Rect(screenPosition.x, screenPosition.y - m_lookHeight, m_size, m_size), m_image);
+            GUI.DrawTexture(new Rect(screenPosition.x, screenPosition.y, m_size, m_size), m_image);
+        }
     }
+
 }

@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent (typeof(MoveController))]
+[RequireComponent(typeof(MoveController))]
+[RequireComponent(typeof(PlayerStateMachine))]
 public class Player : MonoBehaviour {
     /// These were for troubleshooting:
     #region Troubleshooting
@@ -61,15 +62,27 @@ public class Player : MonoBehaviour {
         }
     }
 
-    private Crosshairs m_crosshair;
-    private Crosshairs Crosshair {
-        get {
-            if (!m_crosshair)
-                m_crosshair = GetComponentInChildren<Crosshairs>();
+    /// Removed because of refactor from PlayerStateMachine.
+    //private Crosshairs m_crosshair;
+    //private Crosshairs Crosshair {
+    //    get {
+    //        if (!m_crosshair)
+    //            m_crosshair = GetComponentInChildren<Crosshairs>();
 
-            return m_crosshair;
+    //        return m_crosshair;
+    //    }
+    //}
+
+    private PlayerStateMachine m_playerState;
+    public PlayerStateMachine PlayerState {
+        get {
+            if (!m_playerState)
+                m_playerState = GetComponent<PlayerStateMachine>();
+
+            return m_playerState;
         }
     }
+
     InputController m_playerInput;
     //InputController m_playerInput { get { return GameManager.GameManagerInstance.InputController; } set { m_playerInput = value; } }
     Vector2 m_mouseInput;
@@ -148,7 +161,8 @@ public class Player : MonoBehaviour {
 
         transform.Rotate(Vector3.up * m_mouseInput.x * m_mouseControl.Sensitivity.x);
 
-        Crosshair.LookHeight(m_mouseInput.y * m_mouseControl.Sensitivity.y);
+        /// Removed because of refactor from PlayerStateMachine.
+        //Crosshair.LookHeight(m_mouseInput.y * m_mouseControl.Sensitivity.y);
 
         m_PlayerAim.m_SetRotation(m_mouseInput.y * m_mouseControl.Sensitivity.y);
     }
