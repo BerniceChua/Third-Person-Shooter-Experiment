@@ -924,7 +924,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -2811,7 +2811,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -5308,6 +5308,7 @@ MonoBehaviour:
   m_hand: {fileID: 1669461280}
   m_audioReload: {fileID: 1292164791}
   m_audioFireWeapon: {fileID: 809612266}
+  m_aimTarget: {fileID: 200484045}
   m_canFire: 0
 --- !u!1 &1624688990
 GameObject:
@@ -6130,6 +6131,7 @@ MonoBehaviour:
   m_hand: {fileID: 1669461280}
   m_audioReload: {fileID: 1317895919}
   m_audioFireWeapon: {fileID: 321945074}
+  m_aimTarget: {fileID: 200484045}
   m_canFire: 0
 --- !u!114 &1895292477
 MonoBehaviour:
