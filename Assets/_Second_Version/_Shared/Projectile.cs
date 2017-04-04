@@ -16,13 +16,34 @@ public class Projectile : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         transform.Translate(Vector3.forward * m_speed * Time.deltaTime);
+
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, transform.forward, out hit)) {
+            CheckDestructable(hit.transform);
+        }
 	}
 
-    private void OnTriggerEnter(Collider other) {
+    //private void OnTriggerEnter(Collider other) {
+    //    //print("Projectile collided at time " + Time.time);
+    //    //print("Projectile has hit " + other.name);
+
+    //    var destructable = other.transform.GetComponent<Destructable>();
+
+    //    if (destructable == null)
+    //        //if (!destructable) // this one won't work, it really needs to be "destructible == null" in order for TakeDamage(float damageAmount) to trigger OnDeath() event.
+    //        return;
+
+    //    destructable.TakeDamage(m_damage);
+    //}
+    /// <summary>
+    ///  Refactored in aiming,_shooting,_and_target from OnTriggerEnter() into CheckDestructable()
+    /// </summary>
+    /// <param name="other"></param>
+    private void CheckDestructable(Transform other) {
         //print("Projectile collided at time " + Time.time);
         //print("Projectile has hit " + other.name);
 
-        var destructable = other.transform.GetComponent<Destructable>();
+        var destructable = other.GetComponent<Destructable>();
 
         if (destructable == null)
             //if (!destructable) // this one won't work, it really needs to be "destructible == null" in order for TakeDamage(float damageAmount) to trigger OnDeath() event.
@@ -30,5 +51,4 @@ public class Projectile : MonoBehaviour {
 
         destructable.TakeDamage(m_damage);
     }
-
 }
