@@ -36,5 +36,7 @@ public class PlayerAnimation : MonoBehaviour {
 
         //Debug.Log("PlayerAim.GetAngle() = " + PlayerAim.GetAngle() + " at " + Time.time);
         m_animator.SetFloat("AimAngle", PlayerAim.GetAngle());
+
+        m_animator.SetBool("IsAiming", GameManager.GameManagerInstance.LocalPlayer.PlayerState.m_WeaponState == PlayerStateMachine.EWeaponState.AIMING || GameManager.GameManagerInstance.LocalPlayer.PlayerState.m_WeaponState == PlayerStateMachine.EWeaponState.AIMEDFIRING);
     }
 }
