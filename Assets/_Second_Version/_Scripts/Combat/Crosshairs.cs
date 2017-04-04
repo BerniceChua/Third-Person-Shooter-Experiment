@@ -40,7 +40,10 @@ public class Crosshairs : MonoBehaviour {
 
             /// Removed m_lookHeight because of refactor from PlayerStateMachine.
             //GUI.DrawTexture(new Rect(screenPosition.x, screenPosition.y - m_lookHeight, m_size, m_size), m_image);
-            GUI.DrawTexture(new Rect(screenPosition.x, screenPosition.y, m_size, m_size), m_image);
+
+            /// Refactored during 'aiming,_shooting,_and_target'
+            //GUI.DrawTexture(new Rect(screenPosition.x, screenPosition.y, m_size, m_size), m_image);
+            GUI.DrawTexture(new Rect(screenPosition.x - m_size/2, screenPosition.y - m_size / 2, m_size, m_size), m_image);
         }
     }
 
