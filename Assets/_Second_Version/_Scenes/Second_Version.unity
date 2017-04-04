@@ -2219,7 +2219,7 @@ MonoBehaviour:
     Sensitivity: {x: 2, y: 6}
     LockMouse: 0
   m_footsteps: {fileID: 1730191860}
-  m_minimumMoveThreshold: 0.35
+  m_minimumMoveThreshold: 0.035
   m_PlayerAim: {fileID: 1372665428}
 --- !u!114 &552827959
 MonoBehaviour:
@@ -6196,11 +6196,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_audioClips:
-  - {fileID: 8300000, guid: 42e65e088b3f4374e851b8dbd38f3df9, type: 3}
-  - {fileID: 8300000, guid: 8bc94ec6ed537e743b481638bdcd503d, type: 3}
-  - {fileID: 8300000, guid: 5a9383dda6cabc047b7a297602e93eb4, type: 3}
-  - {fileID: 8300000, guid: e9714160ce34f2b4ab63ff8c27bd68e1, type: 3}
-  m_timeDelayBetweenSounds: 0.002
+  - {fileID: 8300000, guid: 7d6222f93da27ca41832f4df5e003f9f, type: 3}
+  - {fileID: 8300000, guid: 248c2e98236a5da4daf9c1142ae497f1, type: 3}
+  - {fileID: 8300000, guid: f0e9a656c3c200e47babb2ebf40b3ec5, type: 3}
+  - {fileID: 8300000, guid: 3bce585a87a407049ace62129270e2c2, type: 3}
+  - {fileID: 8300000, guid: 2a6f27c912e60104fbb9685850f49e05, type: 3}
+  - {fileID: 8300000, guid: 751e70531d0c7b94fb5246df4b7bf6fd, type: 3}
+  - {fileID: 8300000, guid: cc780c4a03f640c4fa8b5f54c9796ef6, type: 3}
+  m_timeDelayBetweenSounds: 0.25
 --- !u!82 &1730191861
 AudioSource:
   m_ObjectHideFlags: 0
