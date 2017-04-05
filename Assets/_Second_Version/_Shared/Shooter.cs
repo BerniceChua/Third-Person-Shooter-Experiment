@@ -24,6 +24,10 @@ public class Shooter : MonoBehaviour {
     //WeaponReloader m_reloader;
     [HideInInspector] public WeaponReloader m_reloader { get { return GetComponent<WeaponReloader>(); } set { m_reloader = value; } }
 
+    /// Check if m_muzzle has component for particle system
+    //ParticleSystem m_muzzleFireParticle;
+    ParticleSystem m_muzzleFireParticle { get {return m_muzzle.GetComponent<ParticleSystem>(); } set { m_muzzleFireParticle = value; } }
+
     float m_timeBeforeNextFireAllowed;
 
     /// <summary>
@@ -51,6 +55,8 @@ public class Shooter : MonoBehaviour {
 
         // Moved this to OnEnable()
         //transform.SetParent(m_hand);
+
+        //m_muzzleFireParticle = m_muzzle.GetComponent<ParticleSystem>();
     }
 
     // Update is called once per frame
@@ -64,6 +70,14 @@ public class Shooter : MonoBehaviour {
 
         m_reloader.Reload();
         m_audioReload.Play();
+    }
+
+    void FiringEffect() {
+        //if (m_muzzleFireParticle == null) {
+        if (!m_muzzleFireParticle)
+            return;
+
+        m_muzzleFireParticle.Play();
     }
 
     /// <summary>
@@ -92,6 +106,8 @@ public class Shooter : MonoBehaviour {
         //Debug.Log("m_muzzle = " + m_muzzle );
 
         m_muzzle.LookAt(m_aimTarget);
+
+        FiringEffect();
 
         // Instantiate the projectile
         Instantiate(m_projectile, m_muzzle.position, m_muzzle.rotation);
