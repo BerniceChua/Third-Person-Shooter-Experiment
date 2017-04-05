@@ -3105,7 +3105,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1109886830
+  randomSeed: 1838295780
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -11137,7 +11137,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 937743b1caec5744d996ef2a9cb65cfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_maxAmmo: 10
+  m_maxAmmo: 20
   m_reloadTime: 0.3
   m_clipSize: 10
   m_inventory: {fileID: 1159835500}
@@ -12000,9 +12000,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 937743b1caec5744d996ef2a9cb65cfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_maxAmmo: 10
+  m_maxAmmo: 200
   m_reloadTime: 0.3
-  m_clipSize: 10
+  m_clipSize: 50
   m_inventory: {fileID: 1159835500}
   m_weaponType: 0
   m_shotsFiredInClip: 0
