@@ -604,10 +604,6 @@ Prefab:
       propertyPath: m_Name
       value: ShootingRangeBullseyeGameObject (4)
       objectReference: {fileID: 0}
-    - target: {fileID: 1912920344607968, guid: 660a83920b53243408f0cef75d72ce32, type: 2}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 660a83920b53243408f0cef75d72ce32, type: 2}
   m_IsPrefabParent: 0
@@ -941,10 +937,6 @@ Prefab:
       propertyPath: m_Name
       value: PistolAmmoGameObject (2)
       objectReference: {fileID: 0}
-    - target: {fileID: 1374397659927890, guid: 48b316ab1f799cc4082f29d347c0d279, type: 2}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 48b316ab1f799cc4082f29d347c0d279, type: 2}
   m_IsPrefabParent: 0
@@ -1174,10 +1166,6 @@ Prefab:
         type: 2}
       propertyPath: m_respawnTime
       value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 1075811952946358, guid: ad1727d3376d28b4a9cf0ae87b09d264, type: 2}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ad1727d3376d28b4a9cf0ae87b09d264, type: 2}
@@ -1531,10 +1519,6 @@ Prefab:
       propertyPath: m_Name
       value: ShootingRangeBullseyeGameObject (2)
       objectReference: {fileID: 0}
-    - target: {fileID: 1912920344607968, guid: 660a83920b53243408f0cef75d72ce32, type: 2}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 660a83920b53243408f0cef75d72ce32, type: 2}
   m_IsPrefabParent: 0
@@ -1668,10 +1652,6 @@ Prefab:
     - target: {fileID: 1374397659927890, guid: 48b316ab1f799cc4082f29d347c0d279, type: 2}
       propertyPath: m_Name
       value: PistolAmmoGameObject (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 1374397659927890, guid: 48b316ab1f799cc4082f29d347c0d279, type: 2}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 48b316ab1f799cc4082f29d347c0d279, type: 2}
@@ -2928,10 +2908,6 @@ Prefab:
       propertyPath: m_Name
       value: ShootingRangeBullseyeGameObject (7)
       objectReference: {fileID: 0}
-    - target: {fileID: 1912920344607968, guid: 660a83920b53243408f0cef75d72ce32, type: 2}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 660a83920b53243408f0cef75d72ce32, type: 2}
   m_IsPrefabParent: 0
@@ -3082,6 +3058,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_hitPoints: 1
+  m_spawnPoints:
+  - {fileID: 2027505834}
+  - {fileID: 40892084}
+  - {fileID: 1831058210}
   m_Animator: {fileID: 767392638}
 --- !u!95 &767392638 stripped
 Animator:
@@ -6728,10 +6708,6 @@ Prefab:
       propertyPath: m_Name
       value: ShootingRangeBullseyeGameObject (3)
       objectReference: {fileID: 0}
-    - target: {fileID: 1912920344607968, guid: 660a83920b53243408f0cef75d72ce32, type: 2}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 660a83920b53243408f0cef75d72ce32, type: 2}
   m_IsPrefabParent: 0
@@ -7248,10 +7224,6 @@ Prefab:
     - target: {fileID: 1912920344607968, guid: 660a83920b53243408f0cef75d72ce32, type: 2}
       propertyPath: m_Name
       value: ShootingRangeBullseyeGameObject (5)
-      objectReference: {fileID: 0}
-    - target: {fileID: 1912920344607968, guid: 660a83920b53243408f0cef75d72ce32, type: 2}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 660a83920b53243408f0cef75d72ce32, type: 2}
@@ -10579,7 +10551,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1243489116
 Transform:
   m_ObjectHideFlags: 0
@@ -10693,10 +10665,6 @@ Prefab:
     - target: {fileID: 1912920344607968, guid: 660a83920b53243408f0cef75d72ce32, type: 2}
       propertyPath: m_Name
       value: ShootingRangeBullseyeGameObject (6)
-      objectReference: {fileID: 0}
-    - target: {fileID: 1912920344607968, guid: 660a83920b53243408f0cef75d72ce32, type: 2}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 660a83920b53243408f0cef75d72ce32, type: 2}
@@ -11986,10 +11954,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 14
       objectReference: {fileID: 0}
-    - target: {fileID: 1912920344607968, guid: 660a83920b53243408f0cef75d72ce32, type: 2}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 660a83920b53243408f0cef75d72ce32, type: 2}
   m_IsPrefabParent: 0
@@ -12499,10 +12463,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 11
       objectReference: {fileID: 0}
-    - target: {fileID: 1374397659927890, guid: 48b316ab1f799cc4082f29d347c0d279, type: 2}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 48b316ab1f799cc4082f29d347c0d279, type: 2}
   m_IsPrefabParent: 0
@@ -12558,10 +12518,6 @@ Prefab:
         type: 2}
       propertyPath: m_respawnTime
       value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 1075811952946358, guid: ad1727d3376d28b4a9cf0ae87b09d264, type: 2}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ad1727d3376d28b4a9cf0ae87b09d264, type: 2}
@@ -13044,10 +13000,6 @@ Prefab:
       propertyPath: m_Name
       value: AssaultRifleAmmoGameObject (2)
       objectReference: {fileID: 0}
-    - target: {fileID: 1075811952946358, guid: ad1727d3376d28b4a9cf0ae87b09d264, type: 2}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ad1727d3376d28b4a9cf0ae87b09d264, type: 2}
   m_IsPrefabParent: 0
@@ -13198,10 +13150,6 @@ Prefab:
     - target: {fileID: 1912920344607968, guid: 660a83920b53243408f0cef75d72ce32, type: 2}
       propertyPath: m_Name
       value: ShootingRangeBullseyeGameObject (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 1912920344607968, guid: 660a83920b53243408f0cef75d72ce32, type: 2}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 660a83920b53243408f0cef75d72ce32, type: 2}
@@ -13439,7 +13387,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!23 &2003167706
 MeshRenderer:
   m_ObjectHideFlags: 0

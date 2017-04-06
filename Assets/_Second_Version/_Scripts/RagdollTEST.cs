@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class RagdollTEST : Destructable {
 
+    [SerializeField] SpawnPoint[] m_spawnPoints;
+
     public Animator m_Animator;
 
     Rigidbody[] m_bodyParts;
@@ -23,14 +25,20 @@ public class RagdollTEST : Destructable {
 	
 	// Update is called once per frame
 	void Update () {
-        //if (!IsAlive) {
-        //    Die();
-        //    return;
-        //}
+        if (!IsAlive) {
+            Die();
+            return;
+        }
 
         m_Animator.SetFloat("Vertical", 1);
         m_moveController.Move(new Vector2(5, 0));
 	}
+
+    void SpawnAtNewSpawnPoint() {
+        int spawnIndex = Random.Range(0, m_spawnPoints.Length);
+        transform.position = m_spawnPoints[spawnIndex].transform.position;
+        transform.rotation = m_spawnPoints[spawnIndex].transform.rotation;
+    }
 
     public override void Die() {
         base.Die();
@@ -39,6 +47,12 @@ public class RagdollTEST : Destructable {
         m_Animator.enabled = false;
         print("m_Animator.enabled = " + m_Animator.enabled);
 
+        GameManager.GameManagerInstance.Timer.Add(() => {
+            EnableRagdoll(false);
+            SpawnAtNewSpawnPoint();
+            m_Animator.enabled = true;
+            Reset();
+        }, 5);
     }
 
     void EnableRagdoll(bool value) {
