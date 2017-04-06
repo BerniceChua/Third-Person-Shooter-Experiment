@@ -133,6 +133,12 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a3ab802319b1a1c43aaee04ec5b88662, type: 2}
   m_IsPrefabParent: 0
+--- !u!114 &40892084 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114852947125093962, guid: a3ab802319b1a1c43aaee04ec5b88662,
+    type: 2}
+  m_PrefabInternal: {fileID: 1247294009}
+  m_Script: {fileID: 11500000, guid: 2567645bfcc7918489d63a8540d91f73, type: 3}
 --- !u!1 &50868899
 GameObject:
   m_ObjectHideFlags: 0
@@ -2215,6 +2221,7 @@ GameObject:
   - component: {fileID: 552827964}
   - component: {fileID: 552827965}
   - component: {fileID: 552827966}
+  - component: {fileID: 552827967}
   m_Layer: 0
   m_Name: PlayerGameObject
   m_TagString: Player
@@ -2366,6 +2373,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_MoveState: 0
   m_WeaponState: 0
+--- !u!114 &552827967
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 552827956}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55952c0887bc5164a90643dc90c8c088, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_hitPoints: 0
+  m_spawnPoints:
+  - {fileID: 2027505834}
+  - {fileID: 40892084}
+  - {fileID: 1831058210}
 --- !u!1 &650409172
 GameObject:
   m_ObjectHideFlags: 0
@@ -12091,6 +12114,12 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ad1727d3376d28b4a9cf0ae87b09d264, type: 2}
   m_IsPrefabParent: 0
+--- !u!114 &1831058210 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114852947125093962, guid: a3ab802319b1a1c43aaee04ec5b88662,
+    type: 2}
+  m_PrefabInternal: {fileID: 1448354159}
+  m_Script: {fileID: 11500000, guid: 2567645bfcc7918489d63a8540d91f73, type: 3}
 --- !u!1 &1837746484
 GameObject:
   m_ObjectHideFlags: 0
@@ -12659,6 +12688,12 @@ Transform:
   m_PrefabParentObject: {fileID: 4260852494996126, guid: a3ab802319b1a1c43aaee04ec5b88662,
     type: 2}
   m_PrefabInternal: {fileID: 19114701}
+--- !u!114 &2027505834 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114852947125093962, guid: a3ab802319b1a1c43aaee04ec5b88662,
+    type: 2}
+  m_PrefabInternal: {fileID: 19114701}
+  m_Script: {fileID: 11500000, guid: 2567645bfcc7918489d63a8540d91f73, type: 3}
 --- !u!1 &2036078966
 GameObject:
   m_ObjectHideFlags: 0
