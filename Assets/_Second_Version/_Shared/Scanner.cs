@@ -92,6 +92,8 @@ public class Scanner : MonoBehaviour {
             }
         }
 
+        /// After scanning for targets, this will cache the results in PrepareScan().
+        PrepareScan();
     }
 
     bool IsInLineOfSight(Vector3 eyeHeight, Vector3 targetPosition) {
