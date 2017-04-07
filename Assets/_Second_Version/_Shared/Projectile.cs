@@ -40,10 +40,10 @@ public class Projectile : MonoBehaviour {
     /// </summary>
     /// <param name="other"></param>
     private void CheckDestructable(Transform other) {
-        print("other.name = " + other.name);
+        //print("other.name = " + other.name);
 
         var destructable = other.GetComponent<Destructable>();
-        print("destructable = " + destructable);
+        //print("destructable = " + destructable);
 
         if (destructable == null) {
             //if (!destructable) // this one won't work, it really needs to be "destructible == null" in order for TakeDamage(float damageAmount) to trigger OnDeath() event.
@@ -51,7 +51,7 @@ public class Projectile : MonoBehaviour {
             return;
         }
 
-        print("Projectile collided with " + destructable.name + " at time " + Time.time + ".  Giving m_damage == " + m_damage);
+        //print("Projectile collided with " + destructable.name + " at time " + Time.time + ".  Giving m_damage == " + m_damage);
         destructable.TakeDamage(m_damage);
     }
 }
