@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(MoveController))]
+[RequireComponent(typeof(CharacterController))]
+//[RequireComponent(typeof(MoveController))]
 [RequireComponent(typeof(PlayerStateMachine))]
 public class Player : MonoBehaviour {
     /// These were for troubleshooting:
