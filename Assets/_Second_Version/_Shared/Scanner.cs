@@ -23,7 +23,25 @@ public class Scanner : MonoBehaviour {
     /// <summary>
     /// Use this to select a target from m_targets List<>
     /// </summary>
-    Player m_selectedTarget;
+    Player selectedTarget;
+    Player m_selectedTarget {
+        get { return selectedTarget; }
+        set {
+            selectedTarget = value;
+
+            if (selectedTarget == null)
+                return;
+
+            if (OnTargetSelected != null)
+                OnTargetSelected(selectedTarget.transform.position);
+        }
+    }
+
+    /// <summary>
+    /// When the scanner has selected a target, we want the EnemyPlayerNPC to know about it.
+    /// So we're making an event.
+    /// </summary>
+    public event System.Action<Vector3> OnTargetSelected;
 
 	// Use this for initialization
 	void Start () {
