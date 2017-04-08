@@ -43,17 +43,26 @@ public class Player : MonoBehaviour {
 
     Vector3 m_previousPosition;
 
-    private MoveController m_moveController;
-    public MoveController MoveController {
+    //private MoveController m_moveController;
+    //public MoveController MoveController {
+    //    get {
+    //        //if (!m_moveController)
+    //        if (m_moveController == null)
+    //            m_moveController = GetComponent<MoveController>();
+
+    //        return m_moveController;
+    //    }
+    //}
+    private CharacterController m_moveController;
+    public CharacterController MoveController {
         get {
             //if (!m_moveController)
             if (m_moveController == null)
-                m_moveController = GetComponent<MoveController>();
+                m_moveController = GetComponent<CharacterController>();
 
             return m_moveController;
         }
     }
-
     private PlayerShoot m_playerShoot;
     public PlayerShoot PlayerShoot {
         get {
@@ -105,9 +114,9 @@ public class Player : MonoBehaviour {
     void OnEnable() {  // Use this for initialization
         //print("Hello!  I'm inside the Awake() of Player.cs.");
         m_playerInput = GameManager.GameManagerInstance.InputController;
-        print("Hello");
-        print("What is this? " + this);
-        print(m_mouseControl.LockMouse);
+        //print("Hello");
+        //print("What is this? " + this);
+        print("m_mouseControl.LockMouse = " + m_mouseControl.LockMouse);
 
         //if (m_mouseControl.LockMouse == false) {
         //    print("Hello!  I'm inside the Awake() of Player.cs.");
@@ -118,9 +127,9 @@ public class Player : MonoBehaviour {
         /// When player joins the game, GameManager will set local player as this player.
         /// Then it will raise the OnLocalPlayerJoined(m_localPlayer) event.
         GameManager.GameManagerInstance.LocalPlayer = this;
-        print(GameManager.GameManagerInstance.LocalPlayer);
-        print("Hello, after 'GameManager.GameManagerInstance.LocalPlayer = this;' ");
-        print("What is this? " + this);
+        //print(GameManager.GameManagerInstance.LocalPlayer);
+        //print("Hello, after 'GameManager.GameManagerInstance.LocalPlayer = this;' ");
+        //print("What is this? " + this);
     }
 
     // Update is called once per frame
@@ -144,10 +153,12 @@ public class Player : MonoBehaviour {
         if (m_playerInput.m_IsCrouched)
             moveSpeed = m_crouchSpeed;
 
+        //Vector2 direction = new Vector2(m_playerInput.m_Vertical * moveSpeed, m_playerInput.m_Horizontal * moveSpeed);
         Vector2 direction = new Vector2(m_playerInput.m_Vertical * moveSpeed, m_playerInput.m_Horizontal * moveSpeed);
-        MoveController.Move(direction);
+        //MoveController.Move(direction);
+        MoveController.Move(transform.forward * direction.x * 0.02f + transform.right * direction.y * 0.02f);
 
-        if (Vector3.Distance(transform.position, m_previousPosition) > m_minimumMoveThreshold /*direction != Vector2.zero*/) {
+        if (Vector3.Distance(transform.position, m_previousPosition) > m_minimumMoveThreshold /* && direction != Vector2.zero*/) {
             m_footsteps.Play();
         }
 

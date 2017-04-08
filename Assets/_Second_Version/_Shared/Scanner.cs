@@ -82,7 +82,7 @@ public class Scanner : MonoBehaviour {
     }
 
     void ScanForTargets() {
-        print("Inside ScanForTargets()");
+        //print("Inside ScanForTargets()");
         Collider[] scanResults = Physics.OverlapSphere(transform.position, m_rangeTrigger.radius);
 
         for (int i = 0; i < scanResults.Length; i++) {
@@ -115,7 +115,7 @@ public class Scanner : MonoBehaviour {
     }
 
     bool IsInLineOfSight(Vector3 eyeHeight, Vector3 targetPosition) {
-        print("Inside IsInLineOfSight()");
+        //print("Inside IsInLineOfSight()");
         Vector3 dir = targetPosition - transform.position;
 
         /// if something is within the field of view

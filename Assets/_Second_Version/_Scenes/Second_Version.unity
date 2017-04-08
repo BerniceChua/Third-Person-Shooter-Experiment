@@ -2375,7 +2375,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 552827957}
-  - component: {fileID: 552827959}
   - component: {fileID: 552827958}
   - component: {fileID: 552827960}
   - component: {fileID: 552827961}
@@ -2433,17 +2432,6 @@ MonoBehaviour:
   m_footsteps: {fileID: 1730191860}
   m_minimumMoveThreshold: 0.035
   m_PlayerAim: {fileID: 1372665428}
---- !u!114 &552827959
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 552827956}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 926d8be5f202ebe41968b61c09a2968e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &552827960
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2507,13 +2495,13 @@ CharacterController:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Height: 2
+  m_Height: 1.8
   m_Radius: 0.5
   m_SlopeLimit: 45
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!114 &552827965
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12688,7 +12676,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 30
+  m_Radius: 35
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!4 &1656584668
 Transform:
