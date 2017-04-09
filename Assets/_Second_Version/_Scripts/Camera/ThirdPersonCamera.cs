@@ -47,7 +47,7 @@ public class ThirdPersonCamera : MonoBehaviour {
 
     // Update is called once per frame
     //void Update () {
-    /// Changed this to LateUpdate(), because LateUpdate() smooths the camera movement better.
+    /// Changed this to LateUpdate(), because LateUpdate() smooths the camera movement better since we changed from MoveController.cs to CharacterController.
     void LateUpdate() {
         if (!m_localPlayer)
             return;
