@@ -116,6 +116,7 @@ public class Container : MonoBehaviour {
 
         return containerItem.Remaining;
     }
+
     private ContainerItem GetContainerItem(Guid id) {
         var containerItem = m_items.Where(x => x.ID == id).FirstOrDefault();
 

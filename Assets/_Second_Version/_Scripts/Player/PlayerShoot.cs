@@ -29,10 +29,10 @@ public class PlayerShoot : MonoBehaviour {
         m_weaponHolster = transform.FindChild("WeaponsGameObject");
         m_weaponsArray = m_weaponHolster.GetComponentsInChildren<Shooter>();
         
-        Debug.Log("m_currentWeaponIndex = " + m_currentWeaponIndex);
-        Debug.Log("m_weaponsArray[" + m_currentWeaponIndex + "]" + m_weaponsArray[m_currentWeaponIndex]);
+        //Debug.Log("m_currentWeaponIndex = " + m_currentWeaponIndex);
+        //Debug.Log("m_weaponsArray[" + m_currentWeaponIndex + "]" + m_weaponsArray[m_currentWeaponIndex]);
 
-        Debug.Log(m_weaponsArray.Length);
+        //Debug.Log(m_weaponsArray.Length);
 
         /// Refactored into the line below
         //if (m_weaponsArray.Length > 0)
@@ -51,6 +51,9 @@ public class PlayerShoot : MonoBehaviour {
 
         if (GameManager.GameManagerInstance.InputController.m_MouseWheelUp)
             SwitchWeapon(-1);
+
+        if (GameManager.GameManagerInstance.LocalPlayer.PlayerState.m_MoveState == PlayerStateMachine.EMoveState.SPRINTING)
+            return;
 
         if (!m_canFire)
             return;

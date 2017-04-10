@@ -78,8 +78,8 @@ public class WeaponReloader : MonoBehaviour {
     //}
 
     void ExecuteReload(int amountToReload) {
-        Debug.Log("Reload executed at time " + Time.time);
-        Debug.Log("amountToReload = " + amountToReload);
+        //Debug.Log("Reload executed at time " + Time.time);
+        //Debug.Log("amountToReload = " + amountToReload);
 
         m_isReloading = false;
 

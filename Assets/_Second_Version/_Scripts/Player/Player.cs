@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent (typeof(MoveController))]
+[RequireComponent(typeof(CharacterController))]
+//[RequireComponent(typeof(MoveController))]
+[RequireComponent(typeof(PlayerStateMachine))]
 public class Player : MonoBehaviour {
     /// These were for troubleshooting:
     #region Troubleshooting
@@ -37,19 +39,30 @@ public class Player : MonoBehaviour {
     [SerializeField] AudioController m_footsteps;
     [SerializeField] float m_minimumMoveThreshold;
 
+    public PlayerAim m_PlayerAim;
+
     Vector3 m_previousPosition;
 
-    private MoveController m_moveController;
-    public MoveController MoveController {
+    //private MoveController m_moveController;
+    //public MoveController MoveController {
+    //    get {
+    //        //if (!m_moveController)
+    //        if (m_moveController == null)
+    //            m_moveController = GetComponent<MoveController>();
+
+    //        return m_moveController;
+    //    }
+    //}
+    private CharacterController m_moveController;
+    public CharacterController MoveController {
         get {
-            //if (m_moveController == null)
-            if (!m_moveController)
-                m_moveController = GetComponent<MoveController>();
+            //if (!m_moveController)
+            if (m_moveController == null)
+                m_moveController = GetComponent<CharacterController>();
 
             return m_moveController;
         }
     }
-
     private PlayerShoot m_playerShoot;
     public PlayerShoot PlayerShoot {
         get {
@@ -59,44 +72,78 @@ public class Player : MonoBehaviour {
         }
     }
 
-    private Crosshairs m_crosshair;
-    private Crosshairs Crosshair {
-        get {
-            if (!m_crosshair)
-                m_crosshair = GetComponentInChildren<Crosshairs>();
+    /// Removed because of refactor from PlayerStateMachine.
+    //private Crosshairs m_crosshair;
+    //private Crosshairs Crosshair {
+    //    get {
+    //        if (!m_crosshair)
+    //            m_crosshair = GetComponentInChildren<Crosshairs>();
 
-            return m_crosshair;
+    //        return m_crosshair;
+    //    }
+    //}
+
+    private PlayerStateMachine m_playerState;
+    public PlayerStateMachine PlayerState {
+        get {
+            if (!m_playerState)
+                m_playerState = GetComponent<PlayerStateMachine>();
+
+            return m_playerState;
         }
     }
 
-    InputController m_playerInput { get { return GameManager.GameManagerInstance.InputController; } set { m_playerInput = value; } }
+    InputController m_playerInput;
+    //InputController m_playerInput { get { return GameManager.GameManagerInstance.InputController; } set { m_playerInput = value; } }
     Vector2 m_mouseInput;
 
-    // Use this for initialization
-    void Awake() {
-        //m_inputController = GameManager.GameManagerInstance.InputController;
+    /// <summary>
+    /// Changed "Awake()" to "OnEnable()" because the 
+    /// order of execution has AmmoCountDisplay.cs first than 
+    /// Player.cs, so OnEnable() affects the order of execution by 
+    /// setting this up first, and because of 
+    /// that, "GameManager.GameManagerInstance.LocalPlayer = this;"
+    /// cannot find the Player Game Object before the rest of the game loads,
+    /// which causes Player.cs to not to execute which causes Update() to not 
+    /// execute either.  That's why the player character couldn't 
+    /// change direction with the MouseLookAroundControl().  
+    /// (Found this out because the print()s didn't work when
+    /// this was Awake() instead of OnEnable().)
+    /// </summary>
+    //void Awake() {
+    void OnEnable() {  // Use this for initialization
+        //print("Hello!  I'm inside the Awake() of Player.cs.");
+        m_playerInput = GameManager.GameManagerInstance.InputController;
+        //print("Hello");
+        //print("What is this? " + this);
+        print("m_mouseControl.LockMouse = " + m_mouseControl.LockMouse);
+
+        //if (m_mouseControl.LockMouse == false) {
+        //    print("Hello!  I'm inside the Awake() of Player.cs.");
+        //    Cursor.visible = false;
+        //    Cursor.lockState = CursorLockMode.Locked;
+        //}
 
         /// When player joins the game, GameManager will set local player as this player.
         /// Then it will raise the OnLocalPlayerJoined(m_localPlayer) event.
         GameManager.GameManagerInstance.LocalPlayer = this;
-
-        if (m_mouseControl.LockMouse) {
-            Cursor.visible = false;
-            Cursor.lockState = CursorLockMode.Locked;
-        }
-
+        //print(GameManager.GameManagerInstance.LocalPlayer);
+        //print("Hello, after 'GameManager.GameManagerInstance.LocalPlayer = this;' ");
+        //print("What is this? " + this);
     }
 
     // Update is called once per frame
     void Update() {
+        //print("Inside Update() of Player.cs.");
         Move();
 
         MouseLookAroundControl();
     }
 
     void Move() {
+        //print("Inside Move() of Player.cs.");
         float moveSpeed = m_runSpeed;
-
+        //print("moveSpeed = " + moveSpeed);
         if (m_playerInput.m_IsWalking)
             moveSpeed = m_walkSpeed;
 
@@ -106,10 +153,12 @@ public class Player : MonoBehaviour {
         if (m_playerInput.m_IsCrouched)
             moveSpeed = m_crouchSpeed;
 
+        //Vector2 direction = new Vector2(m_playerInput.m_Vertical * moveSpeed, m_playerInput.m_Horizontal * moveSpeed);
         Vector2 direction = new Vector2(m_playerInput.m_Vertical * moveSpeed, m_playerInput.m_Horizontal * moveSpeed);
-        MoveController.Move(direction);
+        //MoveController.Move(direction);
+        MoveController.Move(transform.forward * direction.x * 0.02f + transform.right * direction.y * 0.02f);
 
-        if (Vector3.Distance(transform.position, m_previousPosition) > m_minimumMoveThreshold /*direction != Vector2.zero*/) {
+        if (Vector3.Distance(transform.position, m_previousPosition) > m_minimumMoveThreshold /* && direction != Vector2.zero*/) {
             m_footsteps.Play();
         }
 
@@ -118,12 +167,16 @@ public class Player : MonoBehaviour {
     }
 
     private void MouseLookAroundControl() {
+        //Debug.Log("Inside MouseLookAroundControl() at time " + Time.time + "; m_mouseInput.y = " + m_mouseInput.y + ", m_mouseInput.x = " + m_mouseInput.y);
         m_mouseInput.x = Mathf.Lerp(m_mouseInput.x, m_playerInput.m_MouseInput.x, 1.0f / m_mouseControl.Damping.x);
         m_mouseInput.y = Mathf.Lerp(m_mouseInput.y, m_playerInput.m_MouseInput.y, 1.0f / m_mouseControl.Damping.y);
 
         transform.Rotate(Vector3.up * m_mouseInput.x * m_mouseControl.Sensitivity.x);
 
-        Crosshair.LookHeight(m_mouseInput.y * m_mouseControl.Sensitivity.y);
+        /// Removed because of refactor from PlayerStateMachine.
+        //Crosshair.LookHeight(m_mouseInput.y * m_mouseControl.Sensitivity.y);
+
+        m_PlayerAim.m_SetRotation(m_mouseInput.y * m_mouseControl.Sensitivity.y);
     }
 
 

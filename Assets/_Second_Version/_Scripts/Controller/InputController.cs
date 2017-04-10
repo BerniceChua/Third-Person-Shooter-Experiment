@@ -16,7 +16,10 @@ public class InputController : MonoBehaviour {
 
     //public bool m_fire1;
     public bool m_Fire1 { get { return Input.GetButton("Fire1"); } }
-    
+
+    //public bool m_fire2;
+    public bool m_Fire2 { get { return Input.GetButton("Fire2"); } }
+
     //public bool m_reload;
     //public bool m_Reload { get { return Input.GetButtonDown("Reload"); } set { m_Reload = value; } }
     public bool m_Reload { get { return Input.GetButton("Reload"); } set { m_Reload = value; } }
@@ -50,6 +53,7 @@ public class InputController : MonoBehaviour {
         //m_Horizontal = Input.GetAxis("Horizontal");
         //m_MouseInput = new Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y"));
         //m_Fire1 = Input.GetButton("Fire1");
+        //m_Fire2 = Input.GetButton("Fire2");
         //m_Reload = Input.GetButtonDown("Reload");
         //m_IsWalking = Input.GetButton("Walk");
         //m_IsRunning = Input.GetButton("Run");

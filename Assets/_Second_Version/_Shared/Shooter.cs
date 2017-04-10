@@ -11,6 +11,8 @@ public class Shooter : MonoBehaviour {
     [SerializeField] AudioController m_audioReload;
     [SerializeField] AudioController m_audioFireWeapon;
 
+    [SerializeField] Transform m_aimTarget;
+
     /*[HideInInspector]*/ public bool m_canFire = true;
 
     /// NOTE: this "Muzzle" game object MUST be on the same hierarchy level as the game object that has this script.  If it's a child in the hierarchy, it won't work even with transform.FindChild();
@@ -21,6 +23,10 @@ public class Shooter : MonoBehaviour {
 
     //WeaponReloader m_reloader;
     [HideInInspector] public WeaponReloader m_reloader { get { return GetComponent<WeaponReloader>(); } set { m_reloader = value; } }
+
+    /// Check if m_muzzle has component for particle system
+    //ParticleSystem m_muzzleFireParticle;
+    ParticleSystem m_muzzleFireParticle { get {return m_muzzle.GetComponent<ParticleSystem>(); } set { m_muzzleFireParticle = value; } }
 
     float m_timeBeforeNextFireAllowed;
 
@@ -49,6 +55,8 @@ public class Shooter : MonoBehaviour {
 
         // Moved this to OnEnable()
         //transform.SetParent(m_hand);
+
+        //m_muzzleFireParticle = m_muzzle.GetComponent<ParticleSystem>();
     }
 
     // Update is called once per frame
@@ -62,6 +70,14 @@ public class Shooter : MonoBehaviour {
 
         m_reloader.Reload();
         m_audioReload.Play();
+    }
+
+    void FiringEffect() {
+        //if (m_muzzleFireParticle == null) {
+        if (!m_muzzleFireParticle)
+            return;
+
+        m_muzzleFireParticle.Play();
     }
 
     /// <summary>
@@ -86,8 +102,13 @@ public class Shooter : MonoBehaviour {
 
         m_timeBeforeNextFireAllowed = Time.time + m_rateOfFire;
 
-        print("Firing weapon at " + Time.time);
-        Debug.Log("m_muzzle = " + m_muzzle );
+        //print("Firing weapon at " + Time.time);
+        //Debug.Log("m_muzzle = " + m_muzzle );
+
+        m_muzzle.LookAt(m_aimTarget);
+
+        FiringEffect();
+
         // Instantiate the projectile
         Instantiate(m_projectile, m_muzzle.position, m_muzzle.rotation);
         m_audioFireWeapon.Play();
