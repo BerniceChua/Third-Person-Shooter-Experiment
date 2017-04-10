@@ -19,7 +19,7 @@ public class Pathfinding : MonoBehaviour {
             m_isDestinationReached = value;
             /// If this is true, raise an event
             if(m_isDestinationReached) {
-                /// Check if destination was assigned a value
+                /// Check if destination was assigned a value by public event System.Action OnDestinationReached
                 if (OnDestinationReached != null) {
                     OnDestinationReached();
                 }
@@ -32,18 +32,22 @@ public class Pathfinding : MonoBehaviour {
     void Start () {
         //m_NavMeshAgent = GetComponent<NavMeshAgent>();
 	}
-	
-	// Update is called once per frame
-	void Update () {
-        if (m_isDestinationReached)
+
+    // Update is called once per frame
+    /// <summary>
+    /// All of these isDestinationReached is the struct, not the primitive bool object m_isDestinationReached
+    /// </summary>
+    void Update () {
+        if (isDestinationReached)
             return;
 
-        if(m_NavMeshAgent.remainingDistance < distanceRemainingThreshold) {
+        if (m_NavMeshAgent.remainingDistance < distanceRemainingThreshold)
+            isDestinationReached = true;
 
-        }
 	}
 
     public void SetTarget(Vector3 target) {
+        m_isDestinationReached = false;
         m_NavMeshAgent.SetDestination(target);
     }
 

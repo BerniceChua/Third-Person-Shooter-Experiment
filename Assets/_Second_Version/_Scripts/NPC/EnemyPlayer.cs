@@ -7,8 +7,11 @@ using UnityEngine;
 [RequireComponent(typeof(Scanner))]
 public class EnemyPlayer : MonoBehaviour {
 
-    [SerializeField]
-    Animator m_animator;
+    /// <summary>
+    ///  Removed during refactoring for waypoints.
+    ///  This functionality has moved to EnemyAnimation.cs
+    /// </summary>
+    //[SerializeField] Animator m_animator;
 
     //Pathfinding m_pathfinding;
     Pathfinding m_pathfinding { get { return GetComponent<Pathfinding>(); } set { m_pathfinding = value; } }
@@ -32,12 +35,16 @@ public class EnemyPlayer : MonoBehaviour {
         m_pathfinding.SetTarget(position);
     }
 
-    // Update is called once per frame
-    void Update () {
-        m_animator.SetFloat("Vertical", m_pathfinding.m_NavMeshAgent.velocity.z);
-        m_animator.SetFloat("Horizontal", m_pathfinding.m_NavMeshAgent.velocity.x);
-    }
+    /// <summary>
+    ///  Removed during refactoring for waypoints.
+    ///  This functionality has moved to EnemyAnimation.cs
+    /// </summary>
+    //// Update is called once per frame
+    //void Update () {
+    //    m_animator.SetFloat("Vertical", m_pathfinding.m_NavMeshAgent.velocity.z);
+    //    //m_animator.SetFloat("Horizontal", m_pathfinding.m_NavMeshAgent.velocity.x);
+    //}
 
-    
+
 
 }
