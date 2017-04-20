@@ -13,17 +13,28 @@ public class GenericScanner : MonoBehaviour {
     [SerializeField] LayerMask m_layerMask;
 
     //SphereCollider m_rangeTrigger;
-    SphereCollider m_rangeTrigger { get { return GetComponent<SphereCollider>(); } set { m_rangeTrigger = value; } }
+    //SphereCollider m_rangeTrigger { get { return GetComponent<SphereCollider>(); } set { m_rangeTrigger = value; } }
+	SphereCollider m_rangeTrigger;
+
+	public float m_ScanRange {
+		get {
+			if (m_rangeTrigger == null)
+				m_rangeTrigger = GetComponent<SphereCollider> ();
+
+			return m_rangeTrigger.radius;
+		}
+	}
 
     /// <summary>
     ///  Detects players
     /// </summary>
-    List<Player> m_targets = new List<Player>();
+    //List<Player> m_targets = new List<Player>();
+	/// the above was replaced with a local variable when we made the scanner generic.
 
     /// <summary>
     /// Use this to select a target from m_targets List<>
     /// </summary>
-    Player selectedTarget;
+    /*Player selectedTarget;
     Player m_selectedTarget {
         get { return selectedTarget; }
         set {
@@ -35,14 +46,16 @@ public class GenericScanner : MonoBehaviour {
             if (OnTargetSelected != null)
                 OnTargetSelected(selectedTarget.transform.position);
         }
-    }
+    }*/
 
     /// <summary>
     /// When the scanner has selected a target, we want the EnemyPlayerNPC to know about it.
     /// So we're making an event.
     /// </summary>
-    public event System.Action<Vector3> OnTargetSelected;
-
+    //public event System.Action<Vector3> OnTargetSelected;
+	//public event System.Action<Player> OnTargetSelected;
+	public event System.Action OnScanReady;
+	
 	// Use this for initialization
 	void Start () {
         //m_rangeTrigger = GetComponent<SphereCollider>();
@@ -55,18 +68,23 @@ public class GenericScanner : MonoBehaviour {
 
     void PrepareScan() {
         /// Don't scan if currently have a target selected.
-        if (m_selectedTarget != null)
-            return;
+        //if (m_selectedTarget != null)
+        //    return;
+		/// Removed when the scanner was genericized.
 
-        GameManager.GameManagerInstance.Timer.Add(ScanForTargets, m_scanSpeed);
+        //GameManager.GameManagerInstance.Timer.Add(ScanForTargets, m_scanSpeed);
+		GameManager.GameManagerInstance.Timer.Add(() => {
+			if (OnScanReady != null)
+				OnScanReady();
+		}, m_scanSpeed);
     }
 
     private void OnDrawGizmos() {
-        Gizmos.color = Color.cyan;
+		/*Gizmos.color = Color.cyan;
 
         if (m_selectedTarget != null) {
             Gizmos.DrawLine(transform.position, m_selectedTarget.transform.position);
-        }
+        }*/
 
         Gizmos.color = Color.green;
 
@@ -81,7 +99,7 @@ public class GenericScanner : MonoBehaviour {
         return new Vector3(Mathf.Sin(radian), 0, Mathf.Cos(radian));
     }
 
-    void ScanForTargets() {
+    /*void ScanForTargets() {
         //print("Inside ScanForTargets()");
         Collider[] scanResults = Physics.OverlapSphere(transform.position, m_rangeTrigger.radius);
 
@@ -112,7 +130,44 @@ public class GenericScanner : MonoBehaviour {
 
         /// After scanning for targets, this will cache the results in PrepareScan().
         PrepareScan();
-    }
+    }*/
+	public List<T> ScanForTargetsWithComponent<T>() {
+		List<T> targets = new List<T> ();
+
+		//print("Inside ScanForTargets()");
+		//Collider[] scanResults = Physics.OverlapSphere(transform.position, m_rangeTrigger.radius);
+		Collider[] scanResults = Physics.OverlapSphere(transform.position, m_ScanRange);
+
+		for (int i = 0; i < scanResults.Length; i++) {
+			var player = scanResults[i].transform.GetComponent<T>();
+
+			if (player == null)
+				continue;
+
+			if (!IsInLineOfSight(Vector3.up, scanResults[i].transform.position) )
+				continue;
+
+			targets.Add(player);
+		}
+
+		/// Check how many m_targets are in the List<Player>();
+		/*if (targets.Count == 1) {
+			m_selectedTarget = targets[0];
+		} else {
+			/// Check for the closest target.
+			float closestTarget = m_rangeTrigger.radius;
+
+			foreach(var possibleTarget in targets) {
+				if (Vector3.Distance(transform.position, possibleTarget.transform.position) < closestTarget)
+					m_selectedTarget = possibleTarget;
+			}
+		}*/
+
+		/// After scanning for targets, this will cache the results in PrepareScan().
+		PrepareScan();
+
+		return targets;
+	}
 
     bool IsInLineOfSight(Vector3 eyeHeight, Vector3 targetPosition) {
         //print("Inside IsInLineOfSight()");
