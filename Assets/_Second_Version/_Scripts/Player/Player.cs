@@ -158,6 +158,10 @@ public class Player : MonoBehaviour {
         //MoveController.Move(direction);
         MoveController.Move(transform.forward * direction.x * 0.02f + transform.right * direction.y * 0.02f);
 
+        /// This one is a different way to move your character, and the gravity is calculated for you.
+        /// Notice that you'll need to also remove the speed multiplier.
+        //MoveController.SimpleMove(transform.forward * direction.x + transform.right * direction.y);
+
         if (Vector3.Distance(transform.position, m_previousPosition) > m_minimumMoveThreshold /* && direction != Vector2.zero*/) {
             m_footsteps.Play();
         }

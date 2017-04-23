@@ -5,6 +5,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(Pathfinding))]
 //[RequireComponent(typeof(Scanner))]
+[RequireComponent(typeof(EnemyNPCHealth))]
 public class EnemyPlayer : MonoBehaviour {
 
     /// <summary>
@@ -22,6 +23,16 @@ public class EnemyPlayer : MonoBehaviour {
 
 	Player m_priorityTarget;
 	List<Player> m_targetsList;
+
+    private EnemyNPCHealth m_EnemyHealth;
+    public EnemyNPCHealth EnemyHealth {
+        get {
+            if (m_EnemyHealth == null)
+                m_EnemyHealth = GetComponent<EnemyNPCHealth>();
+
+            return m_EnemyHealth;
+        }
+    }
 
     // Use this for initialization
     void Start () {

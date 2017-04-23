@@ -26,8 +26,11 @@ public class Destructable : MonoBehaviour {
     public bool IsAlive { get { return HitPointsRemaining > 0; } }
 
     public virtual void Die() {
-        if (!IsAlive)
-            return;
+        /// Removed when adding EnemyNPCHealth.cs because
+        /// this stops the rest of the script from executing when
+        /// it's needed it.
+        //if (!IsAlive)
+        //    return;
 
         if (OnDeath != null)
             OnDeath();
