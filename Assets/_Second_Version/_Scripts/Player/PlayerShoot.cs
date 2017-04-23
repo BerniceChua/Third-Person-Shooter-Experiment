@@ -18,12 +18,12 @@ public class PlayerShoot : WeaponsController {
         if (GameManager.GameManagerInstance.LocalPlayer.PlayerState.m_MoveState == PlayerStateMachine.EMoveState.SPRINTING)
             return;
 
-        if (!m_canFire)
+        if (!m_CanFire)
             return;
 
         if (GameManager.GameManagerInstance.InputController.m_Fire1) {
             //Debug.Log("m_fire1 = " + GameManager.GameManagerInstance.InputController.m_fire1 + " at " + Time.time);
-            m_activeWeapon.FireWeapon();
+            ActiveWeapon.FireWeapon();
         }
 	}
 

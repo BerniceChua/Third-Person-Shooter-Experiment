@@ -12,21 +12,21 @@ public class WeaponsController : MonoBehaviour {
 
     // Looks for weapons in any transforms.
     Shooter[] m_weaponsArray;
-    //Shooter[] m_weaponsArray { get { return m_weaponHolster.GetComponentsInChildren<Shooter>(); } set { m_weaponsArray = value; } }
-    Shooter m_activeWeapon;
-
+    
     int m_currentWeaponIndex;
-    bool m_canFire;
+    [HideInInspector] public bool m_CanFire;
     Transform m_weaponHolster;
     //Transform m_weaponHolster { get { return transform.FindChild("WeaponsGameObject"); } set { m_weaponHolster = value; } }
 
     public event System.Action<Shooter> OnWeaponSwitch;
 
+    //Shooter[] m_weaponsArray { get { return m_weaponHolster.GetComponentsInChildren<Shooter>(); } set { m_weaponsArray = value; } }
+    Shooter m_activeWeapon;
     public Shooter ActiveWeapon { get { return m_activeWeapon; } }
 
     // Use this for initialization
     void Awake() {
-        m_canFire = true;
+        m_CanFire = true;
         m_weaponHolster = transform.FindChild("WeaponsGameObject");
         m_weaponsArray = m_weaponHolster.GetComponentsInChildren<Shooter>();
 
@@ -45,11 +45,11 @@ public class WeaponsController : MonoBehaviour {
             EquipWeapon(0);
     }
 
-    void EquipWeapon(int index) {
+    internal void EquipWeapon(int index) {
         /// Each time a weapon is equipped, we deactivate all the weapons, and only activate the selected weapon.
         DeactivateWeapon();
 
-        m_canFire = true;
+        m_CanFire = true;
         m_activeWeapon = m_weaponsArray[index];
 
         m_activeWeapon.Equip();
@@ -68,8 +68,13 @@ public class WeaponsController : MonoBehaviour {
         }
     }
 
-    void SwitchWeapon(int direction) {
-        m_canFire = false;
+    /// <summary>
+    /// internal classes only allow classes that inherit from this to access, but not
+    /// other classes that DON'T inherit from them.
+    /// </summary>
+    /// <param name="direction"></param>
+    internal void SwitchWeapon(int direction) {
+        m_CanFire = false;
 
         m_currentWeaponIndex += direction; // even if it's negative, it will still unequip/switch the weapon.
 
