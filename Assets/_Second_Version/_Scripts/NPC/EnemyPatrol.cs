@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Pathfinding))]
+[RequireComponent(typeof(EnemyNPCHealth))]
 public class EnemyPatrol : MonoBehaviour {
 
     [SerializeField] WaypointController m_waypointController;
@@ -10,6 +11,16 @@ public class EnemyPatrol : MonoBehaviour {
     [SerializeField] float m_waitTimeMax;
 
     Pathfinding m_pathfinding;
+
+    EnemyPlayer m_enemyPlayer;
+    public EnemyPlayer EnemyPlayer {
+        get {
+            if (m_enemyPlayer == null)
+                m_enemyPlayer = GetComponent<EnemyPlayer>();
+
+            return m_enemyPlayer;
+        }
+    }
 
     // Use this for initialization
     void Start () {
@@ -20,10 +31,16 @@ public class EnemyPatrol : MonoBehaviour {
         m_pathfinding = GetComponent<Pathfinding>();
         m_pathfinding.OnDestinationReached += Pathfinding_OnDestinationReached;
         m_waypointController.OnWaypointChanged += WaypointController_OnWaypointChanged;
+
+        EnemyPlayer.EnemyHealth.OnDeath += EnemyHealth_OnDeath;
     }
 
-	// Update is called once per frame
-	void Update () {
+    private void EnemyHealth_OnDeath() {
+        m_pathfinding.m_NavMeshAgent.Stop();
+    }
+
+    // Update is called once per frame
+    void Update () {
 		
 	}
 
