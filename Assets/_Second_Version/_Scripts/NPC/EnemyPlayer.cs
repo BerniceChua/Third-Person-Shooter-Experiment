@@ -40,7 +40,7 @@ public class EnemyPlayer : MonoBehaviour {
     void Start () {
         //m_pathfinding = GetComponent<Pathfinding>();
 
-        m_pathfinding.m_NavMeshAgent.speed = m_settings.m_RunSpeed;
+        m_pathfinding.m_NavMeshAgent.speed = m_settings.m_WalkSpeed;
 
         //m_scanner = GetComponent<Scanner>();
         //m_scanner.OnTargetSelected += Scanner_OnTargetSelected;

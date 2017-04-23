@@ -21,6 +21,8 @@ public class EnemyAnimation : MonoBehaviour {
         float velocity = (transform.position - m_lastPosition).magnitude / Time.deltaTime;
         m_lastPosition = transform.position;
 
+        m_animator.SetBool("IsWalking", true);
+
         /// Divide velocity by m_pathfinding.m_NavMeshAgent.speed, so that the animation won't do a weird turn.
         m_animator.SetFloat("Vertical", velocity/m_pathfinding.m_NavMeshAgent.speed);
 	}
