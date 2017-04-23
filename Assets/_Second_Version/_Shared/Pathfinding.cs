@@ -38,7 +38,7 @@ public class Pathfinding : MonoBehaviour {
     /// All of these isDestinationReached is the struct, not the primitive bool object m_isDestinationReached
     /// </summary>
     void Update () {
-        if (isDestinationReached)
+        if (isDestinationReached || !m_NavMeshAgent.hasPath) // 2nd condition will make sure that there's no path set for the m_NavMeshAgent yet.
             return;
 
         if (m_NavMeshAgent.remainingDistance < distanceRemainingThreshold)
