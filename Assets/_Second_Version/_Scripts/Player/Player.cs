@@ -31,10 +31,15 @@ public class Player : MonoBehaviour {
         public bool LockMouse;
     }
 
-    [SerializeField] float m_runSpeed;
-    [SerializeField] float m_walkSpeed;
-    [SerializeField] float m_crouchSpeed;
-    [SerializeField] float m_sprintSpeed;
+    /// <summary>
+    /// Refactored and replaced with scriptable object
+    /// </summary>
+    //[SerializeField] float m_runSpeed;
+    //[SerializeField] float m_walkSpeed;
+    //[SerializeField] float m_crouchSpeed;
+    //[SerializeField] float m_sprintSpeed;
+    [SerializeField] NPCEnemy m_settings;
+    
     [SerializeField] MouseInput m_mouseControl;
     [SerializeField] AudioController m_footsteps;
     [SerializeField] float m_minimumMoveThreshold;
@@ -142,16 +147,16 @@ public class Player : MonoBehaviour {
 
     void Move() {
         //print("Inside Move() of Player.cs.");
-        float moveSpeed = m_runSpeed;
+        float moveSpeed = m_settings.m_RunSpeed;
         //print("moveSpeed = " + moveSpeed);
         if (m_playerInput.m_IsWalking)
-            moveSpeed = m_walkSpeed;
+            moveSpeed = m_settings.m_WalkSpeed;
 
         if (m_playerInput.m_IsSprinting)
-            moveSpeed = m_sprintSpeed;
+            moveSpeed = m_settings.m_SprintSpeed;
 
         if (m_playerInput.m_IsCrouched)
-            moveSpeed = m_crouchSpeed;
+            moveSpeed = m_settings.m_CrouchSpeed;
 
         //Vector2 direction = new Vector2(m_playerInput.m_Vertical * moveSpeed, m_playerInput.m_Horizontal * moveSpeed);
         Vector2 direction = new Vector2(m_playerInput.m_Vertical * moveSpeed, m_playerInput.m_Horizontal * moveSpeed);
