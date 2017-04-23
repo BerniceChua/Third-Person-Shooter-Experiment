@@ -21,6 +21,8 @@ public class EnemyPlayer : MonoBehaviour {
 	//[SerializeField] GenericScanner m_playerScanner { get { return GetComponent<GenericScanner>(); } set { m_playerScanner = value; } }
 	[SerializeField] GenericScanner m_playerScanner;
 
+    [SerializeField] NPCEnemy m_settings;
+
 	Player m_priorityTarget;
 	List<Player> m_targetsList;
 
@@ -37,6 +39,9 @@ public class EnemyPlayer : MonoBehaviour {
     // Use this for initialization
     void Start () {
         //m_pathfinding = GetComponent<Pathfinding>();
+
+        m_pathfinding.m_NavMeshAgent.speed = m_settings.m_RunSpeed;
+
         //m_scanner = GetComponent<Scanner>();
         //m_scanner.OnTargetSelected += Scanner_OnTargetSelected;
 		m_playerScanner.OnScanReady += GenericScanner_OnScanReady;

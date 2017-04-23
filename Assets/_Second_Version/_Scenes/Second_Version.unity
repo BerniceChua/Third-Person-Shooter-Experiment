@@ -13818,6 +13818,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_playerScanner: {fileID: 30473326}
+  m_settings: {fileID: 11400000, guid: 9263d950108d1794d9adc8157e0f5c3a, type: 2}
 --- !u!114 &1656584664
 MonoBehaviour:
   m_ObjectHideFlags: 0
