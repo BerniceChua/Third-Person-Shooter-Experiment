@@ -20538,6 +20538,7 @@ GameObject:
   - component: {fileID: 1656584674}
   - component: {fileID: 1656584672}
   - component: {fileID: 1656584673}
+  - component: {fileID: 1656584675}
   m_Layer: 0
   m_Name: EnemyNPCTestGameObject (1)
   m_TagString: Untagged
@@ -20716,6 +20717,22 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &1656584675
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1656584662}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01bda01931b0f034bbbe5103e82c7196, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_weaponSwitchTime: 1
+  m_CanFire: 0
+  m_shootingSpeed: 1
+  m_burstDurationMin: 0.3
+  m_burstDurationMax: 0.7
 --- !u!1 &1660313955 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 100122, guid: 03047d51b818ae64a9a1606e7f571ecd, type: 3}
