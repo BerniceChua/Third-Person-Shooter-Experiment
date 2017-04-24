@@ -6056,7 +6056,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55952c0887bc5164a90643dc90c8c088, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_hitPoints: 10
+  m_hitPoints: 1000
   inSeconds: 5
   m_spawnPoints:
   - {fileID: 2027505834}
