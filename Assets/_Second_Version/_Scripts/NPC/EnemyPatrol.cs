@@ -59,7 +59,7 @@ public class EnemyPatrol : MonoBehaviour {
     /// </summary>
     /// <param name="waypoint"></param>
     private void WaypointController_OnWaypointChanged(Waypoint waypoint) {
-        print("Inside WaypointController_OnWaypointChanged(Waypoint waypoint), waypoint = " + waypoint);
+        //print("Inside WaypointController_OnWaypointChanged(Waypoint waypoint), waypoint = " + waypoint);
         m_pathfinding.SetTarget(waypoint.transform.position);
     }
 

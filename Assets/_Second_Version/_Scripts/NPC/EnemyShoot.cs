@@ -24,8 +24,10 @@ public class EnemyShoot : WeaponsController {
     /// </summary>
     /// <param name="target"></param>
     private void EnemyPlayer_OnTargetSelected(Player target) {
+        print("~~~~~~~~~ Inside  EnemyPlayer_OnTargetSelected(" + target + ") ~~~~~~~~~~~~~~~~~~~~~");
         ActiveWeapon.m_AimTarget = target.transform;
         ActiveWeapon.m_AimTargetOffset = Vector3.up * 1.5f;
+        StartBurst();
     }
 
     void StartBurst() {

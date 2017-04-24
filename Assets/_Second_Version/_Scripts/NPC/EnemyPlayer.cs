@@ -54,7 +54,7 @@ public class EnemyPlayer : MonoBehaviour {
 	}
 
     private void EnemyHealth_OnDeath() {
-        throw new NotImplementedException();
+        
     }
 
     private void GenericScanner_OnScanReady(){

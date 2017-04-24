@@ -174,7 +174,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec4da54219bb74007accfd9da99e0f26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_scanSpeed: 5
+  m_scanSpeed: 1
   m_fieldOfView: 90
   m_layerMask:
     serializedVersion: 2
@@ -189,7 +189,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 20
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &40892084 stripped
 MonoBehaviour:
@@ -6056,8 +6056,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55952c0887bc5164a90643dc90c8c088, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_hitPoints: 0
-  inSeconds: 0
+  m_hitPoints: 10
+  inSeconds: 5
   m_spawnPoints:
   - {fileID: 2027505834}
   - {fileID: 40892084}
@@ -20529,12 +20529,12 @@ GameObject:
   - component: {fileID: 1656584668}
   - component: {fileID: 1656584667}
   - component: {fileID: 1656584666}
+  - component: {fileID: 1656584671}
   - component: {fileID: 1656584665}
-  - component: {fileID: 1656584664}
   - component: {fileID: 1656584663}
+  - component: {fileID: 1656584664}
   - component: {fileID: 1656584669}
   - component: {fileID: 1656584670}
-  - component: {fileID: 1656584671}
   - component: {fileID: 1656584674}
   - component: {fileID: 1656584672}
   - component: {fileID: 1656584673}
@@ -20669,7 +20669,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1656584662}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ec4da54219bb74007accfd9da99e0f26, type: 3}
   m_Name: 
@@ -20678,7 +20678,7 @@ MonoBehaviour:
   m_fieldOfView: 0
   m_layerMask:
     serializedVersion: 2
-    m_Bits: 4294950911
+    m_Bits: 0
 --- !u!114 &1656584672
 MonoBehaviour:
   m_ObjectHideFlags: 0

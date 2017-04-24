@@ -170,7 +170,7 @@ public class GenericScanner : MonoBehaviour {
 	}
 
     bool IsInLineOfSight(Vector3 eyeHeight, Vector3 targetPosition) {
-        //print("Inside IsInLineOfSight()");
+        print("Inside IsInLineOfSight()");
         Vector3 dir = targetPosition - transform.position;
 
         /// if something is within the field of view
@@ -179,6 +179,7 @@ public class GenericScanner : MonoBehaviour {
             /// if another object is between the target and the object (gotten by checking the layer mask)
             if (Physics.Raycast(transform.position + eyeHeight, dir.normalized, distanceToTarget, m_layerMask)) {
                 /// return false, because something is blocking the view.
+                print("Inside angle");
                 return false;
             }
 
