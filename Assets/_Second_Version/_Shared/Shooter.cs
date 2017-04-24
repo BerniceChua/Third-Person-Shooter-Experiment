@@ -11,9 +11,12 @@ public class Shooter : MonoBehaviour {
     [SerializeField] AudioController m_audioReload;
     [SerializeField] AudioController m_audioFireWeapon;
 
-    [SerializeField] Transform m_aimTarget;
+    //[SerializeField] Transform m_aimTarget;
+    public Transform m_AimTarget;
+    public Vector3 m_AimTargetOffset;
 
-    /*[HideInInspector]*/ public bool m_canFire = true;
+    /*[HideInInspector]*/
+    public bool m_canFire = true;
 
     /// NOTE: this "Muzzle" game object MUST be on the same hierarchy level as the game object that has this script.  If it's a child in the hierarchy, it won't work even with transform.FindChild();
     //[HideInInspector] public Transform m_muzzle;
@@ -105,7 +108,8 @@ public class Shooter : MonoBehaviour {
         //print("Firing weapon at " + Time.time);
         //Debug.Log("m_muzzle = " + m_muzzle );
 
-        m_muzzle.LookAt(m_aimTarget);
+        //m_muzzle.LookAt(m_AimTarget);
+        m_muzzle.LookAt(m_AimTarget.position + m_AimTargetOffset);
 
         FiringEffect();
 

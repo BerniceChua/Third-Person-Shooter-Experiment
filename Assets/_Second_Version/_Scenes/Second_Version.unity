@@ -4726,7 +4726,8 @@ MonoBehaviour:
   m_hand: {fileID: 1776765133}
   m_audioReload: {fileID: 518612306}
   m_audioFireWeapon: {fileID: 1637106105}
-  m_aimTarget: {fileID: 0}
+  m_AimTarget: {fileID: 0}
+  m_AimTargetOffset: {x: 0, y: 0, z: 0}
   m_canFire: 0
 --- !u!1001 &439621838
 Prefab:
@@ -5961,6 +5962,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_weaponSwitchTime: 0
+  m_CanFire: 0
 --- !u!136 &552827961
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -15214,7 +15216,8 @@ MonoBehaviour:
   m_hand: {fileID: 1776765133}
   m_audioReload: {fileID: 152363183}
   m_audioFireWeapon: {fileID: 831298487}
-  m_aimTarget: {fileID: 0}
+  m_AimTarget: {fileID: 0}
+  m_AimTargetOffset: {x: 0, y: 0, z: 0}
   m_canFire: 0
 --- !u!1 &1229045476
 GameObject:
@@ -20263,7 +20266,8 @@ MonoBehaviour:
   m_hand: {fileID: 1669461280}
   m_audioReload: {fileID: 1292164791}
   m_audioFireWeapon: {fileID: 809612266}
-  m_aimTarget: {fileID: 200484045}
+  m_AimTarget: {fileID: 200484045}
+  m_AimTargetOffset: {x: 0, y: 0, z: 0}
   m_canFire: 0
 --- !u!1 &1624688990
 GameObject:
@@ -21793,7 +21797,8 @@ MonoBehaviour:
   m_hand: {fileID: 1669461280}
   m_audioReload: {fileID: 1317895919}
   m_audioFireWeapon: {fileID: 321945074}
-  m_aimTarget: {fileID: 200484045}
+  m_AimTarget: {fileID: 200484045}
+  m_AimTargetOffset: {x: 0, y: 0, z: 0}
   m_canFire: 0
 --- !u!114 &1895292477
 MonoBehaviour:
