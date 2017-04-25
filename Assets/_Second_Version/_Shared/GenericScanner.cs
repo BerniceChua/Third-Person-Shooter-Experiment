@@ -176,9 +176,13 @@ public class GenericScanner : MonoBehaviour {
         /// if something is within the field of view
         if (Vector3.Angle(transform.forward, dir.normalized) < m_fieldOfView/2) {
             float distanceToTarget = Vector3.Distance(transform.position, targetPosition);
+            RaycastHit hit;
             /// if another object is between the target and the object (gotten by checking the layer mask)
-            if (Physics.Raycast(transform.position + eyeHeight, dir.normalized, distanceToTarget, m_layerMask)) {
+            if (Physics.Raycast(transform.position + eyeHeight + transform.forward * 10f, dir.normalized, out hit, distanceToTarget, m_layerMask)) {
                 /// return false, because something is blocking the view.
+                print("Inside angle");
+                print(hit.transform.name);
+                Debug.DrawLine(transform.position + eyeHeight, dir.normalized + transform.forward * distanceToTarget, Color.red);
                 return false;
             }
 

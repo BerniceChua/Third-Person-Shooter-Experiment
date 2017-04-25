@@ -5,6 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(CharacterController))]
 //[RequireComponent(typeof(MoveController))]
 [RequireComponent(typeof(PlayerStateMachine))]
+[RequireComponent(typeof(PlayersHealth))]
 public class Player : MonoBehaviour {
     /// These were for troubleshooting:
     #region Troubleshooting
@@ -98,6 +99,16 @@ public class Player : MonoBehaviour {
         }
     }
 
+    private PlayersHealth m_playersHealth;
+    public PlayersHealth PlayersHealth {
+        get {
+            if (m_playersHealth == null)
+                m_playersHealth = GetComponent<PlayersHealth>();
+
+            return m_playersHealth;
+        }
+    }
+
     InputController m_playerInput;
     //InputController m_playerInput { get { return GameManager.GameManagerInstance.InputController; } set { m_playerInput = value; } }
     Vector2 m_mouseInput;
@@ -139,6 +150,9 @@ public class Player : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
+        if (PlayersHealth.IsAlive == false)
+            return;
+
         //print("Inside Update() of Player.cs.");
         Move();
 

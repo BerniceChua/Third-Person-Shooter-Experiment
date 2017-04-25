@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(EnemyPlayer))]
-public class EnemyNPCHealth : Destructable {
+[RequireComponent(typeof(Player))]
+public class PlayersHealth : Destructable {
 
     [SerializeField] Ragdoll m_ragdoll;
 

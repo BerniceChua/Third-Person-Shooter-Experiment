@@ -26,6 +26,8 @@ public class EnemyPlayer : MonoBehaviour {
 	Player m_priorityTarget;
 	List<Player> m_targetsList;
 
+    public event System.Action<Player> OnTargetSelected;
+
     private EnemyNPCHealth m_EnemyHealth;
     public EnemyNPCHealth EnemyHealth {
         get {
@@ -40,16 +42,22 @@ public class EnemyPlayer : MonoBehaviour {
     void Start () {
         //m_pathfinding = GetComponent<Pathfinding>();
 
-        m_pathfinding.m_NavMeshAgent.speed = m_settings.m_RunSpeed;
+        m_pathfinding.m_NavMeshAgent.speed = m_settings.m_WalkSpeed;
 
         //m_scanner = GetComponent<Scanner>();
         //m_scanner.OnTargetSelected += Scanner_OnTargetSelected;
 		m_playerScanner.OnScanReady += GenericScanner_OnScanReady;
 
 		GenericScanner_OnScanReady();
+
+        EnemyHealth.OnDeath += EnemyHealth_OnDeath;
 	}
 
-	private void GenericScanner_OnScanReady(){
+    private void EnemyHealth_OnDeath() {
+        
+    }
+
+    private void GenericScanner_OnScanReady(){
 		if (m_priorityTarget != null)
 			return;
 
@@ -60,9 +68,14 @@ public class EnemyPlayer : MonoBehaviour {
 		else
 			SelectClosestTarget(m_targetsList);
 
-		if (m_priorityTarget != null)
-			SetDestinationToPriorityTarget ();
-	}
+		if (m_priorityTarget != null) {
+            /// Removed when refactoring for enemy-attack.
+            //SetDestinationToPriorityTarget ();
+
+            if (OnTargetSelected != null)
+                OnTargetSelected(m_priorityTarget);
+        }
+    }
 
     /// <summary>
     /// When a target is selected, it will set a target to the pathfinding,
@@ -74,9 +87,10 @@ public class EnemyPlayer : MonoBehaviour {
         m_pathfinding.SetTarget(position);
     }*/
 
-	private void SetDestinationToPriorityTarget() {
-		m_pathfinding.SetTarget(m_priorityTarget.transform.position);
-	}
+    /// Removed when refactoring for enemy-attack.
+    //private void SetDestinationToPriorityTarget() {
+    //	m_pathfinding.SetTarget(m_priorityTarget.transform.position);
+    //}
 
     /// <summary>
     ///  Removed during refactoring for waypoints.
@@ -88,7 +102,7 @@ public class EnemyPlayer : MonoBehaviour {
     //    //m_animator.SetFloat("Horizontal", m_pathfinding.m_NavMeshAgent.velocity.x);
     //}
 
-	private void SelectClosestTarget(List<Player> targets) {
+    private void SelectClosestTarget(List<Player> targets) {
 		float closestTarget = m_playerScanner.m_ScanRange;
 
 		foreach (var possibleTarget in m_targetsList) {
@@ -96,5 +110,14 @@ public class EnemyPlayer : MonoBehaviour {
 				m_priorityTarget = possibleTarget;
 		}
 	}
+
+    private void Update() {
+        if (m_priorityTarget == null)
+            return;
+
+        transform.LookAt(m_priorityTarget.transform.position);
+        /// The above was my version.  I wonder why the "transform" was repeated in the original?
+        //transform.LookAt(m_priorityTarget.transform.transform.position);
+    }
 
 }

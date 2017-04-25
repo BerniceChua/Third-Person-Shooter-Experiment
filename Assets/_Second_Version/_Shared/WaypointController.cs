@@ -30,11 +30,11 @@ public class WaypointController : MonoBehaviour {
 	}
 
     public void SetNextWaypoint() {
-        print("Inside SetNextWaypoint(), m_currentWaypointIndex = " + m_currentWaypointIndex);
+        //print("Inside SetNextWaypoint(), m_currentWaypointIndex = " + m_currentWaypointIndex);
 
         m_currentWaypointIndex++;
 
-        print("after the ++, m_currentWaypointIndex = " + m_currentWaypointIndex);
+        //print("after the ++, m_currentWaypointIndex = " + m_currentWaypointIndex);
 
         if (m_currentWaypointIndex == m_waypoints.Length)
             m_currentWaypointIndex = 0;
