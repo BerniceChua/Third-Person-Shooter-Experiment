@@ -5895,13 +5895,12 @@ GameObject:
   m_Component:
   - component: {fileID: 552827957}
   - component: {fileID: 552827958}
-  - component: {fileID: 552827960}
   - component: {fileID: 552827961}
+  - component: {fileID: 552827960}
   - component: {fileID: 552827962}
   - component: {fileID: 552827963}
   - component: {fileID: 552827965}
   - component: {fileID: 552827966}
-  - component: {fileID: 552827967}
   - component: {fileID: 552827964}
   - component: {fileID: 552827959}
   - component: {fileID: 552827968}
@@ -5984,11 +5983,11 @@ CapsuleCollider:
   m_GameObject: {fileID: 552827956}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 0
+  m_Enabled: 1
   m_Radius: 0.5
-  m_Height: 1.85
+  m_Height: 1.8
   m_Direction: 1
-  m_Center: {x: 0, y: 0.9, z: 0}
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!95 &552827962
 Animator:
   serializedVersion: 3
@@ -6058,23 +6057,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_MoveState: 0
   m_WeaponState: 0
---- !u!114 &552827967
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 552827956}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 55952c0887bc5164a90643dc90c8c088, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_hitPoints: 100
-  inSeconds: 5
-  m_spawnPoints:
-  - {fileID: 2027505834}
-  - {fileID: 40892084}
-  - {fileID: 1831058210}
 --- !u!114 &552827968
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18828,7 +18810,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1324919386}
   - component: {fileID: 1324919388}
-  - component: {fileID: 1324919387}
   m_Layer: 14
   m_Name: Bernice
   m_TagString: Untagged
@@ -18860,18 +18841,6 @@ Transform:
   m_Father: {fileID: 1741548379}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1324919387
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 114470020088688114, guid: b17afc45aa351474abf2ca21c20748ff,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1324919385}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4312a5e42cf03494ea415e9e5da74f10, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!95 &1324919388
 Animator:
   serializedVersion: 3

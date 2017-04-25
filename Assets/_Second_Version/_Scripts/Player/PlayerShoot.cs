@@ -2,13 +2,29 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Player))]
 public class PlayerShoot : WeaponsController {
     /// <summary>
     /// Moved everything to the WeaponsController when refactoring for enemy attacking.
     /// </summary>
-    
-	// Update is called once per frame
-	void Update () {
+
+    bool m_isPlayerAlive;
+
+    // Use this for initialization
+    void Start() {
+        GetComponent<Player>().PlayersHealth.OnDeath += PlayersHealth_OnDeath;
+        m_isPlayerAlive = true;
+    }
+
+    private void PlayersHealth_OnDeath() {
+        m_isPlayerAlive = false;
+    }
+
+    // Update is called once per frame
+    void Update () {
+        if (!m_isPlayerAlive)
+            return;
+
         if (GameManager.GameManagerInstance.InputController.m_MouseWheelDown)
             SwitchWeapon(1);
 
