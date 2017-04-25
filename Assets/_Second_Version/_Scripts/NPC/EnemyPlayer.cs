@@ -111,4 +111,11 @@ public class EnemyPlayer : MonoBehaviour {
 		}
 	}
 
+    private void Update() {
+        if (m_priorityTarget == null)
+            return;
+
+        transform.LookAt(m_priorityTarget.transform.position);
+    }
+
 }
