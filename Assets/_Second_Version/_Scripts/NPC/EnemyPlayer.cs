@@ -115,7 +115,9 @@ public class EnemyPlayer : MonoBehaviour {
         if (m_priorityTarget == null)
             return;
 
-        transform.LookAt(m_priorityTarget.transform.position);
+        //transform.LookAt(m_priorityTarget.transform.position);
+        /// The above was my version.  I wonder why the "transform" was repeated in the original?
+        transform.LookAt(m_priorityTarget.transform.transform.position);
     }
 
 }
