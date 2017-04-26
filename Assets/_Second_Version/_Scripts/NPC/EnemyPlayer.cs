@@ -6,6 +6,7 @@ using UnityEngine;
 [RequireComponent(typeof(Pathfinding))]
 //[RequireComponent(typeof(Scanner))]
 [RequireComponent(typeof(EnemyNPCHealth))]
+[RequireComponent(typeof(EnemyStateMachine))]
 public class EnemyPlayer : MonoBehaviour {
 
     /// <summary>
@@ -38,6 +39,16 @@ public class EnemyPlayer : MonoBehaviour {
         }
     }
 
+    private EnemyStateMachine m_EnemyStateMachine;
+    public EnemyStateMachine EnemyStateMachine {
+        get {
+            if (m_EnemyStateMachine == null)
+                m_EnemyStateMachine = GetComponent<EnemyStateMachine>();
+
+            return m_EnemyStateMachine;
+        }
+    }
+
     // Use this for initialization
     void Start () {
         //m_pathfinding = GetComponent<Pathfinding>();
@@ -51,7 +62,17 @@ public class EnemyPlayer : MonoBehaviour {
 		GenericScanner_OnScanReady();
 
         EnemyHealth.OnDeath += EnemyHealth_OnDeath;
-	}
+
+        EnemyStateMachine.OnModeChanged += EnemyStateMachine_OnModeChanged;
+
+    }
+
+    private void EnemyStateMachine_OnModeChanged(EnemyStateMachine.EEnemyStates state) {
+        m_pathfinding.m_NavMeshAgent.speed = m_settings.m_WalkSpeed;
+
+        if (state == EnemyStateMachine.EEnemyStates.AWARE)
+            m_pathfinding.m_NavMeshAgent.speed = m_settings.m_RunSpeed;
+    }
 
     private void EnemyHealth_OnDeath() {
         

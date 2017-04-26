@@ -27,7 +27,7 @@ public class EnemyAnimation : MonoBehaviour {
         m_lastPosition = transform.position;
 
         //m_animator.SetBool("IsWalking", true);
-        m_animator.SetBool("IsWalking", m_enemyPlayer.EnemyStateMachine.m_CurrentMode == EnemyStateMachine.EEnemyStates.AWARE);
+        m_animator.SetBool("IsWalking", m_enemyPlayer.EnemyStateMachine.m_CurrentMode == EnemyStateMachine.EEnemyStates.UNAWARE);
 
         /// Divide velocity by m_pathfinding.m_NavMeshAgent.speed, so that the animation won't do a weird turn.
         m_animator.SetFloat("Vertical", velocity/m_pathfinding.m_NavMeshAgent.speed);
