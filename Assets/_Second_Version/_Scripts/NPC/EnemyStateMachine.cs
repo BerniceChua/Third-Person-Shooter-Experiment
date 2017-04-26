@@ -9,7 +9,7 @@ public class EnemyStateMachine : MonoBehaviour {
         UNAWARE
     }
 
-    EEnemyStates m_currentMode;
+    public EEnemyStates m_CurrentMode;
 
     /// <summary>
     /// The 2 lines below are equivalent of public event System.Action<EEnemyStates> OnModeChanged;
@@ -22,7 +22,7 @@ public class EnemyStateMachine : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        m_currentMode = EEnemyStates.UNAWARE;
+        m_CurrentMode = EEnemyStates.UNAWARE;
 	}
 	
 	// Update is called once per frame
@@ -33,10 +33,10 @@ public class EnemyStateMachine : MonoBehaviour {
     public void ChangedMode(EEnemyStates mode) {
         /// check if mode is the same as what's currently assigned.
 
-        if (mode == m_currentMode)
+        if (mode == m_CurrentMode)
             return;
 
-        m_currentMode = mode;
+        m_CurrentMode = mode;
 
         if (OnModeChanged != null)
             OnModeChanged(mode);
