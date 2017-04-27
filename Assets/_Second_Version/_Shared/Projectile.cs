@@ -7,6 +7,7 @@ public class Projectile : MonoBehaviour {
     [SerializeField] float m_speed;
     [SerializeField] float m_timeToLive;
     [SerializeField] float m_damage;
+    [SerializeField] Transform m_bulletHole;
 
     Vector3 m_hitDestination;
 
