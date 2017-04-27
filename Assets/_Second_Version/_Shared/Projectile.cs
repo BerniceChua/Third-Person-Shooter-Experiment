@@ -78,6 +78,8 @@ public class Projectile : MonoBehaviour {
         /// hitInfo.point is the point in worldspace where the Raycast's ray hits the collider.
         m_hitDestination = hitInfo.point;
 
+        Instantiate(GameObject.CreatePrimitive(PrimitiveType.Cube), m_hitDestination, Quaternion.identity);
+
         if (destructable == null) {
             //if (!destructable) // this one won't work, it really needs to be "destructible == null" in order for TakeDamage(float damageAmount) to trigger OnDeath() event.
             //print("I collided with " + destructable.name + " at time " + Time.time + ", therefore destructable == null");
