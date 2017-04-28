@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 33007648062899792}
   - component: {fileID: 136415950742212760}
   - component: {fileID: 23171331956373246}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: MeshCapsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40,7 +40,7 @@ GameObject:
   - component: {fileID: 54429354727716814}
   - component: {fileID: 114496019124258846}
   - component: {fileID: 108403221169424680}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: AssaultRifleBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
