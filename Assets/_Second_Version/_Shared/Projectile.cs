@@ -7,6 +7,7 @@ public class Projectile : MonoBehaviour {
     [SerializeField] float m_speed;
     [SerializeField] float m_timeToLive;
     [SerializeField] float m_damage;
+    [SerializeField] Transform m_bulletHole;
 
     Vector3 m_hitDestination;
 
@@ -76,9 +77,11 @@ public class Projectile : MonoBehaviour {
         //print("destructable = " + destructable);
 
         /// hitInfo.point is the point in worldspace where the Raycast's ray hits the collider.
-        m_hitDestination = hitInfo.point;
+        m_hitDestination = hitInfo.point + hitInfo.normal*0.0015f;
 
-        Instantiate(GameObject.CreatePrimitive(PrimitiveType.Cube), m_hitDestination, Quaternion.identity);
+        //Instantiate(GameObject.CreatePrimitive(PrimitiveType.Cube), m_hitDestination, Quaternion.identity);
+        Transform hole = (Transform)Instantiate(m_bulletHole, m_hitDestination, Quaternion.LookRotation(hitInfo.normal)* Quaternion.Euler(0.0f, 180.0f, 0.0f));
+        hole.SetParent(hitInfo.transform);
 
         if (destructable == null) {
             //if (!destructable) // this one won't work, it really needs to be "destructible == null" in order for TakeDamage(float damageAmount) to trigger OnDeath() event.
