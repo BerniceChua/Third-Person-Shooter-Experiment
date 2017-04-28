@@ -39,7 +39,8 @@ public class ThirdPersonCamera : MonoBehaviour {
     void HandleOnLocalPlayerJoined(Player player) {
         print("Inside HandleOnLocalPlayerJoined(Player player) of ThirdPersonCamera.cs at time " + Time.time);
         m_localPlayer = player;
-        m_cameraLookTarget = m_localPlayer.transform.Find("CameraLookTargetGameObject");
+        //m_cameraLookTarget = m_localPlayer.transform.Find("CameraLookTargetGameObject");
+        m_cameraLookTarget = m_localPlayer.transform.Find("AimPivotGameObject");
 
         if (!m_cameraLookTarget)
             m_cameraLookTarget = m_localPlayer.transform;
@@ -65,11 +66,13 @@ public class ThirdPersonCamera : MonoBehaviour {
             (m_localPlayer.transform.up * (camRig.CameraOffset.y + targetHeight) ) + 
             (m_localPlayer.transform.right * camRig.CameraOffset.x);
 
-        Quaternion targetRotation = Quaternion.LookRotation(m_cameraLookTarget.position - targetPosition, Vector3.up);
+        //Quaternion targetRotation = Quaternion.LookRotation(m_cameraLookTarget.position - targetPosition, Vector3.up);
+        Quaternion targetRotation = m_cameraLookTarget.rotation;
 
         //transform.position = Vector3.Lerp(transform.position, targetPosition, m_damping * Time.deltaTime);
         //transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, m_damping * Time.deltaTime);
         transform.position = Vector3.Lerp(transform.position, targetPosition, camRig.Damping * Time.deltaTime);
-        transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, camRig.Damping * Time.deltaTime);
-	}
+        //transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, camRig.Damping * Time.deltaTime);
+        transform.rotation = Quaternion.Lerp(transform.rotation, m_cameraLookTarget.rotation, camRig.Damping * Time.deltaTime);
+    }
 }
