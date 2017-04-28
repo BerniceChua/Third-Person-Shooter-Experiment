@@ -55,14 +55,14 @@ public class WeaponsController : MonoBehaviour {
         m_activeWeapon.Equip();
 
         m_weaponsArray[index].gameObject.SetActive(true);
-        print("executing EquipWeapon()...");
+        //print("executing EquipWeapon()...");
         if (OnWeaponSwitch != null)
             OnWeaponSwitch(m_activeWeapon);
     }
 
     void DeactivateWeapon() {
         for (int i = 0; i < m_weaponsArray.Length; i++) {
-            print("Deactivating...");
+            //print("Deactivating...");
             m_weaponsArray[i].gameObject.SetActive(false);
             m_weaponsArray[i].transform.SetParent(m_weaponHolster);
         }
