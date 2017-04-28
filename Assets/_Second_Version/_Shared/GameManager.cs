@@ -47,6 +47,16 @@ public class GameManager {
         }
     }
 
+    private EventBus m_eventBus;
+    public EventBus EventBus {
+        get {
+            if (m_eventBus == null)
+                m_eventBus = new EventBus(); /// instantiate a new EventBus() instead of getting a gameObject/component.
+
+            return m_eventBus;
+        }
+    }
+
     private Respawner m_Respawner;
     public Respawner Respawner {
         get {

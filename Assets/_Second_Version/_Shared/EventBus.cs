@@ -2,6 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// EventBus.cs can be used to listen to ANY event, and any
+/// class that is using EventBus to listen to an event can
+/// trigger something.
+/// </summary>
+
 public class EventBus {
 
     public class EventListener {
