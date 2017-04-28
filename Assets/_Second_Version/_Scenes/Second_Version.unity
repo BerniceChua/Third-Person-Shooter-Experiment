@@ -5196,8 +5196,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_defaultCamera:
-    CameraOffset: {x: 0.6, y: 0.35, z: -5.5}
-    CrouchHeight: -0.75
+    CameraOffset: {x: 0.5, y: 0.35, z: -5.5}
+    CrouchHeight: -0.15
     Damping: 20
   m_aimCamera:
     CameraOffset: {x: 0.5, y: 0.6, z: -4.45}
@@ -19077,8 +19077,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29c7b9ce5743c21458d7923c65f5078c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_minAngle: -30
-  m_maxAngle: 45
+  m_minAngle: -35
+  m_maxAngle: 35
 --- !u!1 &1377991056
 GameObject:
   m_ObjectHideFlags: 0
