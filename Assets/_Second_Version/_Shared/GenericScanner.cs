@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using _Shared.Extensions;
 
 /// <summary>
 /// Scans for targets within the field of view
@@ -144,8 +145,10 @@ public class GenericScanner : MonoBehaviour {
 			if (player == null)
 				continue;
 
-			if (!IsInLineOfSight(Vector3.up, scanResults[i].transform.position) )
-				continue;
+            //if (!IsInLineOfSight(Vector3.up, scanResults[i].transform.position) )
+            //transform.IsInLineOfSight(targetPosition, m_fieldOfView, m_layerMask, eyeHeight)
+            if (!transform.IsInLineOfSight(scanResults[i].transform.position, m_fieldOfView, m_layerMask, Vector3.up))
+                continue;
 
 			targets.Add(player);
 		}
@@ -169,28 +172,32 @@ public class GenericScanner : MonoBehaviour {
 		return targets;
 	}
 
-    bool IsInLineOfSight(Vector3 eyeHeight, Vector3 targetPosition) {
-        //print("Inside IsInLineOfSight()");
-        Vector3 dir = targetPosition - transform.position;
+    /// Refactored/Moved inside ScanForTargetsWithComponent<T>() method.
+    //bool IsInLineOfSight(Vector3 eyeHeight, Vector3 targetPosition) {
+    //    /// Moved to TransformExtensions.cs inside _Shared.Extensions namespace during refactor.
+    //    ////print("Inside IsInLineOfSight()");
+    //    //Vector3 dir = targetPosition - transform.position;
 
-        /// if something is within the field of view
-        if (Vector3.Angle(transform.forward, dir.normalized) < m_fieldOfView/2) {
-            float distanceToTarget = Vector3.Distance(transform.position, targetPosition);
-            RaycastHit hit;
-            /// if another object is between the target and the object (gotten by checking the layer mask)
-            if (Physics.Raycast(transform.position + eyeHeight + transform.forward * 10f, dir.normalized, out hit, distanceToTarget, m_layerMask)) {
-                /// return false, because something is blocking the view.
-                //print("Inside angle");
-                //print(hit.transform.name);
-                Debug.DrawLine(transform.position + eyeHeight, dir.normalized + transform.forward * distanceToTarget, Color.red);
-                return false;
-            }
+    //    ///// if something is within the field of view
+    //    //if (Vector3.Angle(transform.forward, dir.normalized) < m_fieldOfView/2) {
+    //    //    float distanceToTarget = Vector3.Distance(transform.position, targetPosition);
+    //    //    RaycastHit hit;
+    //    //    /// if another object is between the target and the object (gotten by checking the layer mask)
+    //    //    if (Physics.Raycast(transform.position + eyeHeight + transform.forward * 10f, dir.normalized, out hit, distanceToTarget, m_layerMask)) {
+    //    //        /// return false, because something is blocking the view.
+    //    //        //print("Inside angle");
+    //    //        //print(hit.transform.name);
+    //    //        Debug.DrawLine(transform.position + eyeHeight, dir.normalized + transform.forward * distanceToTarget, Color.red);
+    //    //        return false;
+    //    //    }
 
-            return true;
-        }
+    //    //    return true;
+    //    //}
 
-        /// If something is outside the field of view, return false because it's not detectable.
-        return false;
-    }
+    //    ///// If something is outside the field of view, return false because it's not detectable.
+    //    //return false;
+
+    //    return transform.IsInLineOfSight(targetPosition, m_fieldOfView, m_layerMask, eyeHeight);
+    //}
 
 }
