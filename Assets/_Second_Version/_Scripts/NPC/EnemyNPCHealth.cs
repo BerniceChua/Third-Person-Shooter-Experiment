@@ -11,6 +11,8 @@ public class EnemyNPCHealth : Destructable {
         base.Die();
 
         m_ragdoll.EnableRagdoll(true);
+
+        GameManager.GameManagerInstance.EventBus.RaiseEvent("EnemyDeath");
     }
 
 }
