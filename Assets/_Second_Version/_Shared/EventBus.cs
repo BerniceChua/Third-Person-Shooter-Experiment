@@ -34,8 +34,10 @@ public class EventBus {
         if (!EventTable.ContainsKey(name))
             EventTable.Add(name, new List<EventListener>());
 
-        if (EventTable[name].Contains(listener))
+        if (EventTable[name].Contains(listener)) {
             return;
+        }
+
         EventTable[name].Add(listener);
     }
 

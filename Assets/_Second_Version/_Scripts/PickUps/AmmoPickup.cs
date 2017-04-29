@@ -10,7 +10,11 @@ public class AmmoPickup : PickUpItem {
     
     // Use this for initialization
 	void Start () {
-		
+        GameManager.GameManagerInstance.EventBus.AddListener("EnemyDeath", new EventBus.EventListener() {
+            Method = () => {
+                print("Enemy Death Listener " + transform.name);
+            }
+        });
 	}
 	
 	// Update is called once per frame
@@ -20,7 +24,7 @@ public class AmmoPickup : PickUpItem {
 
     public override void OnPickUp(Transform item) {
         //base.OnPickUp(item);
-        Debug.Log("Inside the public override void OnPickUp(Transform item)....");
+        //Debug.Log("Inside the public override void OnPickUp(Transform item)....");
 
         var playerInventory = item.GetComponentInChildren<Container>();
         GameManager.GameManagerInstance.Respawner.Despawn(gameObject, m_respawnTime);
