@@ -69,7 +69,7 @@ public class Projectile : MonoBehaviour {
     /// <summary>
     ///  Refactored in bullet-holes-2nd-version to use the RaycastHit hitInfo parameter instead of "Transform other".
     /// </summary>
-    /// <param name="hit"></param>
+    /// <param name="hitInfo"></param>
     private void CheckDestructable(RaycastHit hitInfo) {
         //print("other.name = " + other.name);
 
