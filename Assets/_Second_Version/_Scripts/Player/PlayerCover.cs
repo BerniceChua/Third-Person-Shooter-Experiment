@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class PlayerCover : MonoBehaviour {
 
+    [SerializeField] int m_numberOfRays;
+
     private bool m_canTakeCover;
     private bool m_isInCover;
 
@@ -17,6 +19,12 @@ public class PlayerCover : MonoBehaviour {
 	void Update () {
         if (!m_canTakeCover)
             return;
+
+        float angleStep = 360 / m_numberOfRays;
+        for (int i = 0; i < m_numberOfRays; i++) {
+            Quaternion angle = Quaternion.AngleAxis(i * angleStep, transform.up);
+            Debug.DrawRay(transform.position + Vector3.up * 0.3f, angle * Vector3.forward * 5.0f, Color.magenta);
+        }
 
         if (Input.GetButtonDown("Get Into Cover")) {
 
