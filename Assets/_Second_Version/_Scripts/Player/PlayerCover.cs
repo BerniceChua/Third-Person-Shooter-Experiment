@@ -13,6 +13,8 @@ public class PlayerCover : MonoBehaviour {
 
     private RaycastHit m_closestHit;
 
+    bool m_isAiming { get { return GameManager.GameManagerInstance.LocalPlayer.PlayerState.m_WeaponState == PlayerStateMachine.EWeaponState.AIMING || GameManager.GameManagerInstance.LocalPlayer.PlayerState.m_WeaponState == PlayerStateMachine.EWeaponState.AIMEDFIRING; } }
+
 	// Use this for initialization
 	void Start () {
 		
@@ -20,12 +22,18 @@ public class PlayerCover : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        if (m_isAiming && m_isInCover) {
+            ExecuteCoverToggle();
+            return;
+        }
+
         if (!m_canTakeCover)
             return;
 
         //if (Input.GetButton("Get Into Cover")) {
         if (GameManager.GameManagerInstance.InputController.m_CoverToggle)
             TakeCover();
+
     }
 
     void TakeCover() {
@@ -35,6 +43,10 @@ public class PlayerCover : MonoBehaviour {
         if (m_closestHit.distance == 0)
             return;
 
+        ExecuteCoverToggle();
+    }
+
+    void ExecuteCoverToggle() {
         m_isInCover = !m_isInCover;
 
         GameManager.GameManagerInstance.EventBus.RaiseEvent("CoverToggle");
@@ -71,6 +83,9 @@ public class PlayerCover : MonoBehaviour {
 
     internal void SetPlayerCoverAllowed(bool value) {
         m_canTakeCover = value;
+
+        if (!m_canTakeCover && m_isInCover)
+            ExecuteCoverToggle();
     }
 
 }
