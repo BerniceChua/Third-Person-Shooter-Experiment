@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -30,7 +31,8 @@ public class PlayerAnimation : MonoBehaviour {
         m_animator.SetFloat("Vertical", GameManager.GameManagerInstance.InputController.m_Vertical);
         m_animator.SetFloat("Horizontal", GameManager.GameManagerInstance.InputController.m_Horizontal);
 
-        m_animator.SetBool("IsWalking", GameManager.GameManagerInstance.InputController.m_IsWalking);
+        //m_animator.SetBool("IsWalking", GameManager.GameManagerInstance.InputController.m_IsWalking);
+        m_animator.SetBool("IsWalking", GameManager.GameManagerInstance.LocalPlayer.PlayerState.m_MoveState == PlayerStateMachine.EMoveState.WALKING);
         m_animator.SetBool("IsSprinting", GameManager.GameManagerInstance.InputController.m_IsSprinting);
         m_animator.SetBool("IsCrouched", GameManager.GameManagerInstance.InputController.m_IsCrouched);
 
@@ -38,5 +40,7 @@ public class PlayerAnimation : MonoBehaviour {
         m_animator.SetFloat("AimAngle", PlayerAim.GetAngle());
 
         m_animator.SetBool("IsAiming", GameManager.GameManagerInstance.LocalPlayer.PlayerState.m_WeaponState == PlayerStateMachine.EWeaponState.AIMING || GameManager.GameManagerInstance.LocalPlayer.PlayerState.m_WeaponState == PlayerStateMachine.EWeaponState.AIMEDFIRING);
+
+        m_animator.SetBool("IsInCover", GameManager.GameManagerInstance.LocalPlayer.PlayerState.m_MoveState == PlayerStateMachine.EMoveState.COVER);
     }
 }

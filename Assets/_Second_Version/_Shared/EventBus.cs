@@ -16,7 +16,7 @@ public class EventBus {
         public Callback Method;
 
         public EventListener() {
-            IsSingleShot = true;
+            IsSingleShot = false;
         }
     }
 

@@ -169,6 +169,9 @@ public class Player : MonoBehaviour {
         if (m_playerInput.m_IsSprinting)
             moveSpeed = m_settings.m_SprintSpeed;
 
+        if (m_playerState.m_MoveState == PlayerStateMachine.EMoveState.COVER)
+            moveSpeed = m_settings.m_WalkSpeed;
+
         if (m_playerInput.m_IsCrouched)
             moveSpeed = m_settings.m_CrouchSpeed;
 
