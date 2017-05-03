@@ -23,15 +23,23 @@ public class PlayerCover : MonoBehaviour {
         if (!m_canTakeCover)
             return;
 
-        if (Input.GetButton("Get Into Cover")) {
-            FindCoverAroundPlayerWithRaycasts();
+        //if (Input.GetButton("Get Into Cover")) {
+        if (GameManager.GameManagerInstance.InputController.m_CoverToggle)
+            TakeCover();
+    }
 
-            /// if nothing is hit by raycast
-            if (m_closestHit.distance == 0)
-                return;
+    void TakeCover() {
+        FindCoverAroundPlayerWithRaycasts();
 
-            transform.rotation = Quaternion.LookRotation(m_closestHit.normal) * Quaternion.Euler(0.0f, 180.0f, 0.0f);
-        }
+        /// if nothing is hit by raycast
+        if (m_closestHit.distance == 0)
+            return;
+
+        m_isInCover = !m_isInCover;
+
+        GameManager.GameManagerInstance.EventBus.RaiseEvent("CoverToggle");
+
+        transform.rotation = Quaternion.LookRotation(m_closestHit.normal) * Quaternion.Euler(0.0f, 180.0f, 0.0f);
     }
 
     private void FindCoverAroundPlayerWithRaycasts() {

@@ -42,6 +42,9 @@ public class InputController : MonoBehaviour {
     //public bool m_MouseWheelDown;
     public bool m_MouseWheelDown { get { return Input.GetAxis("Mouse ScrollWheel") < 0; } set { m_MouseWheelDown = value; } }
 
+    //public bool m_CoverToggle;
+    public bool m_CoverToggle { get { return Input.GetButtonDown("Get Into Cover"); } set { m_CoverToggle = value; } }
+    
     // Use this for initialization
     void Start () {
 		
@@ -61,6 +64,7 @@ public class InputController : MonoBehaviour {
         //m_IsCrouched = Input.GetButton("Crouch");
         //m_MouseWheelUp = Input.GetAxis("Mouse ScrollWheel") > 0;
         //m_MouseWheelDown = Input.GetAxis("Mouse ScrollWheel") < 0;
+        //m_CoverToggle = Input.GetButtonDown("Get Into Cover");
     }
 
 }

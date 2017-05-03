@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: e41cd6358b5b00a4ebaaea07cd1b7121
-timeCreated: 1493801522
+timeCreated: 1493806724
 licenseType: Pro
 ModelImporter:
   serializedVersion: 19
@@ -208,8 +208,8 @@ ModelImporter:
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
+      loopTime: 1
+      loopBlend: 1
       loopBlendOrientation: 0
       loopBlendPositionY: 0
       loopBlendPositionXZ: 0

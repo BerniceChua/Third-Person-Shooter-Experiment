@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: c5fc963c8827c7d4f90c93d200e8d77c
-timeCreated: 1493780491
+timeCreated: 1493804531
 licenseType: Pro
 ModelImporter:
   serializedVersion: 19
@@ -208,8 +208,8 @@ ModelImporter:
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
+      loopTime: 1
+      loopBlend: 1
       loopBlendOrientation: 0
       loopBlendPositionY: 0
       loopBlendPositionXZ: 0
@@ -414,7 +414,7 @@ ModelImporter:
     normalImportMode: 0
     tangentImportMode: 3
   importAnimation: 1
-  copyAvatar: 0
+  copyAvatar: 1
   humanDescription:
     serializedVersion: 2
     human:
@@ -1281,7 +1281,8 @@ ModelImporter:
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1
-  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: c5fc963c8827c7d4f90c93d200e8d77c,
+    type: 3}
   animationType: 3
   humanoidOversampling: 1
   additionalBone: 0

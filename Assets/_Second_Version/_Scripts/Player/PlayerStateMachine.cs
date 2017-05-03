@@ -8,7 +8,8 @@ public class PlayerStateMachine : MonoBehaviour {
         WALKING,
         RUNNING,
         CROUCHING,
-        SPRINTING
+        SPRINTING,
+        COVER
     }
 
     public enum EWeaponState {
@@ -21,6 +22,8 @@ public class PlayerStateMachine : MonoBehaviour {
     public EMoveState m_MoveState;
     public EWeaponState m_WeaponState;
 
+    bool IsInCover = false;
+
     private InputController m_inputController;
     public InputController InputController {
         get {
@@ -32,12 +35,23 @@ public class PlayerStateMachine : MonoBehaviour {
     }
     
     // Use this for initialization
-    void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
+    void Awake () {
+        GameManager.GameManagerInstance.EventBus.AddListener("CoverToggle", new EventBus.EventListener() {
+            Method = ToggleCover
+        });
+    }
+
+    // Use this for initialization
+    void Start() {
+
+    }
+
+    private void ToggleCover() {
+        IsInCover = !IsInCover;
+    }
+
+    // Update is called once per frame
+    void Update () {
         SetMoveState();
         SetWeaponState();
     }
@@ -66,6 +80,9 @@ public class PlayerStateMachine : MonoBehaviour {
 
         if (InputController.m_IsCrouched)
             m_MoveState = EMoveState.CROUCHING;
+
+        if (IsInCover)
+            m_MoveState = EMoveState.COVER;
     }
 
 }
