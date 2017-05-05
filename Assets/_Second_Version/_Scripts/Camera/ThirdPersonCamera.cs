@@ -69,13 +69,12 @@ public class ThirdPersonCamera : MonoBehaviour {
             (m_localPlayer.transform.up * targetHeight) +
             (m_localPlayer.transform.right * camRig.CameraOffset.x);
 
-        Vector3 collisionCheckEnd = m_cameraLookTarget.position + m_localPlayer.transform.up * targetHeight;
-        Debug.DrawLine(targetPosition, collisionCheckEnd, Color.blue);
-        RaycastHit hit;
-        if (Physics.Linecast(collisionCheckEnd, targetPosition, out hit)) {
-            Vector3 pointOfHit = new Vector3(hit.point.x + hit.normal.x * 0.2f, hit.point.y, hit.point.z + hit.normal.z * 0.2f);
-            targetPosition = new Vector3(pointOfHit.x, targetPosition.y, pointOfHit.z);
-        }
+        Vector3 collisionDestination = m_cameraLookTarget.position + m_localPlayer.transform.up * targetHeight;
+        //Debug.DrawLine(targetPosition, collisionCheckEnd, Color.blue);
+
+        /// the 'ref' part means pass by reference, instead of pass by value,
+        /// so that we don't need to write it like this: targetPosition = HandleCameraCollision(ref targetPosition, collisionDestination);
+        HandleCameraCollision(collisionDestination, ref targetPosition);
 
         //Quaternion targetRotation = Quaternion.LookRotation(m_cameraLookTarget.position - targetPosition, Vector3.up);
         Quaternion targetRotation = m_cameraLookTarget.rotation;
@@ -85,5 +84,15 @@ public class ThirdPersonCamera : MonoBehaviour {
         transform.position = Vector3.Lerp(transform.position, targetPosition, camRig.Damping * Time.deltaTime);
         //transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, camRig.Damping * Time.deltaTime);
         transform.rotation = Quaternion.Lerp(transform.rotation, m_cameraLookTarget.rotation, camRig.Damping * Time.deltaTime);
+    }
+
+    private static Vector3 HandleCameraCollision(Vector3 toCollisionTargetPoint, ref Vector3 fromTargetPosition) {
+        RaycastHit hit;
+        if (Physics.Linecast(toCollisionTargetPoint, fromTargetPosition, out hit)) {
+            Vector3 pointOfHit = new Vector3(hit.point.x + hit.normal.x * 0.2f, hit.point.y, hit.point.z + hit.normal.z * 0.2f);
+            fromTargetPosition = new Vector3(pointOfHit.x, fromTargetPosition.y, pointOfHit.z);
+        }
+
+        return fromTargetPosition;
     }
 }
