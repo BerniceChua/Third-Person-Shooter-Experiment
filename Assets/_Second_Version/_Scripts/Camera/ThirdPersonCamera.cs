@@ -61,10 +61,20 @@ public class ThirdPersonCamera : MonoBehaviour {
         // sets target of camera to be forward of local player and adds the camera offset.  (If z is negative, it will go behind the player.)
         //Vector3 targetPosition = (m_cameraLookTarget.position + m_localPlayer.transform.forward * m_cameraOffset.z) + (m_localPlayer.transform.up * m_cameraOffset.y) + (m_localPlayer.transform.right * m_cameraOffset.x);
         // refactored after started to use the PlayerStateMachine.
-        float targetHeight = m_localPlayer.PlayerState.m_MoveState == PlayerStateMachine.EMoveState.CROUCHING ? camRig.CrouchHeight : 0;
-        Vector3 targetPosition = (m_cameraLookTarget.position + m_localPlayer.transform.forward * camRig.CameraOffset.z) + 
-            (m_localPlayer.transform.up * (camRig.CameraOffset.y + targetHeight) ) + 
+        float targetHeight = camRig.CameraOffset.y + (m_localPlayer.PlayerState.m_MoveState == PlayerStateMachine.EMoveState.CROUCHING ? camRig.CrouchHeight : 0);
+        //Vector3 targetPosition = (m_cameraLookTarget.position + m_localPlayer.transform.forward * camRig.CameraOffset.z) + 
+        //    (m_localPlayer.transform.up * (camRig.CameraOffset.y + targetHeight) ) + 
+        //    (m_localPlayer.transform.right * camRig.CameraOffset.x);
+        Vector3 targetPosition = (m_cameraLookTarget.position + m_localPlayer.transform.forward * camRig.CameraOffset.z) +
+            (m_localPlayer.transform.up * targetHeight) +
             (m_localPlayer.transform.right * camRig.CameraOffset.x);
+
+        Vector3 collisionDestination = m_cameraLookTarget.position + m_localPlayer.transform.up * targetHeight - m_localPlayer.transform.forward*0.005f;
+        Debug.DrawLine(targetPosition, collisionDestination, Color.blue);
+
+        /// the 'ref' part means pass by reference, instead of pass by value,
+        /// so that we don't need to write it like this: targetPosition = HandleCameraCollision(ref targetPosition, collisionDestination);
+        HandleCameraCollision(collisionDestination, ref targetPosition);
 
         //Quaternion targetRotation = Quaternion.LookRotation(m_cameraLookTarget.position - targetPosition, Vector3.up);
         Quaternion targetRotation = m_cameraLookTarget.rotation;
@@ -74,5 +84,15 @@ public class ThirdPersonCamera : MonoBehaviour {
         transform.position = Vector3.Lerp(transform.position, targetPosition, camRig.Damping * Time.deltaTime);
         //transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, camRig.Damping * Time.deltaTime);
         transform.rotation = Quaternion.Lerp(transform.rotation, m_cameraLookTarget.rotation, camRig.Damping * Time.deltaTime);
+    }
+
+    private static Vector3 HandleCameraCollision(Vector3 toCollisionTargetPoint, ref Vector3 fromTargetPosition) {
+        RaycastHit hit;
+        if (Physics.Linecast(toCollisionTargetPoint, fromTargetPosition, out hit)) {
+            Vector3 pointOfHit = new Vector3(hit.point.x + hit.normal.x * 0.2f, hit.point.y, hit.point.z + hit.normal.z * 0.2f);
+            fromTargetPosition = new Vector3(pointOfHit.x, fromTargetPosition.y, pointOfHit.z);
+        }
+
+        return fromTargetPosition;
     }
 }
