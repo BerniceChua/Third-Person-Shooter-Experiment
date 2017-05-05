@@ -69,8 +69,8 @@ public class ThirdPersonCamera : MonoBehaviour {
             (m_localPlayer.transform.up * targetHeight) +
             (m_localPlayer.transform.right * camRig.CameraOffset.x);
 
-        Vector3 collisionDestination = m_cameraLookTarget.position + m_localPlayer.transform.up * targetHeight;
-        //Debug.DrawLine(targetPosition, collisionCheckEnd, Color.blue);
+        Vector3 collisionDestination = m_cameraLookTarget.position + m_localPlayer.transform.up * targetHeight - m_localPlayer.transform.forward*0.005f;
+        Debug.DrawLine(targetPosition, collisionDestination, Color.blue);
 
         /// the 'ref' part means pass by reference, instead of pass by value,
         /// so that we don't need to write it like this: targetPosition = HandleCameraCollision(ref targetPosition, collisionDestination);
