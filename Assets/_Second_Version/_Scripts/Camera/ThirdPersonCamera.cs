@@ -73,7 +73,8 @@ public class ThirdPersonCamera : MonoBehaviour {
         Debug.DrawLine(targetPosition, collisionCheckEnd, Color.blue);
         RaycastHit hit;
         if (Physics.Linecast(collisionCheckEnd, targetPosition, out hit)) {
-            targetPosition = new Vector3(hit.point.x, targetPosition.y, hit.point.z);
+            Vector3 pointOfHit = new Vector3(hit.point.x + hit.normal.x * 0.2f, hit.point.y, hit.point.z + hit.normal.z * 0.2f);
+            targetPosition = new Vector3(pointOfHit.x, targetPosition.y, pointOfHit.z);
         }
 
         //Quaternion targetRotation = Quaternion.LookRotation(m_cameraLookTarget.position - targetPosition, Vector3.up);
