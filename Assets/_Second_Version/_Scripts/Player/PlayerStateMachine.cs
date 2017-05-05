@@ -36,9 +36,10 @@ public class PlayerStateMachine : MonoBehaviour {
     
     // Use this for initialization
     void Awake () {
-        GameManager.GameManagerInstance.EventBus.AddListener("CoverToggle", new EventBus.EventListener() {
-            Method = ToggleCover
-        });
+        //GameManager.GameManagerInstance.EventBus.AddListener("CoverToggle", new EventBus.EventListener() {
+        //    Method = ToggleCover
+        //});
+        GameManager.GameManagerInstance.EventBus.AddListener("CoverToggle", ToggleCover);
     }
 
     // Use this for initialization
