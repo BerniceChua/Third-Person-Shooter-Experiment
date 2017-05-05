@@ -61,10 +61,20 @@ public class ThirdPersonCamera : MonoBehaviour {
         // sets target of camera to be forward of local player and adds the camera offset.  (If z is negative, it will go behind the player.)
         //Vector3 targetPosition = (m_cameraLookTarget.position + m_localPlayer.transform.forward * m_cameraOffset.z) + (m_localPlayer.transform.up * m_cameraOffset.y) + (m_localPlayer.transform.right * m_cameraOffset.x);
         // refactored after started to use the PlayerStateMachine.
-        float targetHeight = m_localPlayer.PlayerState.m_MoveState == PlayerStateMachine.EMoveState.CROUCHING ? camRig.CrouchHeight : 0;
-        Vector3 targetPosition = (m_cameraLookTarget.position + m_localPlayer.transform.forward * camRig.CameraOffset.z) + 
-            (m_localPlayer.transform.up * (camRig.CameraOffset.y + targetHeight) ) + 
+        float targetHeight = camRig.CameraOffset.y + (m_localPlayer.PlayerState.m_MoveState == PlayerStateMachine.EMoveState.CROUCHING ? camRig.CrouchHeight : 0);
+        //Vector3 targetPosition = (m_cameraLookTarget.position + m_localPlayer.transform.forward * camRig.CameraOffset.z) + 
+        //    (m_localPlayer.transform.up * (camRig.CameraOffset.y + targetHeight) ) + 
+        //    (m_localPlayer.transform.right * camRig.CameraOffset.x);
+        Vector3 targetPosition = (m_cameraLookTarget.position + m_localPlayer.transform.forward * camRig.CameraOffset.z) +
+            (m_localPlayer.transform.up * targetHeight) +
             (m_localPlayer.transform.right * camRig.CameraOffset.x);
+
+        Vector3 collisionCheckEnd = m_cameraLookTarget.position + m_localPlayer.transform.up * targetHeight;
+        Debug.DrawLine(targetPosition, collisionCheckEnd, Color.blue);
+        RaycastHit hit;
+        if (Physics.Linecast(collisionCheckEnd, targetPosition, out hit)) {
+            targetPosition = new Vector3(hit.point.x, targetPosition.y, hit.point.z);
+        }
 
         //Quaternion targetRotation = Quaternion.LookRotation(m_cameraLookTarget.position - targetPosition, Vector3.up);
         Quaternion targetRotation = m_cameraLookTarget.rotation;
