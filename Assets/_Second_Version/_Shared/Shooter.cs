@@ -108,13 +108,32 @@ public class Shooter : MonoBehaviour {
         //print("Firing weapon at " + Time.time);
         //Debug.Log("m_muzzle = " + m_muzzle );
 
-        //m_muzzle.LookAt(m_AimTarget);
-        m_muzzle.LookAt(m_AimTarget.position + m_AimTargetOffset);
+        /// If it's a player character & not NPC enemy, make it aim and shoot at the center of the screen
+        bool isLocalPlayerControlled = m_AimTarget == null; /// if it does NOT have an aim target, it means it is a local player & not an NPC.
+        if (!isLocalPlayerControlled) {
+            //m_muzzle.LookAt(m_AimTarget);
+            m_muzzle.LookAt(m_AimTarget.position + m_AimTargetOffset);
+        }
+
+        /// Spawn a new bullet
+        Projectile newBullet = (Projectile)Instantiate(m_projectile, m_muzzle.position, m_muzzle.rotation);
+
+        if (isLocalPlayerControlled) {
+            Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0.0f));
+            RaycastHit hit;
+            Vector3 targetPosition = ray.GetPoint(500.0f); /// this means that this will shoot accurately for 500 meters in the worldspace that's in front of this point.
+
+            /// if the point of this raycast collides with something, it will set what it's colliding with as the target position
+            if (Physics.Raycast(ray, out hit))
+                targetPosition = hit.point;
+            /// position the new bullets to the targetPosition.
+            newBullet.transform.LookAt(targetPosition);
+        }
 
         FiringEffect();
 
         // Instantiate the projectile
-        Instantiate(m_projectile, m_muzzle.position, m_muzzle.rotation);
+        //Instantiate(m_projectile, m_muzzle.position, m_muzzle.rotation);
         m_audioFireWeapon.Play();
         m_canFire = true;
 
