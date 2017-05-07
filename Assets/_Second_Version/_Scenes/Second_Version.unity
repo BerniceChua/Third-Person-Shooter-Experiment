@@ -371,7 +371,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4577069043570732, guid: 7076c18c5a60f6541bdf219029f6507e, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 100
+      value: 500
       objectReference: {fileID: 0}
     - target: {fileID: 4577069043570732, guid: 7076c18c5a60f6541bdf219029f6507e, type: 2}
       propertyPath: m_LocalRotation.x
@@ -4901,6 +4901,7 @@ GameObject:
   - component: {fileID: 432386351}
   - component: {fileID: 432386353}
   - component: {fileID: 432386352}
+  - component: {fileID: 432386354}
   m_Layer: 0
   m_Name: PistolGameObject
   m_TagString: Untagged
@@ -4961,6 +4962,21 @@ MonoBehaviour:
   m_AimTarget: {fileID: 0}
   m_AimTargetOffset: {x: 0, y: 0, z: 0}
   m_canFire: 0
+--- !u!114 &432386354
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 432386350}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c58368d22ae19d94aa04c3334bc437f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  layers: []
+  m_recoilSpeed: 0
+  m_recoilCooldown: 0
+  m_strengthOfRecoil: 0
 --- !u!1001 &439621838
 Prefab:
   m_ObjectHideFlags: 0
@@ -5418,7 +5434,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_defaultCamera:
-    CameraOffset: {x: 0.25, y: 0.35, z: -1.74}
+    CameraOffset: {x: 1, y: 0.35, z: -1.74}
     CrouchHeight: -0.56
     Damping: 20
   m_aimCamera:
@@ -15558,6 +15574,7 @@ GameObject:
   - component: {fileID: 1224526422}
   - component: {fileID: 1224526424}
   - component: {fileID: 1224526423}
+  - component: {fileID: 1224526425}
   m_Layer: 0
   m_Name: AssaultRifleGameObject
   m_TagString: Untagged
@@ -15618,6 +15635,83 @@ MonoBehaviour:
   m_AimTarget: {fileID: 0}
   m_AimTargetOffset: {x: 0, y: 0, z: 0}
   m_canFire: 0
+--- !u!114 &1224526425
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1224526421}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c58368d22ae19d94aa04c3334bc437f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  layers:
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 2
+        time: 0
+        value: 0
+        inSlope: 2
+        outSlope: 2
+        tangentMode: 0
+      - serializedVersion: 2
+        time: 0.1923244
+        value: 0.021671703
+        inSlope: 0.013897659
+        outSlope: 0.013897659
+        tangentMode: 0
+      - serializedVersion: 2
+        time: 0.9832651
+        value: 0.0031927875
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 0
+    direction: {x: 0, y: 1, z: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 2
+        time: 0
+        value: -0.00022858381
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+      - serializedVersion: 2
+        time: 0.14948258
+        value: 0.03277499
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+      - serializedVersion: 2
+        time: 0.43503553
+        value: -0.010340314
+        inSlope: -0.017174155
+        outSlope: -0.017174155
+        tangentMode: 0
+      - serializedVersion: 2
+        time: 0.7011962
+        value: 0.023432128
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+      - serializedVersion: 2
+        time: 1
+        value: -0.00022858381
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 0
+    direction: {x: 0, y: 1, z: 0}
+  m_recoilSpeed: 0.5
+  m_recoilCooldown: 0.2
+  m_strengthOfRecoil: 4
 --- !u!1 &1229045476
 GameObject:
   m_ObjectHideFlags: 0
@@ -20681,6 +20775,7 @@ GameObject:
   - component: {fileID: 1619195006}
   - component: {fileID: 1619195008}
   - component: {fileID: 1619195007}
+  - component: {fileID: 1619195009}
   m_Layer: 14
   m_Name: PistolGameObject
   m_TagString: Untagged
@@ -20738,9 +20833,24 @@ MonoBehaviour:
   m_hand: {fileID: 1669461280}
   m_audioReload: {fileID: 1292164791}
   m_audioFireWeapon: {fileID: 809612266}
-  m_AimTarget: {fileID: 200484045}
+  m_AimTarget: {fileID: 0}
   m_AimTargetOffset: {x: 0, y: 0, z: 0}
   m_canFire: 0
+--- !u!114 &1619195009
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1619195005}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c58368d22ae19d94aa04c3334bc437f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  layers: []
+  m_recoilSpeed: 0
+  m_recoilCooldown: 0
+  m_strengthOfRecoil: 0
 --- !u!1 &1624688990
 GameObject:
   m_ObjectHideFlags: 0
@@ -22342,6 +22452,7 @@ GameObject:
   - component: {fileID: 1895292475}
   - component: {fileID: 1895292476}
   - component: {fileID: 1895292477}
+  - component: {fileID: 1895292478}
   m_Layer: 14
   m_Name: AssaultRifleGameObject
   m_TagString: Untagged
@@ -22381,7 +22492,7 @@ MonoBehaviour:
   m_hand: {fileID: 1669461280}
   m_audioReload: {fileID: 1317895919}
   m_audioFireWeapon: {fileID: 321945074}
-  m_AimTarget: {fileID: 200484045}
+  m_AimTarget: {fileID: 0}
   m_AimTargetOffset: {x: 0, y: 0, z: 0}
   m_canFire: 0
 --- !u!114 &1895292477
@@ -22402,6 +22513,83 @@ MonoBehaviour:
   m_weaponType: 0
   m_shotsFiredInClip: 0
   m_isReloading: 0
+--- !u!114 &1895292478
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1895292474}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c58368d22ae19d94aa04c3334bc437f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  layers:
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 2
+        time: 0
+        value: 0
+        inSlope: 2
+        outSlope: 2
+        tangentMode: 0
+      - serializedVersion: 2
+        time: 0.1923244
+        value: 0.021671703
+        inSlope: 0.013897659
+        outSlope: 0.013897659
+        tangentMode: 0
+      - serializedVersion: 2
+        time: 0.9832651
+        value: 0.0031927875
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 0
+    direction: {x: 0, y: 1, z: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 2
+        time: 0
+        value: -0.00022858381
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+      - serializedVersion: 2
+        time: 0.14948258
+        value: 0.03277499
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+      - serializedVersion: 2
+        time: 0.43503553
+        value: -0.010340314
+        inSlope: -0.017174155
+        outSlope: -0.017174155
+        tangentMode: 0
+      - serializedVersion: 2
+        time: 0.7011962
+        value: 0.023432128
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+      - serializedVersion: 2
+        time: 1
+        value: -0.00022858381
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 0
+    direction: {x: 0, y: 1, z: 0}
+  m_recoilSpeed: 0.5
+  m_recoilCooldown: 0.2
+  m_strengthOfRecoil: 4
 --- !u!1001 &1895812221
 Prefab:
   m_ObjectHideFlags: 0
