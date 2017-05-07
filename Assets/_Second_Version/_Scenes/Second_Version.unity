@@ -15646,10 +15646,72 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c58368d22ae19d94aa04c3334bc437f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  layers: []
-  m_recoilSpeed: 0
-  m_recoilCooldown: 0
-  m_strengthOfRecoil: 0
+  layers:
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 2
+        time: 0
+        value: 0
+        inSlope: 2
+        outSlope: 2
+        tangentMode: 0
+      - serializedVersion: 2
+        time: 0.1923244
+        value: 0.021671703
+        inSlope: 0.013897659
+        outSlope: 0.013897659
+        tangentMode: 0
+      - serializedVersion: 2
+        time: 0.9832651
+        value: 0.0031927875
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 0
+    direction: {x: 0, y: 1, z: 0}
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 2
+        time: 0
+        value: -0.00022858381
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+      - serializedVersion: 2
+        time: 0.14948258
+        value: 0.03277499
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+      - serializedVersion: 2
+        time: 0.43503553
+        value: -0.010340314
+        inSlope: -0.017174155
+        outSlope: -0.017174155
+        tangentMode: 0
+      - serializedVersion: 2
+        time: 0.7011962
+        value: 0.023432128
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+      - serializedVersion: 2
+        time: 1
+        value: -0.00022858381
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 0
+    direction: {x: 0, y: 1, z: 0}
+  m_recoilSpeed: 0.5
+  m_recoilCooldown: 0.2
+  m_strengthOfRecoil: 4
 --- !u!1 &1229045476
 GameObject:
   m_ObjectHideFlags: 0
@@ -22498,8 +22560,8 @@ MonoBehaviour:
         outSlope: 0
         tangentMode: 0
       - serializedVersion: 2
-        time: 0.10364925
-        value: 0.024649987
+        time: 0.14948258
+        value: 0.03277499
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -22510,8 +22572,8 @@ MonoBehaviour:
         outSlope: -0.017174155
         tangentMode: 0
       - serializedVersion: 2
-        time: 0.7136962
-        value: 0.022807129
+        time: 0.7011962
+        value: 0.023432128
         inSlope: 0
         outSlope: 0
         tangentMode: 0
