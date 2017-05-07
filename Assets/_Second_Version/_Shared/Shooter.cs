@@ -31,6 +31,16 @@ public class Shooter : MonoBehaviour {
     //ParticleSystem m_muzzleFireParticle;
     ParticleSystem m_muzzleFireParticle { get {return m_muzzle.GetComponent<ParticleSystem>(); } set { m_muzzleFireParticle = value; } }
 
+    private WeaponRecoil m_weaponRecoil;
+    private WeaponRecoil WeaponRecoil {
+        get {
+            if (m_weaponRecoil == null)
+                m_weaponRecoil = GetComponent<WeaponRecoil>();
+
+            return m_weaponRecoil;
+        }
+    }
+
     float m_timeBeforeNextFireAllowed;
 
     /// <summary>
@@ -129,6 +139,9 @@ public class Shooter : MonoBehaviour {
             /// position the new bullets to the targetPosition.
             newBullet.transform.LookAt(targetPosition + m_AimTargetOffset);
         }
+
+        if (this.WeaponRecoil)
+            this.WeaponRecoil.ActivateCooldown();
 
         FiringEffect();
 
