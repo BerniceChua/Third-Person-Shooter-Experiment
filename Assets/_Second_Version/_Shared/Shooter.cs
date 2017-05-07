@@ -127,7 +127,7 @@ public class Shooter : MonoBehaviour {
             if (Physics.Raycast(ray, out hit))
                 targetPosition = hit.point;
             /// position the new bullets to the targetPosition.
-            newBullet.transform.LookAt(targetPosition);
+            newBullet.transform.LookAt(targetPosition + m_AimTargetOffset);
         }
 
         FiringEffect();
