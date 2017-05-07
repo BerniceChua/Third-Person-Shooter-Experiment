@@ -22473,14 +22473,14 @@ MonoBehaviour:
         outSlope: 2
         tangentMode: 0
       - serializedVersion: 2
-        time: 0.24514441
-        value: 0.046671703
-        inSlope: 0.09454983
-        outSlope: 0.09454983
+        time: 0.1923244
+        value: 0.021671703
+        inSlope: 0.013897659
+        outSlope: 0.013897659
         tangentMode: 0
       - serializedVersion: 2
-        time: 0.9751389
-        value: -0.0018072128
+        time: 0.9832651
+        value: 0.0031927875
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -22488,9 +22488,46 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 0
     direction: {x: 0, y: 1, z: 0}
-  m_recoilSpeed: 4
-  m_recoilCooldown: 0.1
-  m_strengthOfRecoil: 2.5
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 2
+        time: 0
+        value: -0.00022858381
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+      - serializedVersion: 2
+        time: 0.10364925
+        value: 0.024649987
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+      - serializedVersion: 2
+        time: 0.43503553
+        value: -0.010340314
+        inSlope: -0.017174155
+        outSlope: -0.017174155
+        tangentMode: 0
+      - serializedVersion: 2
+        time: 0.7136962
+        value: 0.022807129
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+      - serializedVersion: 2
+        time: 1
+        value: -0.00022858381
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 0
+    direction: {x: 0, y: 1, z: 0}
+  m_recoilSpeed: 0.5
+  m_recoilCooldown: 0.2
+  m_strengthOfRecoil: 4
 --- !u!1001 &1895812221
 Prefab:
   m_ObjectHideFlags: 0
