@@ -371,7 +371,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4577069043570732, guid: 7076c18c5a60f6541bdf219029f6507e, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 100
+      value: 500
       objectReference: {fileID: 0}
     - target: {fileID: 4577069043570732, guid: 7076c18c5a60f6541bdf219029f6507e, type: 2}
       propertyPath: m_LocalRotation.x
@@ -5418,7 +5418,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_defaultCamera:
-    CameraOffset: {x: 0.25, y: 0.35, z: -1.74}
+    CameraOffset: {x: 1, y: 0.35, z: -1.74}
     CrouchHeight: -0.56
     Damping: 20
   m_aimCamera:
@@ -20738,7 +20738,7 @@ MonoBehaviour:
   m_hand: {fileID: 1669461280}
   m_audioReload: {fileID: 1292164791}
   m_audioFireWeapon: {fileID: 809612266}
-  m_AimTarget: {fileID: 200484045}
+  m_AimTarget: {fileID: 0}
   m_AimTargetOffset: {x: 0, y: 0, z: 0}
   m_canFire: 0
 --- !u!1 &1624688990
@@ -22381,7 +22381,7 @@ MonoBehaviour:
   m_hand: {fileID: 1669461280}
   m_audioReload: {fileID: 1317895919}
   m_audioFireWeapon: {fileID: 321945074}
-  m_AimTarget: {fileID: 200484045}
+  m_AimTarget: {fileID: 0}
   m_AimTargetOffset: {x: 0, y: 0, z: 0}
   m_canFire: 0
 --- !u!114 &1895292477
