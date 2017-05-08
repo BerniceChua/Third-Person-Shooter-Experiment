@@ -45,10 +45,13 @@ public class EnemyShoot : WeaponsController {
     }
 
     void StartBurst() {
-        if (!m_enemyPlayer.EnemyHealth.IsAlive)
+        if (!m_enemyPlayer.EnemyHealth.IsAlive && !CanSeeTarget())
             return;
 
         CheckReload();
+
+        CrouchedState();
+
         m_shouldFire = true;
 
         GameManager.GameManagerInstance.Timer.Add(EndBurst, Random.Range(m_burstDurationMin, m_burstDurationMax));
@@ -61,6 +64,8 @@ public class EnemyShoot : WeaponsController {
             return;
 
         CheckReload();
+
+        CrouchedState();
 
         /// add a new burst only if target is visible.
         if (CanSeeTarget())
@@ -79,8 +84,10 @@ public class EnemyShoot : WeaponsController {
     }
 
     void CheckReload() {
-        if (ActiveWeapon.m_reloader.RoundsRemainingInClip == 0)
+        if (ActiveWeapon.m_reloader.RoundsRemainingInClip == 0) {
+            CrouchedState();
             ActiveWeapon.Reload();
+        }
     }
 
     private void Update() {
