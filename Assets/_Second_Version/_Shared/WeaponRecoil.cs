@@ -56,7 +56,8 @@ public class WeaponRecoil : MonoBehaviour {
 		if (m_nextRecoilCooldown > Time.time) {
             /// if holding the fire button, add to the recoilActiveTime
             m_recoilActiveTime += Time.deltaTime;
-            float percentage = Mathf.Clamp01(m_recoilActiveTime / m_recoilSpeed);
+            //float percentage = Mathf.Clamp01(m_recoilActiveTime / m_recoilSpeed);
+            float percentage = GetPercentage();
 
             Vector3 recoilAmount = Vector3.zero; /// direction of the recoil, so when we're firing, it will always start at zero, then add the value to it
 
@@ -79,6 +80,8 @@ public class WeaponRecoil : MonoBehaviour {
             if (m_recoilActiveTime < 0)
                 m_recoilActiveTime = 0; /// don't allow recoilActiveTime to go below zero
 
+            this.Crosshair.ApplyScale(GetPercentage());
+
             if (m_recoilActiveTime == 0)
                 this.Shooter.m_AimTargetOffset = Vector3.zero;  /// don't add any aim offsets to target if no recoil or if the recoil is not in effect
         }
@@ -87,4 +90,9 @@ public class WeaponRecoil : MonoBehaviour {
     public void ActivateCooldown() {
         m_nextRecoilCooldown = Time.time + m_recoilCooldown;
     }
+
+    float GetPercentage() {
+        return Mathf.Clamp01(m_recoilActiveTime / m_recoilSpeed);
+    }
+
 }
