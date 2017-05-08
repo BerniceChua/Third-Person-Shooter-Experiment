@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using _Shared.Extensions;
 
 [RequireComponent(typeof(EnemyPlayer))]
 public class EnemyShoot : WeaponsController {
@@ -48,6 +49,14 @@ public class EnemyShoot : WeaponsController {
 
         CheckReload();
         GameManager.GameManagerInstance.Timer.Add(StartBurst, m_shootingSpeed);
+    }
+
+    bool CanSeeTarget() {
+        /// if cannot find target
+        if (!transform.IsInLineOfSight(ActiveWeapon.m_AimTarget.position, 90, m_enemyPlayer.m_playerScanner.m_layerMask, Vector3.up)) {
+            /// reset the target
+            m_enemyPlayer.ClearTargetAndScan();
+        }
     }
 
     void CheckReload() {
