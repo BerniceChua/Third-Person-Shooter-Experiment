@@ -5091,6 +5091,8 @@ MonoBehaviour:
   m_recoilSpeed: 0
   m_recoilCooldown: 0
   m_strengthOfRecoil: 0
+  m_strengthOfRecoilVarianceMin: 0
+  m_strengthOfRecoilVarianceMax: 0
 --- !u!1001 &439621838
 Prefab:
   m_ObjectHideFlags: 0
@@ -15962,6 +15964,8 @@ MonoBehaviour:
   m_recoilSpeed: 0.5
   m_recoilCooldown: 0.2
   m_strengthOfRecoil: 4
+  m_strengthOfRecoilVarianceMin: 7
+  m_strengthOfRecoilVarianceMax: 9
 --- !u!1 &1229045476
 GameObject:
   m_ObjectHideFlags: 0
@@ -21187,6 +21191,8 @@ MonoBehaviour:
   m_recoilSpeed: 0
   m_recoilCooldown: 0
   m_strengthOfRecoil: 0
+  m_strengthOfRecoilVarianceMin: 0
+  m_strengthOfRecoilVarianceMax: 0
 --- !u!1 &1624688990
 GameObject:
   m_ObjectHideFlags: 0
@@ -22960,6 +22966,8 @@ MonoBehaviour:
   m_recoilSpeed: 0.5
   m_recoilCooldown: 0.2
   m_strengthOfRecoil: 4
+  m_strengthOfRecoilVarianceMin: 7
+  m_strengthOfRecoilVarianceMax: 9
 --- !u!1001 &1895812221
 Prefab:
   m_ObjectHideFlags: 0

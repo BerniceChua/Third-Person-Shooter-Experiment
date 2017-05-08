@@ -18,6 +18,9 @@ public class WeaponRecoil : MonoBehaviour {
 
     [SerializeField] float m_strengthOfRecoil;
 
+    [SerializeField] float m_strengthOfRecoilVarianceMin;
+    [SerializeField] float m_strengthOfRecoilVarianceMax;
+
     float m_nextRecoilCooldown;
     float m_recoilActiveTime;
 
@@ -64,7 +67,10 @@ public class WeaponRecoil : MonoBehaviour {
 
             this.Shooter.m_AimTargetOffset = Vector3.Lerp(Shooter.m_AimTargetOffset, Shooter.m_AimTargetOffset + recoilAmount, m_strengthOfRecoil * Time.deltaTime);
 
-            this.Crosshair.ApplyScale(percentage * m_strengthOfRecoil);
+            /// original version
+            //this.Crosshair.ApplyScale(percentage * Random.Range(m_strengthOfRecoil * m_strengthOfRecoilVarianceMin, m_strengthOfRecoil * m_strengthOfRecoilVarianceMax));
+            /// my version
+            this.Crosshair.ApplyScale(percentage * (m_strengthOfRecoil + Random.Range(m_strengthOfRecoilVarianceMin, m_strengthOfRecoilVarianceMax)));
         }
         else {
             /// if not holding the fire button, reduce recoilActiveTime.
