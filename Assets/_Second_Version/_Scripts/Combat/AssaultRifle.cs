@@ -16,9 +16,10 @@ public class AssaultRifle : Shooter {
     public void Update() {
         //Debug.Log("this item is " + transform.name + ", and its parent object is " + transform.parent.name + "(" + Time.time + ")");
 
-        if (GameManager.GameManagerInstance.InputController.m_Reload) {
-            Reload();
-        }
+        /// Removed this from here to debug, because if player reloads, even NPC will reload even if clip wasn't emptied yet.
+        //if (GameManager.GameManagerInstance.InputController.m_Reload) {
+        //    Reload();
+        //}
     }
 
 }
