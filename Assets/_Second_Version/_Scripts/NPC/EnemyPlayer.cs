@@ -20,7 +20,7 @@ public class EnemyPlayer : MonoBehaviour {
     //Scanner m_scanner;
     //Scanner m_scanner { get { return GetComponent<Scanner>(); } set { m_scanner = value; } }
 	//[SerializeField] GenericScanner m_playerScanner { get { return GetComponent<GenericScanner>(); } set { m_playerScanner = value; } }
-	[SerializeField] GenericScanner m_playerScanner;
+	[SerializeField] public GenericScanner m_playerScanner;
 
     [SerializeField] NPCEnemy m_settings;
 
@@ -74,6 +74,39 @@ public class EnemyPlayer : MonoBehaviour {
             m_pathfinding.m_NavMeshAgent.speed = m_settings.m_RunSpeed;
     }
 
+    /// <summary>
+    /// Check if it's ok to stop aiming.
+    /// </summary>
+    void CheckEaseWeapon() {
+        /// if target is still detected, get out of this method.
+        if (m_priorityTarget != null)
+            return;
+
+        /// if target is no longer detected, resume 'unaware' mode.
+        this.EnemyStateMachine.CurrentMode = EnemyStateMachine.EEnemyStates.UNAWARE;
+    }
+
+    /// <summary>
+    /// Check if it's ok to continue patrolling.
+    /// </summary>
+    void CheckContinuePatrol() {
+        /// if target is still detected, get out of this method.
+        if (m_priorityTarget != null)
+            return;
+
+        /// if target is no longer detected, resume patrolling to waypoints.
+        m_pathfinding.m_NavMeshAgent.Resume();
+    }
+
+    internal void ClearTargetAndScan() {
+        m_priorityTarget = null;
+
+        GameManager.GameManagerInstance.Timer.Add(CheckEaseWeapon, UnityEngine.Random.Range(3, 6));
+        GameManager.GameManagerInstance.Timer.Add(CheckContinuePatrol, UnityEngine.Random.Range(12, 16));
+
+        GenericScanner_OnScanReady();
+    }
+
     private void EnemyHealth_OnDeath() {
         
     }
@@ -93,7 +126,9 @@ public class EnemyPlayer : MonoBehaviour {
             /// Removed when refactoring for enemy-attack.
             //SetDestinationToPriorityTarget ();
 
+            /// if a target is found, switch the enemy's mode to "aware".
             if (OnTargetSelected != null)
+                this.EnemyStateMachine.CurrentMode = EnemyStateMachine.EEnemyStates.AWARE;
                 OnTargetSelected(m_priorityTarget);
         }
     }

@@ -11,7 +11,7 @@ public class GenericScanner : MonoBehaviour {
 
     [SerializeField] float m_scanSpeed;
     [SerializeField] [Range(0,360)] float m_fieldOfView;
-    [SerializeField] LayerMask m_layerMask;
+    [SerializeField] public LayerMask m_layerMask;
 
     //SphereCollider m_rangeTrigger;
     //SphereCollider m_rangeTrigger { get { return GetComponent<SphereCollider>(); } set { m_rangeTrigger = value; } }

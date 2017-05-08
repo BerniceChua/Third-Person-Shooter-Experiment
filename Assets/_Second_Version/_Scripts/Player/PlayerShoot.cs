@@ -41,6 +41,10 @@ public class PlayerShoot : WeaponsController {
             //Debug.Log("m_fire1 = " + GameManager.GameManagerInstance.InputController.m_fire1 + " at " + Time.time);
             ActiveWeapon.FireWeapon();
         }
-	}
+
+        if (GameManager.GameManagerInstance.InputController.m_Reload) {
+            ActiveWeapon.Reload();
+        }
+    }
 
 }

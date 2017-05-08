@@ -27,6 +27,11 @@ public class DynamicCrosshairs : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
+        /// The 3 lines below are optional, if you want the crosshairs to disappear IF PLAYER IS NOT AIMING.
+        //ToggleVisibility(false);
+        //if (GameManager.GameManagerInstance.InputController.m_Fire2)
+        //    ToggleVisibility(true);
+
         /// position the crosshair
         Vector3 screenPosition = Camera.main.WorldToScreenPoint(transform.position);
         m_Reticule.transform.position = Vector3.Lerp(m_Reticule.transform.position, screenPosition, m_crosshairMoveSpeed * Time.deltaTime);
@@ -37,6 +42,10 @@ public class DynamicCrosshairs : MonoBehaviour {
         m_crossBottom.localPosition = new Vector3(0, -m_reticuleStartPoint - scale, 0);
         m_crossLeft.localPosition = new Vector3(-m_reticuleStartPoint - scale, 0, 0);
         m_crossRight.localPosition = new Vector3(m_reticuleStartPoint + scale, 0, 0);
+    }
+
+    void ToggleVisibility(bool value) {
+        m_Reticule.gameObject.SetActive(value);
     }
 
 }
