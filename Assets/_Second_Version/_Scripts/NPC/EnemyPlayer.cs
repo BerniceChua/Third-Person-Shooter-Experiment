@@ -93,7 +93,9 @@ public class EnemyPlayer : MonoBehaviour {
             /// Removed when refactoring for enemy-attack.
             //SetDestinationToPriorityTarget ();
 
+            /// if a target is found, switch the enemy's mode to "aware".
             if (OnTargetSelected != null)
+                this.EnemyStateMachine.CurrentMode = EnemyStateMachine.EEnemyStates.AWARE;
                 OnTargetSelected(m_priorityTarget);
         }
     }

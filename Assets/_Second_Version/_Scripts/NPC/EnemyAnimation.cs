@@ -31,5 +31,8 @@ public class EnemyAnimation : MonoBehaviour {
 
         /// Divide velocity by m_pathfinding.m_NavMeshAgent.speed, so that the animation won't do a weird turn.
         m_animator.SetFloat("Vertical", velocity/m_pathfinding.m_NavMeshAgent.speed);
+
+        /// if target is found, switch animation to "IsAiming".
+        m_animator.SetBool("IsAiming", m_enemyPlayer.EnemyStateMachine.CurrentMode == EnemyStateMachine.EEnemyStates.AWARE);
 	}
 }
