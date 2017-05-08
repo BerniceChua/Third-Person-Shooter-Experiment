@@ -48,7 +48,10 @@ public class EnemyShoot : WeaponsController {
             return;
 
         CheckReload();
-        GameManager.GameManagerInstance.Timer.Add(StartBurst, m_shootingSpeed);
+
+        /// add a new burst only if target is visible.
+        if (CanSeeTarget())
+            GameManager.GameManagerInstance.Timer.Add(StartBurst, m_shootingSpeed);
     }
 
     bool CanSeeTarget() {
@@ -56,7 +59,10 @@ public class EnemyShoot : WeaponsController {
         if (!transform.IsInLineOfSight(ActiveWeapon.m_AimTarget.position, 90, m_enemyPlayer.m_playerScanner.m_layerMask, Vector3.up)) {
             /// reset the target
             m_enemyPlayer.ClearTargetAndScan();
+            return false;
         }
+
+        return true;
     }
 
     void CheckReload() {

@@ -74,6 +74,39 @@ public class EnemyPlayer : MonoBehaviour {
             m_pathfinding.m_NavMeshAgent.speed = m_settings.m_RunSpeed;
     }
 
+    /// <summary>
+    /// Check if it's ok to stop aiming.
+    /// </summary>
+    void CheckEaseWeapon() {
+        /// if target is still detected, get out of this method.
+        if (m_priorityTarget != null)
+            return;
+
+        /// if target is no longer detected, resume 'unaware' mode.
+        this.EnemyStateMachine.CurrentMode = EnemyStateMachine.EEnemyStates.UNAWARE;
+    }
+
+    /// <summary>
+    /// Check if it's ok to continue patrolling.
+    /// </summary>
+    void CheckContinuePatrol() {
+        /// if target is still detected, get out of this method.
+        if (m_priorityTarget != null)
+            return;
+
+        /// if target is no longer detected, resume patrolling to waypoints.
+        m_pathfinding.m_NavMeshAgent.Resume();
+    }
+
+    internal void ClearTargetAndScan() {
+        m_priorityTarget = null;
+
+        GameManager.GameManagerInstance.Timer.Add(CheckEaseWeapon, UnityEngine.Random.Range(3, 6));
+        GameManager.GameManagerInstance.Timer.Add(CheckContinuePatrol, UnityEngine.Random.Range(12, 16));
+
+        GenericScanner_OnScanReady();
+    }
+
     private void EnemyHealth_OnDeath() {
         
     }
