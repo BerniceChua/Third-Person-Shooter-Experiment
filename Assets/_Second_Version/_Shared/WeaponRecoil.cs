@@ -74,7 +74,7 @@ public class WeaponRecoil : MonoBehaviour {
             this.Crosshair.ApplyScale(percentage * (m_strengthOfRecoil + Random.Range(m_strengthOfRecoilVarianceMin, m_strengthOfRecoilVarianceMax)));
         }
         else {
-            /// if not holding the fire button, reduce recoilActiveTime.
+            /// if NOT holding the fire button, reduce recoilActiveTime.
             m_recoilActiveTime -= Time.deltaTime;
 
             if (m_recoilActiveTime < 0)
@@ -82,8 +82,11 @@ public class WeaponRecoil : MonoBehaviour {
 
             this.Crosshair.ApplyScale(GetPercentage());
 
-            if (m_recoilActiveTime == 0)
+            if (m_recoilActiveTime == 0) {
                 this.Shooter.m_AimTargetOffset = Vector3.zero;  /// don't add any aim offsets to target if no recoil or if the recoil is not in effect
+                this.Crosshair.ApplyScale(0);  /// won't apply any scaling if not shooting or stopped shooting.
+            }
+
         }
 	}
 
