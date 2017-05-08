@@ -25,10 +25,23 @@ public class EnemyShoot : WeaponsController {
     /// </summary>
     /// <param name="target"></param>
     private void EnemyPlayer_OnTargetSelected(Player target) {
-        print("~~~~~~~~~ Inside  EnemyPlayer_OnTargetSelected(" + target + ") ~~~~~~~~~~~~~~~~~~~~~");
+        //print("~~~~~~~~~ Inside  EnemyPlayer_OnTargetSelected(" + target + ") ~~~~~~~~~~~~~~~~~~~~~");
         ActiveWeapon.m_AimTarget = target.transform;
         ActiveWeapon.m_AimTargetOffset = Vector3.up * 1.5f;
         StartBurst();
+    }
+
+    void CrouchedState() {
+        /// this gives a 25% chance that NPC will take cover.
+        bool takeCover = Random.Range(0, 3) == 0;
+
+        if (!takeCover)
+            return;
+
+        /// Check how far away from target
+        float distanceToTarget = Vector3.Distance(transform.position, ActiveWeapon.m_AimTarget.position);
+        if (distanceToTarget > 15)
+            m_enemyPlayer.GetComponent<EnemyAnimation>().IsCrouched = true;
     }
 
     void StartBurst() {
