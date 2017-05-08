@@ -32,12 +32,12 @@ public class WeaponRecoil : MonoBehaviour {
         }
     }
 
-    Crosshairs m_crosshair;
-    Crosshairs Crosshair {
+    DynamicCrosshairs m_crosshair;
+    DynamicCrosshairs Crosshair {
         get {
             if (m_crosshair == null)
                 /// it is made this way because we only want the crosshairs to appear for the local player.
-                m_crosshair = GameManager.GameManagerInstance.LocalPlayer.m_PlayerAim.GetComponentInChildren<Crosshairs>();
+                m_crosshair = GameManager.GameManagerInstance.LocalPlayer.m_PlayerAim.GetComponentInChildren<DynamicCrosshairs>();
 
             return m_crosshair;
         }
@@ -64,7 +64,7 @@ public class WeaponRecoil : MonoBehaviour {
 
             this.Shooter.m_AimTargetOffset = Vector3.Lerp(Shooter.m_AimTargetOffset, Shooter.m_AimTargetOffset + recoilAmount, m_strengthOfRecoil * Time.deltaTime);
 
-
+            this.Crosshair.ApplyScale(percentage * m_strengthOfRecoil);
         }
         else {
             /// if not holding the fire button, reduce recoilActiveTime.

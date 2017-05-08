@@ -36,7 +36,7 @@ public class DynamicCrosshairs : MonoBehaviour {
         m_crossTop.localPosition = new Vector3(0, m_reticuleStartPoint + scale, 0);
         m_crossBottom.localPosition = new Vector3(0, -m_reticuleStartPoint - scale, 0);
         m_crossLeft.localPosition = new Vector3(-m_reticuleStartPoint - scale, 0, 0);
-        m_crossTop.localPosition = new Vector3(m_reticuleStartPoint + scale, 0, 0);
+        m_crossRight.localPosition = new Vector3(m_reticuleStartPoint + scale, 0, 0);
     }
 
 }
