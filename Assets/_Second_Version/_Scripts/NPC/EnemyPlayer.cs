@@ -20,7 +20,7 @@ public class EnemyPlayer : MonoBehaviour {
     //Scanner m_scanner;
     //Scanner m_scanner { get { return GetComponent<Scanner>(); } set { m_scanner = value; } }
 	//[SerializeField] GenericScanner m_playerScanner { get { return GetComponent<GenericScanner>(); } set { m_playerScanner = value; } }
-	[SerializeField] GenericScanner m_playerScanner;
+	[SerializeField] public GenericScanner m_playerScanner;
 
     [SerializeField] NPCEnemy m_settings;
 
