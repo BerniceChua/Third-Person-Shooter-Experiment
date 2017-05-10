@@ -25,7 +25,7 @@ GameObject:
   - component: {fileID: 54188462395843300}
   - component: {fileID: 114271397315074268}
   m_Layer: 15
-  m_Name: WallCube (3)
+  m_Name: WallCubeWhereYouCanTakeCover
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
