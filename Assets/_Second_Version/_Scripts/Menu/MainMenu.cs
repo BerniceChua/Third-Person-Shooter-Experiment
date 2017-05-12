@@ -2,14 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour {
 
-    public string m_LevelName;
+    [SerializeField] Button m_startGameButton;
+    [SerializeField] Button m_quitGameButton;
 
-	// Use this for initialization
-	void Start () {
-		
+    public string m_LevelName;
+    public Scene m_scene;
+
+    // Use this for initialization
+    void Start () {
+        m_startGameButton.onClick.AddListener(() => {
+            StartGame(m_LevelName);
+        });
+
+        m_quitGameButton.onClick.AddListener(QuitGame);
 	}
 	
 	// Update is called once per frame
@@ -17,8 +26,8 @@ public class MainMenu : MonoBehaviour {
 		
 	}
 
-    public void StartGame() {
-        SceneManager.LoadScene(m_LevelName);
+    public void StartGame(string levelName) {
+        SceneManager.LoadScene(levelName);
     }
 
     public void QuitGame() {
