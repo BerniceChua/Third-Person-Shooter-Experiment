@@ -150,7 +150,7 @@ public class Player : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-        if (PlayersHealth.IsAlive == false)
+        if (PlayersHealth.IsAlive == false || GameManager.GameManagerInstance.m_PlayerIsPaused)
             return;
 
         //print("Inside Update() of Player.cs.");

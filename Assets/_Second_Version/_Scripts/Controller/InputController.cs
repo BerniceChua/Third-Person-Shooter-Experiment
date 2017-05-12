@@ -44,7 +44,9 @@ public class InputController : MonoBehaviour {
 
     //public bool m_CoverToggle;
     public bool m_CoverToggle { get { return Input.GetButtonDown("Get Into Cover"); } set { m_CoverToggle = value; } }
-    
+
+    public bool m_Escape { get { return Input.GetButton("Escape"); } set { m_Escape = value; } }
+
     // Use this for initialization
     void Start () {
 		
@@ -65,6 +67,7 @@ public class InputController : MonoBehaviour {
         //m_MouseWheelUp = Input.GetAxis("Mouse ScrollWheel") > 0;
         //m_MouseWheelDown = Input.GetAxis("Mouse ScrollWheel") < 0;
         //m_CoverToggle = Input.GetButtonDown("Get Into Cover");
+        //m_Escape = Input.GetButton("Escape");
     }
 
 }
