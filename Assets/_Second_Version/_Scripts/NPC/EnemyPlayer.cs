@@ -168,7 +168,7 @@ public class EnemyPlayer : MonoBehaviour {
 	}
 
     private void Update() {
-        if (m_priorityTarget == null)
+        if (m_priorityTarget == null || m_EnemyHealth.IsAlive == false)
             return;
 
         transform.LookAt(m_priorityTarget.transform.position);
