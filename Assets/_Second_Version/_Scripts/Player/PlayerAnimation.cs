@@ -28,6 +28,9 @@ public class PlayerAnimation : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        if (GameManager.GameManagerInstance.m_PlayerIsPaused)
+            return;
+
         m_animator.SetFloat("Vertical", GameManager.GameManagerInstance.InputController.m_Vertical);
         m_animator.SetFloat("Horizontal", GameManager.GameManagerInstance.InputController.m_Horizontal);
 

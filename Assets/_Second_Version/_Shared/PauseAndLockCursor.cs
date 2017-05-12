@@ -16,12 +16,12 @@ public class PauseAndLockCursor : MonoBehaviour {
     // Update is called once per frame
     void Update() {
         //if (Input.GetKeyDown(KeyCode.Escape)) {
-        if (Input.GetButtonDown("Escape")) {
+        if (Input.GetButtonDown("Escape") && GameObject.Find("EscapeMenuImage").activeInHierarchy == true) {
             print("Inside 'if (Input.GetButtonDown(Escape)) {...}' ...");
             PauseGame();
         }
 
-        if (Cursor.lockState == CursorLockMode.None && Input.GetButtonDown("Fire1")) {
+        if (Cursor.lockState == CursorLockMode.None && Input.GetButtonDown("Fire1") && GameObject.Find("EscapeMenuImage").activeInHierarchy == false) {
             Time.timeScale = 1;
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
@@ -33,11 +33,11 @@ public class PauseAndLockCursor : MonoBehaviour {
         //Time.timeScale = Time.timeScale == 0 ? 1 : 0;
         Time.timeScale = 0;
 
-        if (Cursor.lockState == CursorLockMode.Locked) {
-            print("Inside 'if (Cursor.lockState == CursorLockMode.Locked)' ...");
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
-        }
+        //if (Cursor.lockState == CursorLockMode.Locked) {
+        //    print("Inside 'if (Cursor.lockState == CursorLockMode.Locked)' ...");
+        //    Cursor.lockState = CursorLockMode.None;
+        //    Cursor.visible = true;
+        //}
         /*else if (Cursor.lockState == CursorLockMode.None) {
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;

@@ -22,7 +22,7 @@ public class PlayerShoot : WeaponsController {
 
     // Update is called once per frame
     void Update () {
-        if (!m_isPlayerAlive)
+        if (!m_isPlayerAlive || GameManager.GameManagerInstance.m_PlayerIsPaused)
             return;
 
         if (GameManager.GameManagerInstance.InputController.m_MouseWheelDown)

@@ -11,6 +11,8 @@ public class GameManager {
 
     private GameObject gameObject;
 
+    public bool m_PlayerIsPaused;
+
     private static GameManager m_gameManagerInstance;
     public static GameManager GameManagerInstance {
         get {
