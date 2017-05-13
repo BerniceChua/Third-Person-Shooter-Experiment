@@ -45,6 +45,23 @@ public class PauseAndLockCursor : MonoBehaviour {
 
     }
 
+    public void UnpauseGame() {
+        print("Inside PauseGame() ...");
+        //Time.timeScale = Time.timeScale == 0 ? 1 : 0;
+        Time.timeScale = 1;
+
+        if (Cursor.lockState == CursorLockMode.None) {
+            print("Inside 'if (Cursor.lockState == CursorLockMode.None)' ...");
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
+        /*else if (Cursor.lockState == CursorLockMode.None) {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }*/
+
+    }
+
     public void Quit() {
 #if UNITY_EDITOR
         EditorApplication.isPlaying = false;
