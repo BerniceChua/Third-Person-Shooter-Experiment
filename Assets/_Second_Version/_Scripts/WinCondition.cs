@@ -17,10 +17,12 @@ public class WinCondition : MonoBehaviour {
 	}
 
     private void WinCondition_OnDeath() {
-        m_targetsDestroyedCounter++;
-
-        if (m_targetsDestroyedCounter == m_targets.Length)
+        if (m_targetsDestroyedCounter == m_targets.Length) {
             print("Play! Of! The! Game!");
+            GameManager.GameManagerInstance.EventBus.RaiseEvent("OnAllEnemiesKilled");
+        }
+
+        m_targetsDestroyedCounter++;
     }
 
     // Update is called once per frame
