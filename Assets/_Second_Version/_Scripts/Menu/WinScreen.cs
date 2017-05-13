@@ -21,8 +21,10 @@ public class WinScreen : MonoBehaviour {
     void Start () {
         m_winMessagePanel.SetActive(false);
         GameManager.GameManagerInstance.EventBus.AddListener("OnAllEnemiesKilled", () => {
-            GameManager.GameManagerInstance.m_PlayerIsPaused = true;
-            m_winMessagePanel.SetActive(true);
+            GameManager.GameManagerInstance.Timer.Add(() => {
+                GameManager.GameManagerInstance.m_PlayerIsPaused = true;
+                m_winMessagePanel.SetActive(true);
+            }, 5);
         });
 
         m_playAgainButton.onClick.AddListener(OnPlayAgainClicked);
