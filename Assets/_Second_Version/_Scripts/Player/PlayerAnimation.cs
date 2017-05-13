@@ -6,7 +6,7 @@ using UnityEngine;
 public class PlayerAnimation : MonoBehaviour {
     //Animator m_animator;
     Animator m_animator { get { return GetComponentInChildren<Animator>(); } set { m_animator = value; } }
-
+    
     private PlayerAim m_playerAim;
     private PlayerAim PlayerAim {
         get {
@@ -45,5 +45,12 @@ public class PlayerAnimation : MonoBehaviour {
         m_animator.SetBool("IsAiming", GameManager.GameManagerInstance.LocalPlayer.PlayerState.m_WeaponState == PlayerStateMachine.EWeaponState.AIMING || GameManager.GameManagerInstance.LocalPlayer.PlayerState.m_WeaponState == PlayerStateMachine.EWeaponState.AIMEDFIRING);
 
         m_animator.SetBool("IsInCover", GameManager.GameManagerInstance.LocalPlayer.PlayerState.m_MoveState == PlayerStateMachine.EMoveState.COVER);
+
+        if (GameManager.GameManagerInstance.LocalPlayer.PlayerState.m_MoveState == PlayerStateMachine.EMoveState.COVER) {
+            print("This is Snake.  I'm in position.  Kept you waiting, huh?");
+            m_animator.SetLayerWeight(3, 1);
+        } else {
+            m_animator.SetLayerWeight(3, 0);
+        }
     }
 }

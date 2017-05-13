@@ -1215,7 +1215,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.05, y: 1, z: 1.5}
+  m_Size: {x: 1.09, y: 1, z: 2}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &916605661 stripped
 GameObject:
@@ -2146,7 +2146,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.05, y: 1, z: 1.5}
+  m_Size: {x: 1.09, y: 1, z: 2}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1211799569
 GameObject:
@@ -3307,7 +3307,7 @@ Prefab:
     - target: {fileID: 224675223924786330, guid: 10c70fc77990add439adb1c4afddfdbc,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -27.5
       objectReference: {fileID: 0}
     - target: {fileID: 114714574344260858, guid: 10c70fc77990add439adb1c4afddfdbc,
         type: 2}
@@ -3920,6 +3920,16 @@ Prefab:
     - target: {fileID: 4665069043598876, guid: a30163065adfa734885d0e48699ad84b, type: 2}
       propertyPath: m_RootOrder
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 65076526577040430, guid: a30163065adfa734885d0e48699ad84b,
+        type: 2}
+      propertyPath: m_Size.z
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 65076526577040430, guid: a30163065adfa734885d0e48699ad84b,
+        type: 2}
+      propertyPath: m_Size.x
+      value: 1.09
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a30163065adfa734885d0e48699ad84b, type: 2}
