@@ -10,11 +10,12 @@ public class AmmoPickup : PickUpItem {
     
     // Use this for initialization
 	void Start () {
-        GameManager.GameManagerInstance.EventBus.AddListener("EnemyDeath", new EventBus.EventListener() {
-            Method = () => {
-                print("Enemy Death Listener " + transform.name);
-            }
-        });
+        /// The below method/function was debug/testing code to test the event bus.  It's not necessary.
+        //GameManager.GameManagerInstance.EventBus.AddListener("EnemyDeath", new EventBus.EventListener() {
+        //    Method = () => {
+        //        print("Enemy Death Listener " + transform.name);
+        //    }
+        //});
 	}
 	
 	// Update is called once per frame
