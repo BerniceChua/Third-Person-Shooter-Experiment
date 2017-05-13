@@ -3466,7 +3466,8 @@ Prefab:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 114860511653268774, guid: 64f6935035e3afa438df0d900f22c93f, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 64f6935035e3afa438df0d900f22c93f, type: 2}
   m_IsPrefabParent: 0
 --- !u!114 &1588326985 stripped
@@ -3732,7 +3733,7 @@ Prefab:
     - target: {fileID: 224675223924786330, guid: 10c70fc77990add439adb1c4afddfdbc,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -27.5
       objectReference: {fileID: 0}
     - target: {fileID: 224407926134278472, guid: 10c70fc77990add439adb1c4afddfdbc,
         type: 2}
