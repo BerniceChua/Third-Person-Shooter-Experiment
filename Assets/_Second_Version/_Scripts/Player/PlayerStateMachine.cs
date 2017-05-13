@@ -82,8 +82,10 @@ public class PlayerStateMachine : MonoBehaviour {
         if (InputController.m_IsCrouched)
             m_MoveState = EMoveState.CROUCHING;
 
-        if (IsInCover)
+        if (IsInCover) {
             m_MoveState = EMoveState.COVER;
+        }
+
     }
 
 }

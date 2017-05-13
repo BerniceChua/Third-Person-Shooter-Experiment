@@ -53,7 +53,7 @@ public class Container : MonoBehaviour {
         m_items = new List<ContainerItem>();
 
         if (OnContainerReady != null) {
-            Debug.Log("Initializing OnContainerReady();");
+            //Debug.Log("Initializing OnContainerReady();");
             OnContainerReady();
         }
     }

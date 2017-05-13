@@ -25,7 +25,7 @@ public class AmmoCountDisplay : MonoBehaviour {
         //m_inventory = player.GetComponent<Container>();
         m_playerShoot = player.PlayerShoot;
         m_playerShoot.OnWeaponSwitch += HandleOnWeaponSwitch;
-        print("entered HandleOnLocalPlayerJoined(Player player)...");
+        //print("entered HandleOnLocalPlayerJoined(Player player)...");
         // Moved to private void HandleOnAmmoChanged()
         //m_reloader = m_playerShoot.ActiveWeapon.m_reloader;
         //m_reloader.OnAmmoChanged += HandleOnAmmoChanged;
