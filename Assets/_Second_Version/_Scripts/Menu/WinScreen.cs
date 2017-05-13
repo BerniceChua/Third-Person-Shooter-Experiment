@@ -23,6 +23,8 @@ public class WinScreen : MonoBehaviour {
         GameManager.GameManagerInstance.EventBus.AddListener("OnAllEnemiesKilled", () => {
             GameManager.GameManagerInstance.Timer.Add(() => {
                 GameManager.GameManagerInstance.m_PlayerIsPaused = true;
+                Cursor.visible = true;
+                //m_cursor.PauseGame();
                 m_winMessagePanel.SetActive(true);
             }, 5);
         });
@@ -33,16 +35,8 @@ public class WinScreen : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (m_winMessagePanel.activeSelf)
-            return;
 
-		if (GameManager.GameManagerInstance.InputController.m_Escape) {
-            GameManager.GameManagerInstance.m_PlayerIsPaused = true;
-            Cursor.visible = true;
-            //m_cursor.PauseGame();
-            m_winMessagePanel.SetActive(true);
-        }
-	}
+    }
 
     void OnPlayAgainClicked() {
         SceneManager.LoadScene("Second_Version");
