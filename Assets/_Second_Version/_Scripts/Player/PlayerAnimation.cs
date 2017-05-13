@@ -46,14 +46,16 @@ public class PlayerAnimation : MonoBehaviour {
 
         m_animator.SetBool("IsInCover", GameManager.GameManagerInstance.LocalPlayer.PlayerState.m_MoveState == PlayerStateMachine.EMoveState.COVER);
 
-        //if (GameManager.GameManagerInstance.LocalPlayer.PlayerState.m_MoveState == PlayerStateMachine.EMoveState.COVER) {
-        //    //print("This is Snake.  I'm in position.  Kept you waiting, huh?");
+        /// Experimented with the while-loop, and it causes an endless loop.  Don't use this!
+        //while (m_animator.GetBool("IsInCover"))
         //    m_animator.SetLayerWeight(3, 1);
-        //} else {
-        //    m_animator.SetLayerWeight(3, 0);
-        //}
-        while (m_animator.GetBool("IsInCover"))
+        if (GameManager.GameManagerInstance.LocalPlayer.PlayerState.m_MoveState == PlayerStateMachine.EMoveState.COVER) {
+            //print("This is Snake.  I'm in position.  Kept you waiting, huh?");
             m_animator.SetLayerWeight(3, 1);
+        }
+        else {
+            m_animator.SetLayerWeight(3, 0);
+        }
 
     }
 }

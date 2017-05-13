@@ -132,7 +132,7 @@ public class Player : MonoBehaviour {
         m_playerInput = GameManager.GameManagerInstance.InputController;
         //print("Hello");
         //print("What is this? " + this);
-        print("m_mouseControl.LockMouse = " + m_mouseControl.LockMouse);
+        //print("m_mouseControl.LockMouse = " + m_mouseControl.LockMouse);
 
         //if (m_mouseControl.LockMouse == false) {
         //    print("Hello!  I'm inside the Awake() of Player.cs.");

@@ -28,7 +28,7 @@ public class ThirdPersonCamera : MonoBehaviour {
 
 	// Use this for initialization
 	void Awake () {
-        print("Inside Awake() of ThirdPersonCamera.cs at time " + Time.time);
+        //print("Inside Awake() of ThirdPersonCamera.cs at time " + Time.time);
         GameManager.GameManagerInstance.OnLocalPlayerJoined += HandleOnLocalPlayerJoined;
 	}
 
@@ -37,7 +37,7 @@ public class ThirdPersonCamera : MonoBehaviour {
     /// </summary>
     /// <param name="player"></param>
     void HandleOnLocalPlayerJoined(Player player) {
-        print("Inside HandleOnLocalPlayerJoined(Player player) of ThirdPersonCamera.cs at time " + Time.time);
+        //print("Inside HandleOnLocalPlayerJoined(Player player) of ThirdPersonCamera.cs at time " + Time.time);
         m_localPlayer = player;
         //m_cameraLookTarget = m_localPlayer.transform.Find("CameraLookTargetGameObject");
         m_cameraLookTarget = m_localPlayer.transform.Find("AimPivotGameObject");
