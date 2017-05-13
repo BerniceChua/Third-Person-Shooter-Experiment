@@ -38,12 +38,12 @@ public class EnemyPatrol : MonoBehaviour {
     }
 
     private void EnemyPlayer_OnTargetSelected(Player obj) {
-        if (m_pathfinding != null)
+        if (m_pathfinding.isActiveAndEnabled)
             m_pathfinding.m_NavMeshAgent.Stop();
     }
 
     private void EnemyHealth_OnDeath() {
-        if (m_pathfinding != null)
+        if (m_pathfinding.isActiveAndEnabled)
             m_pathfinding.m_NavMeshAgent.Stop();
     }
 

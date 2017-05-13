@@ -49,7 +49,7 @@ public class Pathfinding : MonoBehaviour {
     public void SetTarget(Vector3 target) {
         m_isDestinationReached = false;
 
-        if (m_NavMeshAgent != null)
+        if (m_NavMeshAgent.isActiveAndEnabled)
             m_NavMeshAgent.SetDestination(target);
     }
 
