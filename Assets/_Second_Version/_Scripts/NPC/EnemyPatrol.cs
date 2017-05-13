@@ -38,11 +38,13 @@ public class EnemyPatrol : MonoBehaviour {
     }
 
     private void EnemyPlayer_OnTargetSelected(Player obj) {
-        m_pathfinding.m_NavMeshAgent.Stop();
+        if (m_pathfinding != null)
+            m_pathfinding.m_NavMeshAgent.Stop();
     }
 
     private void EnemyHealth_OnDeath() {
-        m_pathfinding.m_NavMeshAgent.Stop();
+        if (m_pathfinding != null)
+            m_pathfinding.m_NavMeshAgent.Stop();
     }
 
     // Update is called once per frame
