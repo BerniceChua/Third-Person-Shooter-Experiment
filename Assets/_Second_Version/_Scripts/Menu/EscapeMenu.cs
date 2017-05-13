@@ -43,6 +43,7 @@ public class EscapeMenu : MonoBehaviour {
 
     void OnNoClicked() {
         GameManager.GameManagerInstance.m_PlayerIsPaused = false;
+        m_cursor.UnpauseGame();
         m_escapeMenuPanel.SetActive(false);
     }
 
