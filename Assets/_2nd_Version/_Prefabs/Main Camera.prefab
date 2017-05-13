@@ -178,8 +178,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_defaultCamera:
-    CameraOffset: {x: 1, y: 0.35, z: -1.74}
-    CrouchHeight: -0.56
+    CameraOffset: {x: 0.54, y: 0, z: -1.74}
+    CrouchHeight: -0.75
     Damping: 20
   m_aimCamera:
     CameraOffset: {x: 0.54, y: 0, z: -0}
