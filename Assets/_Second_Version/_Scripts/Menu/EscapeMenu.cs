@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class EscapeMenu : MonoBehaviour {
 
-    [SerializeField] GameObject EscapeMenuPanel;
+    [SerializeField] GameObject m_escapeMenuPanel;
 
     [SerializeField] Button m_yesButton;
     [SerializeField] Button m_noButton;
@@ -19,21 +19,21 @@ public class EscapeMenu : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        EscapeMenuPanel.SetActive(false);
+        m_escapeMenuPanel.SetActive(false);
         m_yesButton.onClick.AddListener(OnYesClicked);
         m_noButton.onClick.AddListener(OnNoClicked);
     }
 	
 	// Update is called once per frame
 	void Update () {
-        if (EscapeMenuPanel.activeSelf)
+        if (m_escapeMenuPanel.activeSelf)
             return;
 
 		if (GameManager.GameManagerInstance.InputController.m_Escape) {
             GameManager.GameManagerInstance.m_PlayerIsPaused = true;
             Cursor.visible = true;
             //m_cursor.PauseGame();
-            EscapeMenuPanel.SetActive(true);
+            m_escapeMenuPanel.SetActive(true);
         }
 	}
 
@@ -43,7 +43,7 @@ public class EscapeMenu : MonoBehaviour {
 
     void OnNoClicked() {
         GameManager.GameManagerInstance.m_PlayerIsPaused = false;
-        EscapeMenuPanel.SetActive(false);
+        m_escapeMenuPanel.SetActive(false);
     }
 
 }
